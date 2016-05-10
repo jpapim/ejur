@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.26, for Win32 (x86)
+﻿-- MySQL dump 10.16  Distrib 10.1.9-MariaDB, for Win32 (AMD64)
 --
--- Host: localhost    Database: bdejur
+-- Host: localhost    Database: bdejur_teste
 -- ------------------------------------------------------
--- Server version	5.6.26-log
+-- Server version	10.1.9-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,12 +16,12 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `bdejur`
+-- Current Database: `bdejur_teste`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `bdejur` /*!40100 DEFAULT CHARACTER SET utf8 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `bdejur_teste` /*!40100 DEFAULT CHARACTER SET utf8 */;
 
-USE `bdejur`;
+USE `bdejur_teste`;
 
 --
 -- Table structure for table `academias`
@@ -47,10 +47,6 @@ CREATE TABLE `academias` (
   KEY `fk_tb_assoc_reference_tb_artes` (`id_arte_marcial`),
   KEY `fk_tb_assoc_reference_tb_cidad` (`id_cidade`),
   KEY `fk_tb_assoc_reference_tb_usuar` (`id_usuario`),
-  CONSTRAINT `FK_Reference_37` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `FK_Reference_38` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `FK_Reference_42` FOREIGN KEY (`id_arte_marcial`) REFERENCES `arte_marcial` (`id_arte_marcial`),
-  CONSTRAINT `FK_Reference_43` FOREIGN KEY (`id_cidade`) REFERENCES `cidade` (`id_cidade`),
   CONSTRAINT `fk_tb_assci_reference_tb_usuar2` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `fk_tb_assoc_reference_tb_artes` FOREIGN KEY (`id_arte_marcial`) REFERENCES `arte_marcial` (`id_arte_marcial`),
   CONSTRAINT `fk_tb_assoc_reference_tb_cidad` FOREIGN KEY (`id_cidade`) REFERENCES `cidade` (`id_cidade`),
@@ -69,16 +65,17 @@ INSERT INTO `academias` VALUES (1,1724,1,1,1,'Academia Olimpica',NULL,NULL,'2015
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `acl`
+-- Temporary table structure for view `acl`
 --
 
 DROP TABLE IF EXISTS `acl`;
 /*!50001 DROP VIEW IF EXISTS `acl`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `acl` AS SELECT 
- 1 AS `id_perfil`,
- 1 AS `nm_resource`*/;
+/*!50001 CREATE TABLE `acl` (
+  `id_perfil` tinyint NOT NULL,
+  `nm_resource` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -159,10 +156,6 @@ CREATE TABLE `atleta` (
   KEY `fk_tb_atlet_reference_tb_usuar2` (`id_usuario_cadastro`),
   KEY `index_atleta_sexo` (`id_sexo`),
   KEY `index_atleta_graduacao` (`id_graduacao`),
-  CONSTRAINT `FK_Reference_27` FOREIGN KEY (`id_graduacao`) REFERENCES `graduacoes` (`id_graduacao`),
-  CONSTRAINT `FK_Reference_28` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`),
-  CONSTRAINT `FK_Reference_35` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `FK_Reference_36` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `fk_atletas_references_graduacao` FOREIGN KEY (`id_graduacao`) REFERENCES `graduacoes` (`id_graduacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_atletas_references_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_atlet_reference_tb_assoc` FOREIGN KEY (`id_academia`) REFERENCES `academias` (`id_academia`),
@@ -183,21 +176,46 @@ INSERT INTO `atleta` VALUES (1,1,4213,1,1,'Alysson Vicuña de Oliveira','1981-08
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `auth`
+-- Temporary table structure for view `auth`
 --
 
 DROP TABLE IF EXISTS `auth`;
 /*!50001 DROP VIEW IF EXISTS `auth`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `auth` AS SELECT 
- 1 AS `id_usuario`,
- 1 AS `id_perfil`,
- 1 AS `em_email`,
- 1 AS `pw_senha`,
- 1 AS `nm_usuario`,
- 1 AS `id_contrato`*/;
+/*!50001 CREATE TABLE `auth` (
+  `id_usuario` tinyint NOT NULL,
+  `id_perfil` tinyint NOT NULL,
+  `em_email` tinyint NOT NULL,
+  `pw_senha` tinyint NOT NULL,
+  `nm_usuario` tinyint NOT NULL,
+  `id_contrato` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `banco`
+--
+
+DROP TABLE IF EXISTS `banco`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `banco` (
+  `id_banco` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_banco` varchar(100) DEFAULT NULL COMMENT '{"label":"Banco"}',
+  PRIMARY KEY (`id_banco`)
+) ENGINE=InnoDB AUTO_INCREMENT=769 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `banco`
+--
+
+LOCK TABLES `banco` WRITE;
+/*!40000 ALTER TABLE `banco` DISABLE KEYS */;
+INSERT INTO `banco` VALUES (1,'BANCO DO BRASIL S.A.A'),(3,'BANCO DA AMAZÔNIA S.A..'),(4,'BANCO DO NORDESTE DO BRASIL S.A.'),(8,'BANCO SANTANDER MERIDIONAL S.A.'),(21,'BANESTES S.A. BANCO DO ESTADO DO ESPÍRITO SANTO'),(24,'BANCO DE PERNAMBUCO S.A. - BANDEPE'),(25,'BANCO ALFA S.A.'),(27,'BANCO DO ESTADO DE SANTA CATARINA S.A.'),(29,'BANCO BANERJ S.A.'),(31,'BANCO BEG S.A.'),(33,'BANCO DO ESTADO DE SÃO PAULO S.A. - BANESPA'),(35,'BANCO BEC S.A.'),(36,'BANCO BEM S.A.'),(37,'BANCO DO ESTADO DO PARÁ S.A.'),(38,'BANCO BANESTADO S.A.'),(39,'BANCO DO ESTADO DO PIAUÍ S.A. - BEP'),(40,'BANCO CARGILL S.A.'),(41,'BANCO DO ESTADO DO RIO GRANDE DO SUL S.A.'),(44,'BANCO BVA S.A.'),(45,'BANCO OPPORTUNITY S.A.'),(47,'BANCO DO ESTADO DE SERGIPE S.A.'),(48,'BANCO ITAÚ BBA S.A.'),(62,'HIPERCARD BANCO MÚLTIPLO S.A.'),(63,'BANCO IBI S.A. BANCO MÚLTIPLO'),(64,'GOLDMAN SACHS DO BRASIL BANCO MÚLTIPLO S.A.'),(65,'LEMON BANK BANCO MÚLTIPLO S.A.'),(66,'BANCO MORGAN STANLEY DEAN WITTER S.A.'),(69,'BPN BRASIL BANCO MÚTIPLO S.A.'),(70,'BRB - BANCO DE BRASÍLIA S.A.'),(72,'BANCO RURAL MAIS S.A.'),(73,'BB BANCO POPULAR DO BRASIL S.A.'),(74,'BANCO J. SAFRA S.A.'),(75,'BANCO CR2 S.A.'),(76,'BANCO KDB S.A.'),(96,'BANCO BM&F DE SERVIÇOS DE LIQUIDAÇÃO E CUSTÓDIA S.A'),(104,'CAIXA ECONÔMICA FEDERAL'),(107,'BANCO BBM S.A.'),(116,'BANCO ÚNICO S.A.'),(151,'BANCO NOSSA CAIXA S.A.'),(175,'BANCO FINASA S.A.'),(204,'AMERICAN EXPRESS BANK BRASIL BANCO MÚLTIPLO S.A.'),(208,'BANCO PACTUAL S.A.'),(210,'DRESDNER BANK LATEINAMERIKA AKTIENGESELLSCHAFT'),(212,'BANCO MATONE S.A.'),(213,'BANCO ARBI S.A.'),(214,'BANCO DIBENS S.A.'),(215,'BANCO COMERCIAL E DE INVESTIMENTO SUDAMERIS S.A.'),(217,'BANCO JOHN DEERE S.A.'),(218,'BANCO BONSUCESSO S.A.'),(222,'BANCO CALYON BRASIL S.A.'),(224,'BANCO FIBRA S.A.'),(225,'BANCO BRASCAN S.A.'),(229,'BANCO CRUZEIRO DO SUL S.A.'),(230,'UNICARD BANCO MÚLTIPLO S.A.'),(233,'BANCO GE CAPITAL S.A.'),(237,'BANCO BRADESCO S.A.'),(241,'BANCO CLÁSSICO S.A.'),(243,'BANCO MÁXIMA S.A.'),(246,'BANCO ABC BRASIL S.A.'),(247,'BANCO UBS S.A.'),(248,'BANCO BOAVISTA INTERATLÂNTICO S.A.'),(249,'BANCO INVESTCRED UNIBANCO S.A.'),(250,'BANCO SCHAHIN S.A.'),(252,'BANCO FININVEST S.A.'),(254,'PARANÁ BANCO S.A.'),(263,'BANCO CACIQUE S.A.'),(265,'BANCO FATOR S.A.'),(266,'BANCO CÉDULA S.A.'),(300,'BANCO DE LA NACION ARGENTINA'),(318,'BANCO BMG S.A.'),(320,'BANCO INDUSTRIAL E COMERCIAL S.A.'),(341,'BANCO ITAÚ S.A.'),(347,'BANCO SUDAMERIS BRASIL S.A.'),(351,'BANCO SANTANDER S.A.'),(353,'BANCO SANTANDER BRASIL S.A.'),(356,'BANCO ABN AMRO REAL S.A.'),(366,'BANCO SOCIÉTÉ GÉNÉRALE BRASIL S.A.'),(370,'BANCO WESTLB DO BRASIL S.A.'),(376,'BANCO J. P. MORGAN S.A.'),(389,'BANCO MERCANTIL DO BRASIL S.A.'),(392,'BANCO MERCANTIL DE SÃO PAULO S.A.'),(394,'BANCO BMC S.A.'),(399,'HSBC BANK BRASIL S.A. - BANCO MÚLTIPLO'),(409,'UNIBANCO - UNIÃO DE BANCOS BRASILEIROS S.A.'),(412,'BANCO CAPITAL S.A.'),(422,'BANCO SAFRA S.A.'),(453,'BANCO RURAL S.A.'),(456,'BANCO DE TOKYO-MITSUBISHI UFJ BRASIL S.A.'),(464,'BANCO SUMITOMO MITSUI BRASILEIRO S.A.'),(477,'CITIBANK N.A.'),(479,'BANKBOSTON BANCO MÚLTIPLO S.A.'),(487,'DEUTSCHE BANK S.A. - BANCO ALEMÃO'),(488,'JPMORGAN CHASE BANK'),(492,'ING BANK N.V.'),(494,'BANCO DE LA REPUBLICA ORIENTAL DEL URUGUAY'),(495,'BANCO DE LA PROVINCIA DE BUENOS AIRES'),(505,'BANCO CREDIT SUISSE (BRASIL) S.A.'),(600,'BANCO LUSO BRASILEIRO S.A.'),(604,'BANCO INDUSTRIAL DO BRASIL S.A.'),(610,'BANCO VR S.A.'),(611,'BANCO PAULISTA S.A.'),(612,'BANCO GUANABARA S.A.'),(613,'BANCO PECÚNIA S.A.'),(623,'BANCO PANAMERICANO S.A.'),(626,'BANCO FICSA S.A.'),(630,'BANCO INTERCAP S.A.'),(633,'BANCO RENDIMENTO S.A.'),(634,'BANCO TRIÂNGULO S.A.'),(637,'BANCO SOFISA S.A.'),(638,'BANCO PROSPER S.A.'),(641,'BANCO ALVORADA S.A.'),(643,'BANCO PINE S.A.'),(652,'BANCO ITAÚ HOLDING FINANCEIRA S.A.'),(653,'BANCO INDUSVAL S.A.'),(654,'BANCO A.J.RENNER S.A.'),(655,'BANCO VOTORANTIM S.A.'),(707,'BANCO DAYCOVAL S.A.'),(719,'BANIF-BANCO INTERNACIONAL DO FUNCHAL (BRASIL)S.A.'),(721,'BANCO CREDIBEL S.A.'),(724,'BANCO PORTO SEGURO S.A.'),(734,'BANCO GERDAU S.A.'),(735,'BANCO POTTENCIAL S.A.'),(738,'BANCO MORADA S.A.'),(739,'BANCO BGN S.A.'),(740,'BANCO BARCLAYS S.A.'),(741,'BANCO RIBEIRÃO PRETO S.A.'),(743,'BANCO SEMEAR S.A.'),(744,'BANKBOSTON N.A.'),(745,'BANCO CITIBANK S.A.'),(746,'BANCO MODAL S.A.'),(747,'BANCO RABOBANK INTERNATIONAL BRASIL S.A.'),(748,'BANCO COOPERATIVO SICREDI S.A. - BANSICREDI'),(749,'BANCO SIMPLES S.A.'),(751,'DRESDNER BANK BRASIL S.A. - BANCO MÚLTIPLO'),(752,'BANCO BNP PARIBAS BRASIL S.A.'),(753,'BANCO COMERCIAL URUGUAI S.A.'),(755,'BANCO MERRILL LYNCH DE INVESTIMENTOS S.A.'),(756,'BANCO COOPERATIVO DO BRASIL S.A. - BANCOOB'),(757,'BANCO KEB DO BRASIL S.A.'),(758,'teste222222222222222'),(760,'maria'),(761,'Civic'),(762,'wwwwwwwwwwwwwwww'),(763,'bbbbbbb'),(764,'qaqaqaqaqqaqqaq'),(765,'qaqaqaqaqqaqqaq22222'),(768,'teste23444444444444444444444444');
+/*!40000 ALTER TABLE `banco` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `categoria_idade`
@@ -262,7 +280,6 @@ CREATE TABLE `cidade` (
   `nm_cidade` varchar(150) DEFAULT NULL COMMENT '{"label":"Cidade"}',
   PRIMARY KEY (`id_cidade`),
   KEY `ix_cidades_estados` (`id_estado`),
-  CONSTRAINT `FK_Reference_25` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`),
   CONSTRAINT `fk_cidades_estados1` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9715 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -278,6 +295,191 @@ INSERT INTO `cidade` VALUES (1,1,'Acrelandia'),(2,1,'Assis Brasil'),(3,1,'Brasil
 UNLOCK TABLES;
 
 --
+-- Table structure for table `comunicado`
+--
+
+DROP TABLE IF EXISTS `comunicado`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comunicado` (
+  `id_comunicado` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_titulo_comunicado` varchar(200) DEFAULT NULL COMMENT '{"label":"Título"}',
+  `tx_comunicado` text COMMENT '{"label":"Comunicado"}',
+  `dt_comunicado` date DEFAULT NULL COMMENT '{"label":"Data comunicado"}',
+  `dt_expiracao` date DEFAULT NULL COMMENT '{"label":"Data expirado"}',
+  `id_situacao` int(11) NOT NULL,
+  PRIMARY KEY (`id_comunicado`),
+  KEY `ix_comunicados_situacao` (`id_situacao`),
+  CONSTRAINT `fk_comunicados_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comunicado`
+--
+
+LOCK TABLES `comunicado` WRITE;
+/*!40000 ALTER TABLE `comunicado` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comunicado` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `comunicado_as_contrato`
+--
+
+DROP TABLE IF EXISTS `comunicado_as_contrato`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comunicado_as_contrato` (
+  `id_comunicado` int(11) NOT NULL,
+  `id_contrato` int(11) NOT NULL,
+  PRIMARY KEY (`id_comunicado`,`id_contrato`),
+  KEY `ix_comunicados_as_contratos_contratos` (`id_contrato`),
+  KEY `ix_comunicados_as_contratos_comunicados` (`id_comunicado`),
+  CONSTRAINT `fk_comunicados_has_contratos_comunicados1` FOREIGN KEY (`id_comunicado`) REFERENCES `comunicado` (`id_comunicado`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_comunicados_has_contratos_contratos1` FOREIGN KEY (`id_contrato`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comunicado_as_contrato`
+--
+
+LOCK TABLES `comunicado_as_contrato` WRITE;
+/*!40000 ALTER TABLE `comunicado_as_contrato` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comunicado_as_contrato` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `config`
+--
+
+DROP TABLE IF EXISTS `config`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `config` (
+  `idconfigs` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_config` varchar(200) DEFAULT NULL COMMENT '{"label":"Nome da Configuração"}',
+  `nm_valor` varchar(200) DEFAULT NULL COMMENT '{"label":"Valor"}',
+  PRIMARY KEY (`idconfigs`)
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `config`
+--
+
+LOCK TABLES `config` WRITE;
+/*!40000 ALTER TABLE `config` DISABLE KEYS */;
+INSERT INTO `config` VALUES (1,'valor_por','99.00'),(2,'valor_de','119.00'),(3,'agencia','0643'),(4,'op','013'),(5,'conta_corrente','782.632-8'),(6,'favorecido','Alysson Vicuña de Oliveira'),(7,'situacao_pagamento_pendente','1'),(8,'situacao_pagamento_atraso','3'),(9,'situacao_pagamento_pago','2'),(10,'situacao_ativo','1'),(11,'situacao_inativo','2'),(12,'tipo_pagamento_mensalidade','1'),(13,'tipo_usuario_administrador','1'),(14,'tipo_usuario_aluno','2'),(15,'situacao_usuario_ativo','1'),(16,'situacao_usuario_inativo','2'),(17,'situacao_usuario_congelado','3'),(19,'perfil_administrador','1'),(20,'perfil_aluno','2'),(21,'qtd_niveis','3'),(22,'qtd_por_nivel','5'),(23,'tipo_telefone_residencial','1'),(24,'tipo_telefone_comercial','2'),(25,'tipo_telefone_celular','3'),(26,'telefone_admin','6130366853'),(27,'email_admin','alyssontkd@gmail.com'),(28,'nome_admin','Alysson Vicuña de Oliveira'),(29,'telefone_cel_admin','6185234069'),(30,'tipo_pagamento_bonus','2'),(32,'tipo_pagamento_saque','3'),(33,'limite_minimo_saque','300'),(34,'situacao_usuario_atrasado','4'),(35,'situacao_empresa_contrato_ativo','1'),(36,'situacao_empresa_contrato_inativo','2'),(37,'situacao_empresa_contrato_congelado','3'),(38,'situacao_empresa_contrato_regusado','4'),(39,'situacao_solicitacao_empresa_recusado','3'),(40,'situacao_solicitacao_empresa_aprovado','2'),(41,'situacao_solicitacao_empresa_pendente','1'),(42,'codigo_video_apresentacao','UsSSUglRMAw'),(43,'link_conferencia','login.hotconference.net.br/conference'),(44,'cnpj','08.988.564/0001-30'),(45,'razao_social','MC DE SA LIMA EPP'),(46,'endereco','SIA TR 05 LT 05 35 SL 211 ED. IMPORT CENTER GUARA DISTRITO FEDERAL');
+/*!40000 ALTER TABLE `config` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `conta_bancaria`
+--
+
+DROP TABLE IF EXISTS `conta_bancaria`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `conta_bancaria` (
+  `id_conta_bancaria` int(11) NOT NULL AUTO_INCREMENT,
+  `nr_agencia` varchar(45) DEFAULT NULL COMMENT '{"label":"Agência"}',
+  `nr_conta` varchar(45) DEFAULT NULL COMMENT '{"label":"Conta"}',
+  `id_situacao` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_banco` int(11) NOT NULL,
+  `id_tipo_conta` int(11) NOT NULL,
+  PRIMARY KEY (`id_conta_bancaria`),
+  KEY `ix_conta_bancaria_situacao` (`id_situacao`),
+  KEY `ix_conta_bancaria_usuarios` (`id_usuario`),
+  KEY `ix_conta_bancaria_bancos` (`id_banco`),
+  KEY `ix_conta_bancaria_tipo_conta` (`id_tipo_conta`),
+  CONSTRAINT `fk_conta_bancaria_bancos` FOREIGN KEY (`id_banco`) REFERENCES `banco` (`id_banco`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_conta_bancaria_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_conta_bancaria_tipo_conta` FOREIGN KEY (`id_tipo_conta`) REFERENCES `tipo_conta` (`id_tipo_conta`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_conta_bancaria_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='	';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `conta_bancaria`
+--
+
+LOCK TABLES `conta_bancaria` WRITE;
+/*!40000 ALTER TABLE `conta_bancaria` DISABLE KEYS */;
+INSERT INTO `conta_bancaria` VALUES (1,'30856','389366',1,1,1,1);
+/*!40000 ALTER TABLE `conta_bancaria` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contrato`
+--
+
+DROP TABLE IF EXISTS `contrato`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contrato` (
+  `id_contrato` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_adesao` datetime DEFAULT NULL COMMENT '{"label":"Data de adesão"}',
+  `vl_saldo` float DEFAULT NULL COMMENT '{"label":"Saldo"}',
+  `id_situacao` int(11) NOT NULL,
+  `id_usuario` int(11) NOT NULL,
+  `id_contrato_origem` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_contrato`),
+  KEY `ix_contratos_situacao` (`id_situacao`),
+  KEY `ix_contratos_usuarios` (`id_usuario`),
+  KEY `ix_contratas_contrato` (`id_contrato_origem`),
+  CONSTRAINT `fk_contratos_contrato` FOREIGN KEY (`id_contrato_origem`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contratos_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contratos_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contrato`
+--
+
+LOCK TABLES `contrato` WRITE;
+/*!40000 ALTER TABLE `contrato` DISABLE KEYS */;
+INSERT INTO `contrato` VALUES (1,'2014-12-01 14:32:07',140,1,1,NULL),(2,'2015-01-30 15:13:11',40,1,2,1),(3,'2015-02-20 17:02:55',NULL,1,3,1),(4,'2015-02-20 17:02:57',NULL,1,4,2),(5,'2015-02-20 17:02:53',NULL,1,5,1),(6,'2015-02-20 17:02:20',NULL,1,6,1),(7,'2015-02-20 17:02:34',NULL,1,7,1),(8,'2015-02-20 17:02:44',NULL,1,8,1);
+/*!40000 ALTER TABLE `contrato` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `contrato_as_contrato`
+--
+
+DROP TABLE IF EXISTS `contrato_as_contrato`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contrato_as_contrato` (
+  `id_contratos_as_contratos` int(11) NOT NULL AUTO_INCREMENT,
+  `id_nivel` int(11) NOT NULL,
+  `id_contrato` int(11) NOT NULL,
+  `id_contrato_filho` int(11) NOT NULL,
+  `id_contrato_indicacao` int(11) NOT NULL,
+  PRIMARY KEY (`id_contratos_as_contratos`),
+  KEY `ix_contratos_as_contratos_niveis` (`id_nivel`),
+  KEY `ix_contratos_as_contratos_contratos` (`id_contrato`),
+  KEY `ix_contratos_as_contratos_contratos_filho` (`id_contrato_filho`),
+  CONSTRAINT `fk_contratos_as_contratos_contratos` FOREIGN KEY (`id_contrato`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contratos_as_contratos_contratos_filho` FOREIGN KEY (`id_contrato_filho`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_contratos_as_contratos_niveis` FOREIGN KEY (`id_nivel`) REFERENCES `nivel` (`id_nivel`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `contrato_as_contrato`
+--
+
+LOCK TABLES `contrato_as_contrato` WRITE;
+/*!40000 ALTER TABLE `contrato_as_contrato` DISABLE KEYS */;
+INSERT INTO `contrato_as_contrato` VALUES (1,1,1,2,1),(2,1,1,3,1),(3,1,2,4,2),(4,2,1,4,2),(5,1,1,5,1),(6,1,1,7,1),(7,1,1,8,1),(8,1,2,6,2),(9,2,1,6,2);
+/*!40000 ALTER TABLE `contrato_as_contrato` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `controller`
 --
 
@@ -288,7 +490,7 @@ CREATE TABLE `controller` (
   `id_controller` int(11) NOT NULL AUTO_INCREMENT,
   `nm_controller` varchar(400) DEFAULT NULL COMMENT '{"label":"Controller"}',
   PRIMARY KEY (`id_controller`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -297,8 +499,66 @@ CREATE TABLE `controller` (
 
 LOCK TABLES `controller` WRITE;
 /*!40000 ALTER TABLE `controller` DISABLE KEYS */;
-INSERT INTO `controller` VALUES (1,'arte_marcial-artemarcial'),(2,'estilo-estilo'),(3,'usuario-usuario'),(4,'application-index'),(5,'cidade-cidade'),(6,'estado-estado'),(7,'graduacao-graduacao'),(8,'pagamento-pagamento'),(9,'PhpBoletoZf2\\Controller\\Itau'),(10,'banco-banco'),(11,'principal-principal'),(12,'perfil-perfil'),(13,'tipo_evento-tipoevento'),(14,'evento-evento'),(15,'graduacao'),(16,'academia-academia'),(17,'atleta-atleta'),(18,'categoria_peso-categoriapeso'),(19,'categoria_idade-categoriaidade'),(20,'regras_lutas-regraslutas'),(21,'detalhes_regras_luta-detalhesregrasluta'),(22,'inscricoes_evento-inscricoesevento');
+INSERT INTO `controller` VALUES (1,'arte_marcial-artemarcial'),(2,'estilo-estilo'),(3,'usuario-usuario'),(4,'application-index'),(5,'cidade-cidade'),(6,'estado-estado'),(7,'graduacao-graduacao'),(8,'pagamento-pagamento'),(9,'PhpBoletoZf2\\Controller\\Itau'),(10,'banco-banco'),(11,'principal-principal'),(12,'perfil-perfil'),(13,'tipo_evento-tipoevento'),(14,'evento-evento'),(15,'graduacao'),(16,'academia-academia'),(17,'atleta-atleta'),(18,'categoria_peso-categoriapeso'),(19,'categoria_idade-categoriaidade'),(20,'regras_lutas-regraslutas'),(21,'detalhes_regras_luta-detalhesregrasluta'),(22,'inscricoes_evento-inscricoesevento'),(23,'gerenciador_permissao-gerenciadorpermissao');
 /*!40000 ALTER TABLE `controller` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `curso`
+--
+
+DROP TABLE IF EXISTS `curso`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `curso` (
+  `id_curso` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_curso` varchar(200) DEFAULT NULL COMMENT '{"label":"Nome do curso"}',
+  `tx_descricao` text COMMENT '{"label":"Descrição"}',
+  `nr_unidade` varchar(45) DEFAULT NULL COMMENT '{"label":"Unidade"}',
+  `ar_video` varchar(200) DEFAULT NULL COMMENT '{"label":"Video"}',
+  `ar_imagem` varchar(200) DEFAULT NULL COMMENT '{"label":"Imagem"}',
+  `id_situacao` int(11) NOT NULL,
+  PRIMARY KEY (`id_curso`),
+  KEY `ix_cursos_situacao` (`id_situacao`),
+  CONSTRAINT `fk_cursos_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `curso`
+--
+
+LOCK TABLES `curso` WRITE;
+/*!40000 ALTER TABLE `curso` DISABLE KEYS */;
+INSERT INTO `curso` VALUES (1,'Marketing Multinível','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum','1','/data/arquivos/cursos/1/videos/0401.mp4','/assets/img/curso/1/digitacao.jpg',1),(2,'O que é Marketing Multinível','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum','2','/data/arquivos/cursos/2/videos/0402.mp4','/assets/img/curso/2/info-basica.jpg',1),(3,'Curso online de Marketing Multinivel','Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum','3','\\data\\arquivos\\cursos\\1\\videos\\0403.mp4','/assets/img/curso/3/marketing.jpg',1);
+/*!40000 ALTER TABLE `curso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `curso_as_contrato`
+--
+
+DROP TABLE IF EXISTS `curso_as_contrato`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `curso_as_contrato` (
+  `id_curso` int(11) NOT NULL,
+  `id_contrato` int(11) NOT NULL,
+  PRIMARY KEY (`id_curso`,`id_contrato`),
+  KEY `ix_cursos_as_contratos_contratos` (`id_contrato`),
+  KEY `ix_cursos_as_contratos_cursos` (`id_curso`),
+  CONSTRAINT `fk_cursos_as_contratos_contratos` FOREIGN KEY (`id_contrato`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cursos_as_contratos_cursos` FOREIGN KEY (`id_curso`) REFERENCES `curso` (`id_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `curso_as_contrato`
+--
+
+LOCK TABLES `curso_as_contrato` WRITE;
+/*!40000 ALTER TABLE `curso_as_contrato` DISABLE KEYS */;
+/*!40000 ALTER TABLE `curso_as_contrato` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -329,11 +589,6 @@ CREATE TABLE `detalhes_regras_luta` (
   KEY `fk_tb_detal_reference_tb_usuar` (`id_usuario_cadastro`),
   KEY `fk_tb_detal_reference_tb_categ` (`id_categoria_idade`),
   KEY `fk_tb_detal_reference_tb_categ2` (`id_categoria_peso`),
-  CONSTRAINT `FK_Reference_22` FOREIGN KEY (`id_regra_luta`) REFERENCES `regras_lutas` (`id_regra_luta`),
-  CONSTRAINT `FK_Reference_33` FOREIGN KEY (`id_graduacao_inicial`) REFERENCES `graduacoes` (`id_graduacao`),
-  CONSTRAINT `FK_Reference_34` FOREIGN KEY (`id_graduacao_final`) REFERENCES `graduacoes` (`id_graduacao`),
-  CONSTRAINT `FK_Reference_41` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`),
-  CONSTRAINT `FK_Reference_44` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `fk_det_regras_luta_references_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_detal_reference_tb_categ` FOREIGN KEY (`id_categoria_idade`) REFERENCES `categoria_idade` (`id_categoria_idade`),
   CONSTRAINT `fk_tb_detal_reference_tb_categ2` FOREIGN KEY (`id_categoria_peso`) REFERENCES `categoria_peso` (`id_categoria_peso`),
@@ -367,7 +622,6 @@ CREATE TABLE `email` (
   `id_situacao` int(11) NOT NULL,
   PRIMARY KEY (`id_email`),
   KEY `ix_emails_situacao` (`id_situacao`),
-  CONSTRAINT `FK_Reference_32` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`),
   CONSTRAINT `fk_emails_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -380,6 +634,72 @@ LOCK TABLES `email` WRITE;
 /*!40000 ALTER TABLE `email` DISABLE KEYS */;
 INSERT INTO `email` VALUES (1,'alyssontkd@gmail.com',1),(2,'ronaldo.r.melo@gmail.com',1),(3,'teste001@gmail.com',1),(4,'teste002@gmail.com',1),(5,'teste003@gmail.com',1),(6,'teste004@gmail.com',1),(7,'1central.millenium@gmail.com',1),(8,'alysson.vicuna@gmail.com',1);
 /*!40000 ALTER TABLE `email` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `empresa`
+--
+
+DROP TABLE IF EXISTS `empresa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `empresa` (
+  `id_empresa` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_empresa` varchar(150) DEFAULT NULL COMMENT '{"label":"Empresa"}',
+  `ar_logo` varchar(200) DEFAULT NULL,
+  `id_situacao` int(10) DEFAULT NULL,
+  `ar_video` varchar(500) DEFAULT NULL,
+  `tx_slogan` varchar(80) DEFAULT NULL,
+  `tx_descricao` varchar(500) DEFAULT NULL,
+  `ur_link` varchar(500) DEFAULT NULL,
+  `bl_tem_codigo` tinyint(1) DEFAULT NULL,
+  `ur_dominio` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`id_empresa`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `empresa`
+--
+
+LOCK TABLES `empresa` WRITE;
+/*!40000 ALTER TABLE `empresa` DISABLE KEYS */;
+INSERT INTO `empresa` VALUES (1,'Hinode','assets/img/logo/hinode-aba.png',1,'xVZ8LoZeGEE','Realize todos os seus sonhos e de sua família','Cadastre-se na Hinode! Uma empresa atuante em 3 seguimentos em franco crescimento: Perfumes, Cosméticos e Bem-estar. Click abaixo para solicitar um patrocinador:','http://www.hinode.com.br/portalhinode/cadastro/',1,'http://www.hinode.com.br'),(2,'CredIdeal','assets/img/logo/credideal-aba.png',1,'PkRUAplJZTM','É Simples. É Crédito Planejado.','O imóvel tão sonhado está mais perto do que você imagina! Conheça o Crédito Planejado e cadastre-se!','http://bko.sistemacredideal.com.br/cadastro/',0,'http://sistemacredideal.com.br');
+/*!40000 ALTER TABLE `empresa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `empresa_as_contrato`
+--
+
+DROP TABLE IF EXISTS `empresa_as_contrato`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `empresa_as_contrato` (
+  `id_empresa_as_contrato` int(11) NOT NULL AUTO_INCREMENT,
+  `id_empresa` int(11) NOT NULL,
+  `id_contrato` int(11) NOT NULL,
+  `ur_link_empresa` varchar(300) DEFAULT NULL COMMENT '{"label":"Link Empresa"}',
+  `id_contrato_pai` int(11) DEFAULT NULL,
+  `id_situacao_empresa_contrato` int(11) NOT NULL,
+  PRIMARY KEY (`id_empresa_as_contrato`),
+  KEY `ix_empresas_as_contratos_empresas` (`id_empresa`),
+  KEY `ix_empresas_as_contratos_contratos` (`id_contrato`),
+  KEY `ix_empresas_as_contratos_contratos_pai` (`id_contrato_pai`),
+  KEY `ix_empresas_as_contratos_situacao` (`id_situacao_empresa_contrato`),
+  CONSTRAINT `fk_empresas_as_contratos_contratos` FOREIGN KEY (`id_contrato`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_empresas_as_contratos_contratos_pai` FOREIGN KEY (`id_contrato_pai`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `empresa_as_contrato`
+--
+
+LOCK TABLES `empresa_as_contrato` WRITE;
+/*!40000 ALTER TABLE `empresa_as_contrato` DISABLE KEYS */;
+INSERT INTO `empresa_as_contrato` VALUES (3,1,1,'214230',1,1),(4,2,1,'2456',1,1),(5,1,3,NULL,NULL,3),(6,2,3,NULL,NULL,2);
+/*!40000 ALTER TABLE `empresa_as_contrato` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -430,8 +750,6 @@ CREATE TABLE `esqueci_senha` (
   PRIMARY KEY (`id_esqueci_senha`),
   KEY `ix_esqueci_senha_usuarios` (`id_usuario`),
   KEY `ix_esqueci_senha_situacoes` (`id_situacao`),
-  CONSTRAINT `FK_Reference_23` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `FK_Reference_40` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`),
   CONSTRAINT `fk_esqueci_senha_situacoes1` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_esqueci_senha_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -544,8 +862,6 @@ CREATE TABLE `eventos` (
   KEY `IX_CIDADE` (`id_cidade`),
   CONSTRAINT `FK_EVENTO_REFERENCES_CIDADE` FOREIGN KEY (`id_cidade`) REFERENCES `cidade` (`id_cidade`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_EVENTO_REFERENCES_REGRAS_LUTA` FOREIGN KEY (`id_regra_luta`) REFERENCES `regras_lutas` (`id_regra_luta`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_Reference_29` FOREIGN KEY (`id_tipo_evento`) REFERENCES `tipos_eventos` (`id_tipo_evento`),
-  CONSTRAINT `FK_Reference_30` FOREIGN KEY (`id_regra_luta`) REFERENCES `regras_lutas` (`id_regra_luta`),
   CONSTRAINT `FK_TB_EVENT_REFERENCE_TB_TIPOS` FOREIGN KEY (`id_tipo_evento`) REFERENCES `tipos_eventos` (`id_tipo_evento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='tb_eventos';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -643,9 +959,6 @@ CREATE TABLE `login` (
   KEY `ix_Login_emails` (`id_email`),
   KEY `ix_Login_situacao` (`id_situacao`),
   KEY `ix_Login_perfil` (`id_perfil`),
-  CONSTRAINT `FK_Reference_26` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_perfil`),
-  CONSTRAINT `FK_Reference_31` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`),
-  CONSTRAINT `FK_Reference_39` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `fk_Login_emails` FOREIGN KEY (`id_email`) REFERENCES `email` (`id_email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Login_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_perfil`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_Login_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -661,6 +974,73 @@ LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
 INSERT INTO `login` VALUES (1,'e10adc3949ba59abbe56e057f20f883e',1,'2014-08-27 21:53:33','2014-08-27 21:53:37',1,1,1,1),(2,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-01-30 15:01:11',2,2,1,2),(3,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:55',3,3,1,2),(4,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:57',4,4,1,2),(5,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:53',5,5,1,2),(6,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:20',6,6,1,2),(7,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:34',7,7,1,2),(8,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:44',8,8,1,2);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nivel`
+--
+
+DROP TABLE IF EXISTS `nivel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `nivel` (
+  `id_nivel` int(11) NOT NULL,
+  `vl_valor` float DEFAULT NULL COMMENT '{"label":"Valor"}',
+  `nr_limite` int(11) DEFAULT NULL COMMENT '{"label":"Limite"}',
+  PRIMARY KEY (`id_nivel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nivel`
+--
+
+LOCK TABLES `nivel` WRITE;
+/*!40000 ALTER TABLE `nivel` DISABLE KEYS */;
+INSERT INTO `nivel` VALUES (1,20,5),(2,20,5),(3,20,5);
+/*!40000 ALTER TABLE `nivel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pagamento`
+--
+
+DROP TABLE IF EXISTS `pagamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pagamento` (
+  `id_pagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `dt_vencimento` datetime DEFAULT NULL COMMENT '{"label":"Data de vencimento"}',
+  `vl_documento` float DEFAULT NULL COMMENT '{"label":"Valor"}',
+  `dt_pagamento` datetime DEFAULT NULL COMMENT '{"label":"Data de Pagamento"}',
+  `vl_pago` float DEFAULT NULL COMMENT '{"label":"Valor pago"}',
+  `ar_comprovante_pagamento` varchar(200) DEFAULT NULL COMMENT '{"label":"Comprovante de Pagamento"}',
+  `id_tipo_pagamento` int(11) NOT NULL,
+  `id_contrato` int(11) NOT NULL,
+  `id_situacao_pagamento` int(11) NOT NULL,
+  `dt_mes_referencia` datetime NOT NULL,
+  `id_contrato_origem` int(11) DEFAULT NULL,
+  `tx_cod_pagamento` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id_pagamento`),
+  KEY `ix_pagamentos_tipo_pagamentos` (`id_tipo_pagamento`),
+  KEY `ix_pagamentos_contratos` (`id_contrato`),
+  KEY `ix_pagamentos_situacao_pagamento` (`id_situacao_pagamento`),
+  KEY `ix_pagamentos_contratos_origem` (`id_contrato_origem`),
+  CONSTRAINT `fk_pagamentos_contratos` FOREIGN KEY (`id_contrato`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pagamentos_contratos_origem` FOREIGN KEY (`id_contrato_origem`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pagamentos_situacao_pagamento` FOREIGN KEY (`id_situacao_pagamento`) REFERENCES `situacao_pagamento` (`id_situacao_pagamento`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_pagamentos_tipo_pagamentos` FOREIGN KEY (`id_tipo_pagamento`) REFERENCES `tipo_pagamento` (`id_tipo_pagamento`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pagamento`
+--
+
+LOCK TABLES `pagamento` WRITE;
+/*!40000 ALTER TABLE `pagamento` DISABLE KEYS */;
+INSERT INTO `pagamento` VALUES (1,'2015-01-11 00:00:00',99,NULL,NULL,NULL,1,1,3,'2015-01-30 00:00:00',NULL,'32423432'),(2,'2015-02-09 00:00:00',99,'2015-01-30 15:15:18',99,'\\data\\arquivos\\pagamentos\\2015\\01\\30\\2\\marketing_54cbbc26e04c3.jpg',1,2,2,'2015-01-30 00:00:00',NULL,'1234123412334'),(3,'2015-01-30 00:00:00',20,'2015-01-30 00:00:00',20,'\\data\\arquivos\\pagamentos\\2015\\01\\30\\2\\marketing_54cbbc26e04c3.jpg',2,1,2,'2015-01-30 00:00:00',2,'1234123412334'),(4,'2015-02-11 00:00:00',99,NULL,99,NULL,1,1,2,'2015-02-11 00:00:00',NULL,''),(5,'2015-03-12 00:00:00',99,NULL,NULL,NULL,1,2,1,'2015-02-11 00:00:00',NULL,NULL),(6,'2015-03-11 00:00:00',99,'2015-01-20 13:57:17',99,'\\data\\arquivos\\pagamentos\\2015\\01\\20\\1\\marketing_54be7add32725.jpg',1,1,2,'2015-03-02 00:00:00',NULL,'uyuiyuy'),(7,'2015-04-09 00:00:00',99,NULL,NULL,NULL,1,2,1,'2015-03-02 00:00:00',NULL,NULL),(8,'2015-03-02 00:00:00',99,'0000-00-00 00:00:00',99,'Boleto Bancário',1,3,2,'2015-02-20 00:00:00',NULL,'20152002174335'),(9,'2015-03-02 00:00:00',99,'0000-00-00 00:00:00',99,'Boleto Bancário',1,4,2,'2015-02-20 00:00:00',NULL,'20152002174513'),(10,'2015-02-20 00:00:00',20,'2015-02-20 00:00:00',20,'Boleto Bancário',2,1,2,'2015-02-20 00:00:00',3,'20152002174335'),(11,'2015-02-20 00:00:00',20,'2015-02-20 00:00:00',20,'Boleto Bancário',2,2,2,'2015-02-20 00:00:00',4,'20152002174513'),(12,'2015-02-20 00:00:00',20,'2015-02-20 00:00:00',20,'Boleto Bancário',2,1,2,'2015-02-20 00:00:00',4,'20152002174513'),(13,'2015-03-02 00:00:00',99,'0000-00-00 00:00:00',99,'Boleto Bancário',1,5,2,'2015-02-20 00:00:00',NULL,'20152202223456'),(14,'2015-03-02 00:00:00',99,'0000-00-00 00:00:00',99,'Boleto Bancário',1,6,2,'2015-02-20 00:00:00',NULL,'20152302012258'),(15,'2015-03-02 00:00:00',99,'0000-00-00 00:00:00',99,'Boleto Bancário',1,7,2,'2015-02-20 00:00:00',NULL,'20152202223901'),(16,'2015-03-02 00:00:00',99,'0000-00-00 00:00:00',99,'Boleto Bancário',1,8,2,'2015-02-20 00:00:00',NULL,'20152202224715'),(17,'2015-02-22 00:00:00',20,'2015-02-22 00:00:00',20,'Boleto Bancário',2,1,2,'2015-02-20 00:00:00',5,'20152202223456'),(18,'2015-02-22 00:00:00',20,'2015-02-22 00:00:00',20,'Boleto Bancário',2,1,2,'2015-02-20 00:00:00',7,'20152202223901'),(19,'2015-02-22 00:00:00',20,'2015-02-22 00:00:00',20,'Boleto Bancário',2,1,2,'2015-02-20 00:00:00',8,'20152202224715'),(20,'2015-02-23 00:00:00',20,'2015-02-23 00:00:00',20,'Boleto Bancário',2,2,2,'2015-02-20 00:00:00',6,'20152302012258'),(21,'2015-02-23 00:00:00',20,'2015-02-23 00:00:00',20,'Boleto Bancário',2,1,2,'2015-02-20 00:00:00',6,'20152302012258');
+/*!40000 ALTER TABLE `pagamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -706,7 +1086,7 @@ CREATE TABLE `perfil_controller_action` (
   CONSTRAINT `fk_perfil_controller_action_action` FOREIGN KEY (`id_action`) REFERENCES `action` (`id_action`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_perfil_controller_action_controller` FOREIGN KEY (`id_controller`) REFERENCES `controller` (`id_controller`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_perfil_controller_action_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_perfil`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=165 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -715,7 +1095,7 @@ CREATE TABLE `perfil_controller_action` (
 
 LOCK TABLES `perfil_controller_action` WRITE;
 /*!40000 ALTER TABLE `perfil_controller_action` DISABLE KEYS */;
-INSERT INTO `perfil_controller_action` VALUES (1,1,1,1),(2,2,1,1),(3,3,1,1),(4,4,1,1),(5,5,1,1),(6,6,1,1),(7,1,5,1),(8,6,6,1),(9,5,6,1),(10,5,7,1),(11,6,7,1),(12,6,8,1),(13,1,2,1),(14,1,3,1),(15,1,9,1),(16,7,1,1),(17,1,4,1),(18,1,10,1),(19,1,11,1),(20,3,7,1),(21,2,5,1),(22,2,12,1),(23,2,13,1),(24,3,14,1),(25,8,18,1),(26,5,16,1),(27,3,17,1),(28,3,18,1),(29,8,19,1),(30,1,1,2),(31,2,1,2),(32,3,1,2),(33,4,1,2),(34,5,1,2),(35,6,1,2),(36,1,5,2),(37,6,6,2),(38,5,6,2),(39,5,7,2),(40,6,7,2),(41,6,8,2),(42,1,2,2),(43,1,3,2),(44,1,9,2),(45,7,1,2),(46,1,4,2),(47,1,10,2),(48,1,11,2),(49,3,7,2),(50,2,5,2),(51,2,12,2),(52,2,13,2),(53,3,14,2),(54,8,18,2),(55,8,20,1),(56,8,21,1),(57,8,22,1),(58,8,23,1),(59,3,15,2),(60,1,24,1),(61,1,24,2),(62,3,15,1),(63,2,25,1),(64,2,25,2),(65,2,26,1),(66,2,26,2),(67,2,27,1),(68,2,27,2),(69,2,28,1),(70,2,28,2),(71,2,29,1),(72,2,30,1),(73,8,9,1),(74,8,9,2),(75,8,31,1),(76,8,31,2),(77,8,32,1),(78,8,33,1),(79,8,34,1),(80,2,35,1),(81,3,36,1),(82,3,36,2),(83,3,37,1),(84,3,37,2),(85,5,16,2),(86,3,17,2),(87,9,1,1),(88,9,1,2),(89,3,6,1),(90,10,1,1),(91,10,6,1),(92,10,7,1),(93,11,1,1),(94,10,8,1),(95,12,1,1),(96,12,6,1),(97,12,7,1),(98,1,7,1),(99,1,6,1),(100,1,8,1),(101,2,6,1),(102,2,8,1),(103,2,7,1),(104,7,6,1),(105,7,7,1),(106,7,8,1),(107,13,1,1),(108,13,6,1),(109,13,7,1),(110,13,8,1),(111,14,1,1),(112,14,6,1),(113,14,7,1),(114,14,8,1),(115,7,39,1),(116,15,39,1),(117,15,1,1),(118,16,1,1),(119,16,6,1),(120,16,7,1),(121,16,8,1),(122,16,40,1),(123,16,41,1),(124,17,1,1),(125,17,6,1),(126,17,7,1),(127,17,8,1),(128,17,42,1),(129,17,43,1),(130,17,44,1),(131,17,45,1),(132,17,46,1),(133,17,47,1),(134,17,40,1),(135,18,1,1),(136,18,6,1),(137,18,7,1),(138,18,8,1),(139,19,1,1),(140,19,6,1),(141,19,7,1),(142,19,8,1),(143,20,1,1),(144,20,6,1),(145,20,7,1),(146,20,8,1),(147,21,1,1),(148,21,6,1),(149,21,7,1),(150,21,8,1),(151,19,48,1),(152,22,1,1),(153,22,6,1),(154,22,7,1),(155,22,8,1),(156,14,49,1),(157,5,40,1),(158,16,42,1),(159,16,47,1),(160,17,50,1),(161,17,51,1),(162,17,1,1);
+INSERT INTO `perfil_controller_action` VALUES (1,1,1,1),(2,2,1,1),(3,3,1,1),(4,4,1,1),(5,5,1,1),(6,6,1,1),(7,1,5,1),(8,6,6,1),(9,5,6,1),(10,5,7,1),(11,6,7,1),(12,6,8,1),(13,1,2,1),(14,1,3,1),(15,1,9,1),(16,7,1,1),(17,1,4,1),(18,1,10,1),(19,1,11,1),(20,3,7,1),(21,2,5,1),(22,2,12,1),(23,2,13,1),(24,3,14,1),(25,8,18,1),(26,5,16,1),(27,3,17,1),(28,3,18,1),(29,8,19,1),(30,1,1,2),(31,2,1,2),(32,3,1,2),(33,4,1,2),(34,5,1,2),(35,6,1,2),(36,1,5,2),(37,6,6,2),(38,5,6,2),(39,5,7,2),(40,6,7,2),(41,6,8,2),(42,1,2,2),(43,1,3,2),(44,1,9,2),(45,7,1,2),(46,1,4,2),(47,1,10,2),(48,1,11,2),(49,3,7,2),(50,2,5,2),(51,2,12,2),(52,2,13,2),(53,3,14,2),(54,8,18,2),(55,8,20,1),(56,8,21,1),(57,8,22,1),(58,8,23,1),(59,3,15,2),(60,1,24,1),(61,1,24,2),(62,3,15,1),(63,2,25,1),(64,2,25,2),(65,2,26,1),(66,2,26,2),(67,2,27,1),(68,2,27,2),(69,2,28,1),(70,2,28,2),(71,2,29,1),(72,2,30,1),(73,8,9,1),(74,8,9,2),(75,8,31,1),(76,8,31,2),(77,8,32,1),(78,8,33,1),(79,8,34,1),(80,2,35,1),(81,3,36,1),(82,3,36,2),(83,3,37,1),(84,3,37,2),(85,5,16,2),(86,3,17,2),(87,9,1,1),(88,9,1,2),(89,3,6,1),(90,10,1,1),(91,10,6,1),(92,10,7,1),(93,11,1,1),(94,10,8,1),(95,12,1,1),(96,12,6,1),(97,12,7,1),(98,1,7,1),(99,1,6,1),(100,1,8,1),(101,2,6,1),(102,2,8,1),(103,2,7,1),(104,7,6,1),(105,7,7,1),(106,7,8,1),(107,13,1,1),(108,13,6,1),(109,13,7,1),(110,13,8,1),(111,14,1,1),(112,14,6,1),(113,14,7,1),(114,14,8,1),(115,7,39,1),(116,15,39,1),(117,15,1,1),(118,16,1,1),(119,16,6,1),(120,16,7,1),(121,16,8,1),(122,16,40,1),(123,16,41,1),(124,17,1,1),(125,17,6,1),(126,17,7,1),(127,17,8,1),(128,17,42,1),(129,17,43,1),(130,17,44,1),(131,17,45,1),(132,17,46,1),(133,17,47,1),(134,17,40,1),(135,18,1,1),(136,18,6,1),(137,18,7,1),(138,18,8,1),(139,19,1,1),(140,19,6,1),(141,19,7,1),(142,19,8,1),(143,20,1,1),(144,20,6,1),(145,20,7,1),(146,20,8,1),(147,21,1,1),(148,21,6,1),(149,21,7,1),(150,21,8,1),(151,19,48,1),(152,22,1,1),(153,22,6,1),(154,22,7,1),(155,22,8,1),(156,14,49,1),(157,5,40,1),(158,16,42,1),(159,16,47,1),(160,17,50,1),(161,17,51,1),(162,17,1,1),(163,5,51,1),(164,23,1,1);
 /*!40000 ALTER TABLE `perfil_controller_action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -741,6 +1121,37 @@ LOCK TABLES `regras_lutas` WRITE;
 /*!40000 ALTER TABLE `regras_lutas` DISABLE KEYS */;
 INSERT INTO `regras_lutas` VALUES (1,'Olimpica'),(2,'Interno'),(3,'Oficial WTF'),(4,'Oficial CBTKD'),(5,'Oficial ITF'),(6,'Oficial LNT'),(7,'Interno com Peso Olimpico');
 /*!40000 ALTER TABLE `regras_lutas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `saque`
+--
+
+DROP TABLE IF EXISTS `saque`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `saque` (
+  `id_saque` int(11) NOT NULL,
+  `vl_saque` float DEFAULT NULL COMMENT '{"label":"Valor do saque"}',
+  `dt_solicitacao` datetime DEFAULT NULL COMMENT '{"label":"Data de solicitação"}',
+  `dt_pagamento` datetime DEFAULT NULL COMMENT '{"label":"Data de pagamento"}',
+  `id_situacao_pagamento` int(11) NOT NULL,
+  `id_contrato` int(11) NOT NULL,
+  PRIMARY KEY (`id_saque`),
+  KEY `ix_saques_situacao_pagamento` (`id_situacao_pagamento`),
+  KEY `ix_saques_contratos` (`id_contrato`),
+  CONSTRAINT `fk_saques_contratos` FOREIGN KEY (`id_contrato`) REFERENCES `contrato` (`id_contrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_saques_situacao_pagamento` FOREIGN KEY (`id_situacao_pagamento`) REFERENCES `situacao_pagamento` (`id_situacao_pagamento`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `saque`
+--
+
+LOCK TABLES `saque` WRITE;
+/*!40000 ALTER TABLE `saque` DISABLE KEYS */;
+/*!40000 ALTER TABLE `saque` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -792,6 +1203,78 @@ INSERT INTO `situacao` VALUES (1,'Ativo'),(2,'Inativo');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `situacao_empresa_contrato`
+--
+
+DROP TABLE IF EXISTS `situacao_empresa_contrato`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `situacao_empresa_contrato` (
+  `id_situacao_empresa_contrato` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_situacao_empresa_contrato` varchar(50) NOT NULL,
+  PRIMARY KEY (`id_situacao_empresa_contrato`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `situacao_empresa_contrato`
+--
+
+LOCK TABLES `situacao_empresa_contrato` WRITE;
+/*!40000 ALTER TABLE `situacao_empresa_contrato` DISABLE KEYS */;
+INSERT INTO `situacao_empresa_contrato` VALUES (1,'Ativo'),(2,'Inativo'),(3,'Congelado'),(4,'Recusado');
+/*!40000 ALTER TABLE `situacao_empresa_contrato` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `situacao_pagamento`
+--
+
+DROP TABLE IF EXISTS `situacao_pagamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `situacao_pagamento` (
+  `id_situacao_pagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_situacao_pagamento` varchar(100) DEFAULT NULL COMMENT '{"label":"Situação do pagamento"}',
+  PRIMARY KEY (`id_situacao_pagamento`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `situacao_pagamento`
+--
+
+LOCK TABLES `situacao_pagamento` WRITE;
+/*!40000 ALTER TABLE `situacao_pagamento` DISABLE KEYS */;
+INSERT INTO `situacao_pagamento` VALUES (1,'Pendente'),(2,'Pago'),(3,'Atraso');
+/*!40000 ALTER TABLE `situacao_pagamento` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `situacao_solicitacao_empresa`
+--
+
+DROP TABLE IF EXISTS `situacao_solicitacao_empresa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `situacao_solicitacao_empresa` (
+  `id_situacao_solicitacao_empresa` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_situacao_solicitacao_empresa` varchar(200) NOT NULL,
+  PRIMARY KEY (`id_situacao_solicitacao_empresa`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `situacao_solicitacao_empresa`
+--
+
+LOCK TABLES `situacao_solicitacao_empresa` WRITE;
+/*!40000 ALTER TABLE `situacao_solicitacao_empresa` DISABLE KEYS */;
+INSERT INTO `situacao_solicitacao_empresa` VALUES (1,'Pendente'),(2,'Aprovado'),(3,'Recusado');
+/*!40000 ALTER TABLE `situacao_solicitacao_empresa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `situacao_usuario`
 --
 
@@ -816,6 +1299,40 @@ INSERT INTO `situacao_usuario` VALUES (1,'Ativo'),(2,'Inativo'),(3,'Congelado'),
 UNLOCK TABLES;
 
 --
+-- Table structure for table `solicitacao_empresa`
+--
+
+DROP TABLE IF EXISTS `solicitacao_empresa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `solicitacao_empresa` (
+  `id_solicitacao_empresa` int(11) NOT NULL AUTO_INCREMENT,
+  `id_empresa` int(11) NOT NULL,
+  `id_contrato_solicitante` int(11) NOT NULL,
+  `id_contrato_solicitado` int(11) NOT NULL,
+  `id_situacao_solicitacao_empresa` int(11) NOT NULL,
+  PRIMARY KEY (`id_solicitacao_empresa`),
+  KEY `ix_solicitacao_empresa_contrato_solicitante` (`id_contrato_solicitante`),
+  KEY `ix_solicitacao_empresa_contrato_solicitado` (`id_contrato_solicitado`),
+  KEY `ix_solicitacao_empresa_empresa` (`id_empresa`),
+  KEY `ix_solicitacao_empresa_situacao_solicitacao_empresa` (`id_situacao_solicitacao_empresa`),
+  CONSTRAINT `fk_solicitacao_empresa_contrato_solicitado` FOREIGN KEY (`id_contrato_solicitado`) REFERENCES `contrato` (`id_contrato`),
+  CONSTRAINT `fk_solicitacao_empresa_contrato_solicitante` FOREIGN KEY (`id_contrato_solicitante`) REFERENCES `contrato` (`id_contrato`),
+  CONSTRAINT `fk_solicitacao_empresa_empresa` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id_empresa`),
+  CONSTRAINT `fk_solicitacao_empresa_situacao_solicitacao_empresa` FOREIGN KEY (`id_situacao_solicitacao_empresa`) REFERENCES `situacao_solicitacao_empresa` (`id_situacao_solicitacao_empresa`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `solicitacao_empresa`
+--
+
+LOCK TABLES `solicitacao_empresa` WRITE;
+/*!40000 ALTER TABLE `solicitacao_empresa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `solicitacao_empresa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `telefone`
 --
 
@@ -831,7 +1348,6 @@ CREATE TABLE `telefone` (
   PRIMARY KEY (`id_telefone`),
   KEY `ix_telefones_tipo_telefone` (`id_tipo_telefone`),
   KEY `ix_telefones_situacao` (`id_situacao`),
-  CONSTRAINT `FK_Reference_24` FOREIGN KEY (`id_tipo_telefone`) REFERENCES `tipo_telefone` (`id_tipo_telefone`),
   CONSTRAINT `fk_telefones_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_telefones_tipo_telefone1` FOREIGN KEY (`id_tipo_telefone`) REFERENCES `tipo_telefone` (`id_tipo_telefone`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
@@ -845,6 +1361,54 @@ LOCK TABLES `telefone` WRITE;
 /*!40000 ALTER TABLE `telefone` DISABLE KEYS */;
 INSERT INTO `telefone` VALUES (1,'12','34567890',1,1),(2,'61','91613193',1,1),(3,'61','91613193',1,1),(4,'61','989898989',1,1),(5,'56','576756756',1,1),(6,'87','878778787',1,1),(7,'78','787878787',1,1),(8,'87','878787878',1,1);
 /*!40000 ALTER TABLE `telefone` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipo_conta`
+--
+
+DROP TABLE IF EXISTS `tipo_conta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipo_conta` (
+  `id_tipo_conta` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_tipo_conta` varchar(100) DEFAULT NULL COMMENT '{"label":"Tipo conta"}',
+  PRIMARY KEY (`id_tipo_conta`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipo_conta`
+--
+
+LOCK TABLES `tipo_conta` WRITE;
+/*!40000 ALTER TABLE `tipo_conta` DISABLE KEYS */;
+INSERT INTO `tipo_conta` VALUES (1,'Conta Corrente'),(2,'Poupança');
+/*!40000 ALTER TABLE `tipo_conta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipo_pagamento`
+--
+
+DROP TABLE IF EXISTS `tipo_pagamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipo_pagamento` (
+  `id_tipo_pagamento` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_tipo_pagamento` varchar(100) DEFAULT NULL COMMENT '{"label":"Tipo pagamento"}',
+  PRIMARY KEY (`id_tipo_pagamento`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipo_pagamento`
+--
+
+LOCK TABLES `tipo_pagamento` WRITE;
+/*!40000 ALTER TABLE `tipo_pagamento` DISABLE KEYS */;
+INSERT INTO `tipo_pagamento` VALUES (1,'Mensalidade'),(2,'Bônus'),(3,'Saque');
+/*!40000 ALTER TABLE `tipo_pagamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -971,18 +1535,19 @@ INSERT INTO `usuario` VALUES (1,'Alysson Vicuña de Oliveira','1983-12-20 21:47:
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `vw_regras_lutas`
+-- Temporary table structure for view `vw_regras_lutas`
 --
 
 DROP TABLE IF EXISTS `vw_regras_lutas`;
 /*!50001 DROP VIEW IF EXISTS `vw_regras_lutas`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `vw_regras_lutas` AS SELECT 
- 1 AS `id_regra_luta`,
- 1 AS `nm_regra_luta`,
- 1 AS `nm_graduacao_inicial`,
- 1 AS `nm_graduacao_final`*/;
+/*!50001 CREATE TABLE `vw_regras_lutas` (
+  `id_regra_luta` tinyint NOT NULL,
+  `nm_regra_luta` tinyint NOT NULL,
+  `nm_graduacao_inicial` tinyint NOT NULL,
+  `nm_graduacao_final` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -995,6 +1560,7 @@ USE `bdejur`;
 -- Final view structure for view `acl`
 --
 
+/*!50001 DROP TABLE IF EXISTS `acl`*/;
 /*!50001 DROP VIEW IF EXISTS `acl`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1013,6 +1579,7 @@ USE `bdejur`;
 -- Final view structure for view `auth`
 --
 
+/*!50001 DROP TABLE IF EXISTS `auth`*/;
 /*!50001 DROP VIEW IF EXISTS `auth`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1022,7 +1589,7 @@ USE `bdejur`;
 /*!50001 SET collation_connection      = utf8_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `auth` AS (select `login`.`id_usuario` AS `id_usuario`,`perfil`.`id_perfil` AS `id_perfil`,`email`.`em_email` AS `em_email`,`login`.`pw_senha` AS `pw_senha`,`usuario`.`nm_usuario` AS `nm_usuario`,1 AS `id_contrato` from (((`usuario` join `login` on((`login`.`id_usuario` = `usuario`.`id_usuario`))) join `email` on((`email`.`id_email` = `login`.`id_email`))) join `perfil` on((`perfil`.`id_perfil` = `login`.`id_perfil`)))) */;
+/*!50001 VIEW `auth` AS (select `login`.`id_usuario` AS `id_usuario`,`perfil`.`id_perfil` AS `id_perfil`,`email`.`em_email` AS `em_email`,`login`.`pw_senha` AS `pw_senha`,`usuario`.`nm_usuario` AS `nm_usuario`,`contrato`.`id_contrato` AS `id_contrato` from ((((`usuario` join `login` on((`login`.`id_usuario` = `usuario`.`id_usuario`))) join `email` on((`email`.`id_email` = `login`.`id_email`))) join `perfil` on((`perfil`.`id_perfil` = `login`.`id_perfil`))) join `contrato` on((`contrato`.`id_usuario` = `usuario`.`id_usuario`)))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1031,6 +1598,7 @@ USE `bdejur`;
 -- Final view structure for view `vw_regras_lutas`
 --
 
+/*!50001 DROP TABLE IF EXISTS `vw_regras_lutas`*/;
 /*!50001 DROP VIEW IF EXISTS `vw_regras_lutas`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1054,4 +1622,4 @@ USE `bdejur`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-09 16:05:29
+-- Dump completed on 2016-05-07 10:43:18

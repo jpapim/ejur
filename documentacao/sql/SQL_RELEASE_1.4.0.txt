@@ -1,2 +1,113 @@
-ALTER TABLE `competicoestkd`.`eventos` 
+ALTER TABLE `bdejur`.`eventos` 
 CHANGE COLUMN `bo_inativo` `bo_inativo` CHAR(1) NULL DEFAULT '0' ;
+
+alter table detalhes_regras_luta add constraint FK_Reference_22 foreign key (id_regra_luta)
+      references regras_lutas (id_regra_luta) on delete restrict on update restrict;
+
+alter table esqueci_senha add constraint FK_Reference_23 foreign key (id_usuario)
+      references usuario (id_usuario) on delete restrict on update restrict;
+
+alter table telefone add constraint FK_Reference_24 foreign key (id_tipo_telefone)
+      references tipo_telefone (id_tipo_telefone) on delete restrict on update restrict;
+
+alter table cidade add constraint FK_Reference_25 foreign key (id_estado)
+      references estado (id_estado) on delete restrict on update restrict;
+
+alter table login add constraint FK_Reference_26 foreign key (id_perfil)
+      references perfil (id_perfil) on delete restrict on update restrict;
+
+alter table atleta add constraint FK_Reference_27 foreign key (id_graduacao)
+      references graduacoes (id_graduacao) on delete restrict on update restrict;
+
+alter table atleta add constraint FK_Reference_28 foreign key (id_sexo)
+      references sexo (id_sexo) on delete restrict on update restrict;
+
+alter table eventos add constraint FK_Reference_29 foreign key (id_tipo_evento)
+      references tipos_eventos (id_tipo_evento) on delete restrict on update restrict;
+
+alter table eventos add constraint FK_Reference_30 foreign key (id_regra_luta)
+      references regras_lutas (id_regra_luta) on delete restrict on update restrict;
+
+alter table login add constraint FK_Reference_31 foreign key (id_situacao)
+      references situacao (id_situacao) on delete restrict on update restrict;
+
+alter table email add constraint FK_Reference_32 foreign key (id_situacao)
+      references situacao (id_situacao) on delete restrict on update restrict;
+
+alter table detalhes_regras_luta add constraint FK_Reference_33 foreign key (id_graduacao_inicial)
+      references graduacoes (id_graduacao) on delete restrict on update restrict;
+
+alter table detalhes_regras_luta add constraint FK_Reference_34 foreign key (id_graduacao_final)
+      references graduacoes (id_graduacao) on delete restrict on update restrict;
+
+alter table atleta add constraint FK_Reference_36 foreign key (id_usuario_cadastro)
+      references usuario (id_usuario) on delete restrict on update restrict;
+
+alter table atleta add constraint FK_Reference_35 foreign key (id_usuario)
+      references usuario (id_usuario) on delete restrict on update restrict;
+
+alter table academias add constraint FK_Reference_37 foreign key (id_usuario)
+      references usuario (id_usuario) on delete restrict on update restrict;
+
+alter table academias add constraint FK_Reference_38 foreign key (id_usuario_cadastro)
+      references usuario (id_usuario) on delete restrict on update restrict;
+
+alter table login add constraint FK_Reference_39 foreign key (id_usuario)
+      references usuario (id_usuario) on delete restrict on update restrict;
+
+alter table esqueci_senha add constraint FK_Reference_40 foreign key (id_situacao)
+      references situacao (id_situacao) on delete restrict on update restrict;
+
+alter table detalhes_regras_luta add constraint FK_Reference_41 foreign key (id_sexo)
+      references sexo (id_sexo) on delete restrict on update restrict;
+
+alter table academias add constraint FK_Reference_42 foreign key (id_arte_marcial)
+      references arte_marcial (id_arte_marcial) on delete restrict on update restrict;
+
+alter table academias add constraint FK_Reference_43 foreign key (id_cidade)
+      references cidade (id_cidade) on delete restrict on update restrict;
+
+alter table detalhes_regras_luta add constraint FK_Reference_44 foreign key (id_usuario_cadastro)
+      references usuario (id_usuario) on delete restrict on update restrict;
+
+DROP TABLE `bdejur`.`solicitacao_empresa`;
+DROP TABLE `bdejur`.`config`;
+DROP TABLE `bdejur`.`pagamento`;
+DROP TABLE `bdejur`.`tipo_pagamento`;
+DROP TABLE `bdejur`.`empresa`;
+DROP TABLE `bdejur`.`empresa_as_contrato`;
+DROP TABLE `bdejur`.`curso_as_contrato`;
+DROP TABLE `bdejur`.`curso`;
+DROP TABLE `bdejur`.`comunicado_as_contrato`;
+DROP TABLE `bdejur`.`comunicado`;
+DROP TABLE `bdejur`.`situacao_empresa_contrato`;
+DROP TABLE `bdejur`.`situacao_solicitacao_empresa`;
+DROP TABLE `bdejur`.`contrato_as_contrato`;
+DROP TABLE `bdejur`.`conta_bancaria`;
+DROP TABLE `bdejur`.`banco`;
+DROP TABLE `bdejur`.`saque`;
+DROP TABLE `bdejur`.`tipo_conta`;
+DROP TABLE `bdejur`.`nivel`;
+DROP TABLE `bdejur`.`situacao_pagamento`;
+DROP TABLE `bdejur`.`contrato`;
+
+DROP VIEW `bdejur`.`auth`;
+
+CREATE 
+    ALGORITHM = UNDEFINED 
+    DEFINER = `root`@`localhost` 
+    SQL SECURITY DEFINER
+VIEW `bdejur`.`auth` AS
+    (SELECT 
+        `bdejur`.`login`.`id_usuario` AS `id_usuario`,
+        `bdejur`.`perfil`.`id_perfil` AS `id_perfil`,
+        `bdejur`.`email`.`em_email` AS `em_email`,
+        `bdejur`.`login`.`pw_senha` AS `pw_senha`,
+        `bdejur`.`usuario`.`nm_usuario` AS `nm_usuario`,
+        1 AS `id_contrato`
+    FROM
+        (((`bdejur`.`usuario`
+        JOIN `bdejur`.`login` ON ((`bdejur`.`login`.`id_usuario` = `bdejur`.`usuario`.`id_usuario`)))
+        JOIN `bdejur`.`email` ON ((`bdejur`.`email`.`id_email` = `bdejur`.`login`.`id_email`)))
+        JOIN `bdejur`.`perfil` ON ((`bdejur`.`perfil`.`id_perfil` = `bdejur`.`login`.`id_perfil`))));
+	  
