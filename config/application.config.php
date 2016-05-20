@@ -45,7 +45,7 @@ return array(
         #'TipoConta',
         #'TipoTelefone',
         'Controller',
-        'GerenciadorPermissao'
+        #'GerenciadorPermissao'
     ),
     'module_listener_options' => array(
         'module_paths' => array(

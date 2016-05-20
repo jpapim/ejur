@@ -2041,7 +2041,7 @@ fieldset[disabled] .btn {
 }
 .btn-default {
   color: #333;
-  background-color: #fff;
+  background-color: #FFF;
   border-color: #ccc;
 }
 .btn-default:hover,
@@ -2082,7 +2082,7 @@ fieldset[disabled] .btn-default.active {
 }
 .btn-primary {
   color: #fff;
-  background-color: #428bca;
+  background-color: #032a51;
   border-color: #357ebd;
 }
 .btn-primary:hover,
@@ -2114,7 +2114,7 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #428bca;
+  background-color: #032a51;
   border-color: #357ebd;
 }
 .btn-primary .badge {
@@ -4794,7 +4794,7 @@ a.list-group-item-danger.active:focus {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 16px;
-  color: inherit;
+  color: #fff;
 }
 .panel-title > a {
   color: inherit;
@@ -5014,7 +5014,7 @@ a.list-group-item-danger.active:focus {
 }
 .panel-info > .panel-heading {
   color: #31708f;
-  background-color: #d9edf7;
+  background-color: #032a51;
   border-color: #bce8f1;
 }
 .panel-info > .panel-heading + .panel-collapse .panel-body {
