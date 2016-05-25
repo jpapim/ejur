@@ -6,6 +6,7 @@ use Estrutura\Controller\AbstractCrudController;
 use Zend\View\Model\JsonModel;
 use Estrutura\Helpers\Cript;
 use Zend\View\Model\ViewModel;
+//use Zend\View\Model\JsonModel;
 
 class AcademiaController extends AbstractCrudController
 {
@@ -25,7 +26,62 @@ class AcademiaController extends AbstractCrudController
 
     public function indexAction()
     {
-        return parent::index($this->service, $this->form);
+        //return parent::index($this->service, $this->form);
+
+        return new ViewModel([
+            'service' => $this->service,
+            'form' => $this->form,
+            'controller' => $this->params('controller'),
+            'atributos' => array()
+        ]);
+    }
+
+
+     public function indexPaginationAction()
+    {
+        //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
+        
+        $filter = $this->getFilterPage();
+
+        $camposFilter = [
+            '0' => [
+                'filter' => "academias.nm_academia LIKE ?",
+            ],
+            '1' => [
+                'filter' => "cidade.nm_cidade LIKE ?",
+            ],
+            '2' => [
+                'filter' => "estado.sg_estado LIKE ?",
+            ],
+            '4' => NULL,
+                
+        ];
+        
+        
+        $paginator = $this->service->getAcademiasPaginator($filter, $camposFilter);
+
+        $paginator->setItemCountPerPage($paginator->getTotalItemCount());
+
+        $countPerPage = $this->getCountPerPage(
+                current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
+        );
+
+        $paginator->setItemCountPerPage($this->getCountPerPage(
+                        current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
+        ))->setCurrentPageNumber($this->getCurrentPage());
+
+        $viewModel = new ViewModel([
+            'service' => $this->service,
+            'form' => $this->form,
+            'paginator' => $paginator,
+            'filter' => $filter,
+            'countPerPage' => $countPerPage,
+            'camposFilter' => $camposFilter,
+            'controller' => $this->params('controller'),
+            'atributos' => array()
+        ]);
+
+        return $viewModel->setTerminal(TRUE);
     }
 
     public function gravarAction() {
@@ -49,6 +105,8 @@ class AcademiaController extends AbstractCrudController
             if (isset($post['id']) && $post['id']) {
                 $post['id'] = Cript::dec($post['id']);
             }
+
+
             $cidade = new \Cidade\Service\CidadeService();
             $arrCidade = $cidade->getIdCidadePorNomeToArray($post['id_cidade']);
             $post['id_cidade'] = $arrCidade['id_cidade'];
@@ -138,6 +196,10 @@ class AcademiaController extends AbstractCrudController
         ];
 
         return new ViewModel($dadosView);
+    }
+    public function xxxAction()
+    {
+
     }
 
 }
