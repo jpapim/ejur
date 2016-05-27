@@ -44,16 +44,12 @@ CREATE TABLE `academias` (
   `bo_excluido` tinyint(1) DEFAULT NULL COMMENT 'bo_excluido',
   PRIMARY KEY (`id_academia`),
   KEY `fk_tb_assci_reference_tb_usuar2` (`id_usuario_cadastro`),
-  KEY `fk_tb_assoc_reference_tb_artes` (`id_arte_marcial`),
-  KEY `fk_tb_assoc_reference_tb_cidad` (`id_cidade`),
   KEY `fk_tb_assoc_reference_tb_usuar` (`id_usuario`),
   CONSTRAINT `FK_Reference_37` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `FK_Reference_38` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `FK_Reference_42` FOREIGN KEY (`id_arte_marcial`) REFERENCES `arte_marcial` (`id_arte_marcial`),
   CONSTRAINT `FK_Reference_43` FOREIGN KEY (`id_cidade`) REFERENCES `cidade` (`id_cidade`),
   CONSTRAINT `fk_tb_assci_reference_tb_usuar2` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `fk_tb_assoc_reference_tb_artes` FOREIGN KEY (`id_arte_marcial`) REFERENCES `arte_marcial` (`id_arte_marcial`),
-  CONSTRAINT `fk_tb_assoc_reference_tb_cidad` FOREIGN KEY (`id_cidade`) REFERENCES `cidade` (`id_cidade`),
   CONSTRAINT `fk_tb_assoc_reference_tb_usuar` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='tb_academias';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -106,6 +102,43 @@ INSERT INTO `action` VALUES (1,'index'),(2,'course-information'),(3,'access-cour
 UNLOCK TABLES;
 
 --
+-- Table structure for table `alternativas_questao`
+--
+
+DROP TABLE IF EXISTS `alternativas_questao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `alternativas_questao` (
+  `id_alternativa_questao` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_usuario_cadastro` int(11) DEFAULT NULL,
+  `id_usuario_alteracao` int(11) DEFAULT NULL,
+  `id_questao` bigint(20) DEFAULT NULL,
+  `tx_alternativa_questao` text,
+  `tx_caminho_imagem_alternativa` varchar(1000) DEFAULT NULL,
+  `cs_correta` char(1) DEFAULT NULL,
+  `tx_justificativa` text,
+  `dt_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dt_alteracao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_alternativa_questao`),
+  KEY `FK_Reference_58` (`id_usuario_cadastro`),
+  KEY `FK_Reference_59` (`id_usuario_alteracao`),
+  KEY `FK_Reference_60` (`id_questao`),
+  CONSTRAINT `FK_Reference_58` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
+  CONSTRAINT `FK_Reference_59` FOREIGN KEY (`id_usuario_alteracao`) REFERENCES `usuario` (`id_usuario`),
+  CONSTRAINT `FK_Reference_60` FOREIGN KEY (`id_questao`) REFERENCES `questao` (`id_questao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alternativas_questao`
+--
+
+LOCK TABLES `alternativas_questao` WRITE;
+/*!40000 ALTER TABLE `alternativas_questao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `alternativas_questao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `arte_marcial`
 --
 
@@ -127,6 +160,32 @@ LOCK TABLES `arte_marcial` WRITE;
 /*!40000 ALTER TABLE `arte_marcial` DISABLE KEYS */;
 INSERT INTO `arte_marcial` VALUES (1,'TAEKWONDO');
 /*!40000 ALTER TABLE `arte_marcial` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `assunto_materia`
+--
+
+DROP TABLE IF EXISTS `assunto_materia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `assunto_materia` (
+  `id_assunto_materia` int(11) NOT NULL AUTO_INCREMENT,
+  `id_materia` smallint(6) DEFAULT NULL,
+  `nm_assunto_materia` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_assunto_materia`),
+  KEY `FK_Reference_45` (`id_materia`),
+  CONSTRAINT `FK_Reference_45` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id_materia`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `assunto_materia`
+--
+
+LOCK TABLES `assunto_materia` WRITE;
+/*!40000 ALTER TABLE `assunto_materia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `assunto_materia` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -155,20 +214,13 @@ CREATE TABLE `atleta` (
   PRIMARY KEY (`id_atleta`),
   KEY `fk_tb_atlet_reference_tb_assoc` (`id_academia`),
   KEY `fk_tb_atlet_reference_tb_cidad` (`id_cidade`),
-  KEY `fk_tb_atlet_reference_tb_usuar` (`id_usuario`),
-  KEY `fk_tb_atlet_reference_tb_usuar2` (`id_usuario_cadastro`),
-  KEY `index_atleta_sexo` (`id_sexo`),
   KEY `index_atleta_graduacao` (`id_graduacao`),
   CONSTRAINT `FK_Reference_27` FOREIGN KEY (`id_graduacao`) REFERENCES `graduacoes` (`id_graduacao`),
   CONSTRAINT `FK_Reference_28` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`),
-  CONSTRAINT `FK_Reference_35` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `FK_Reference_36` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `fk_atletas_references_graduacao` FOREIGN KEY (`id_graduacao`) REFERENCES `graduacoes` (`id_graduacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_atletas_references_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_atlet_reference_tb_assoc` FOREIGN KEY (`id_academia`) REFERENCES `academias` (`id_academia`),
   CONSTRAINT `fk_tb_atlet_reference_tb_cidad` FOREIGN KEY (`id_cidade`) REFERENCES `cidade` (`id_cidade`),
-  CONSTRAINT `fk_tb_atlet_reference_tb_usuar` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `fk_tb_atlet_reference_tb_usuar2` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`)
+  CONSTRAINT `fk_tb_atlet_reference_tb_usuar` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COMMENT='tb_atletas';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -261,9 +313,7 @@ CREATE TABLE `cidade` (
   `id_estado` int(11) NOT NULL,
   `nm_cidade` varchar(150) DEFAULT NULL COMMENT '{"label":"Cidade"}',
   PRIMARY KEY (`id_cidade`),
-  KEY `ix_cidades_estados` (`id_estado`),
-  CONSTRAINT `FK_Reference_25` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`),
-  CONSTRAINT `fk_cidades_estados1` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_Reference_25` FOREIGN KEY (`id_estado`) REFERENCES `estado` (`id_estado`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9715 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -278,6 +328,29 @@ INSERT INTO `cidade` VALUES (1,1,'Acrelandia'),(2,1,'Assis Brasil'),(3,1,'Brasil
 UNLOCK TABLES;
 
 --
+-- Table structure for table `classificacao_semestre`
+--
+
+DROP TABLE IF EXISTS `classificacao_semestre`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `classificacao_semestre` (
+  `id_classificacao_semestre` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nm_classificacao_semestre` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id_classificacao_semestre`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `classificacao_semestre`
+--
+
+LOCK TABLES `classificacao_semestre` WRITE;
+/*!40000 ALTER TABLE `classificacao_semestre` DISABLE KEYS */;
+/*!40000 ALTER TABLE `classificacao_semestre` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `controller`
 --
 
@@ -287,6 +360,8 @@ DROP TABLE IF EXISTS `controller`;
 CREATE TABLE `controller` (
   `id_controller` int(11) NOT NULL AUTO_INCREMENT,
   `nm_controller` varchar(400) DEFAULT NULL COMMENT '{"label":"Controller"}',
+  `nm_modulo` varchar(50) DEFAULT NULL,
+  `cs_exibir_combo` char(1) DEFAULT 'S',
   PRIMARY KEY (`id_controller`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -297,7 +372,7 @@ CREATE TABLE `controller` (
 
 LOCK TABLES `controller` WRITE;
 /*!40000 ALTER TABLE `controller` DISABLE KEYS */;
-INSERT INTO `controller` VALUES (1,'arte_marcial-artemarcial'),(2,'estilo-estilo'),(3,'usuario-usuario'),(4,'application-index'),(5,'cidade-cidade'),(6,'estado-estado'),(7,'graduacao-graduacao'),(8,'pagamento-pagamento'),(9,'PhpBoletoZf2\\Controller\\Itau'),(10,'banco-banco'),(11,'principal-principal'),(12,'perfil-perfil'),(13,'tipo_evento-tipoevento'),(14,'evento-evento'),(15,'graduacao'),(16,'academia-academia'),(17,'atleta-atleta'),(18,'categoria_peso-categoriapeso'),(19,'categoria_idade-categoriaidade'),(20,'regras_lutas-regraslutas'),(21,'detalhes_regras_luta-detalhesregrasluta'),(22,'inscricoes_evento-inscricoesevento');
+INSERT INTO `controller` VALUES (1,'arte_marcial-artemarcial','Arte Marcial','S'),(2,'estilo-estilo','Estilo da Arte','S'),(3,'usuario-usuario','Usuario','S'),(4,'application-index','Aplicação','N'),(5,'cidade-cidade','Cidade','S'),(6,'estado-estado','Estado','S'),(7,'graduacao-graduacao','Graduação','S'),(8,'pagamento-pagamento','Pagamento','S'),(9,'PhpBoletoZf2\\Controller\\Itau','Boleto do Itau','N'),(10,'banco-banco','Banco','S'),(11,'principal-principal','Principal','S'),(12,'perfil-perfil','Perfil','S'),(13,'tipo_evento-tipoevento','Tipo de Evento','S'),(14,'evento-evento','Evento','S'),(15,'graduacao','Teste de Action ','N'),(16,'academia-academia','Academia','S'),(17,'atleta-atleta','Atleta','S'),(18,'categoria_peso-categoriapeso','Categoria de Peso','S'),(19,'categoria_idade-categoriaidade','Categoria de Idade','S'),(20,'regras_lutas-regraslutas','Regras de Luta','S'),(21,'detalhes_regras_luta-detalhesregrasluta','Definição das Regras de Luta','S'),(22,'inscricoes_evento-inscricoesevento','Inscrições nos Eventos','S');
 /*!40000 ALTER TABLE `controller` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -322,7 +397,6 @@ CREATE TABLE `detalhes_regras_luta` (
   `nr_peso_final` float DEFAULT NULL COMMENT 'nr_peso_final',
   `id_sexo` int(11) DEFAULT NULL COMMENT 'id_sexo',
   PRIMARY KEY (`id_detalhe_regra_luta`),
-  KEY `index_det_regras_luta_sexo` (`id_sexo`),
   KEY `fk_tb_detal_reference_tb_gradu` (`id_graduacao_final`),
   KEY `fk_tb_detal_reference_tb_gradu2` (`id_graduacao_inicial`),
   KEY `fk_tb_detal_reference_tb_regra` (`id_regra_luta`),
@@ -334,7 +408,6 @@ CREATE TABLE `detalhes_regras_luta` (
   CONSTRAINT `FK_Reference_34` FOREIGN KEY (`id_graduacao_final`) REFERENCES `graduacoes` (`id_graduacao`),
   CONSTRAINT `FK_Reference_41` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`),
   CONSTRAINT `FK_Reference_44` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `fk_det_regras_luta_references_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_tb_detal_reference_tb_categ` FOREIGN KEY (`id_categoria_idade`) REFERENCES `categoria_idade` (`id_categoria_idade`),
   CONSTRAINT `fk_tb_detal_reference_tb_categ2` FOREIGN KEY (`id_categoria_peso`) REFERENCES `categoria_peso` (`id_categoria_peso`),
   CONSTRAINT `fk_tb_detal_reference_tb_gradu` FOREIGN KEY (`id_graduacao_final`) REFERENCES `graduacoes` (`id_graduacao`),
@@ -366,9 +439,7 @@ CREATE TABLE `email` (
   `em_email` varchar(200) DEFAULT NULL COMMENT '{"label":"E-mail"}',
   `id_situacao` int(11) NOT NULL,
   PRIMARY KEY (`id_email`),
-  KEY `ix_emails_situacao` (`id_situacao`),
-  CONSTRAINT `FK_Reference_32` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`),
-  CONSTRAINT `fk_emails_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_Reference_32` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -428,10 +499,6 @@ CREATE TABLE `esqueci_senha` (
   `dt_solicitacao` datetime DEFAULT NULL,
   `dt_alteracao` datetime NOT NULL,
   PRIMARY KEY (`id_esqueci_senha`),
-  KEY `ix_esqueci_senha_usuarios` (`id_usuario`),
-  KEY `ix_esqueci_senha_situacoes` (`id_situacao`),
-  CONSTRAINT `FK_Reference_23` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
-  CONSTRAINT `FK_Reference_40` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`),
   CONSTRAINT `fk_esqueci_senha_situacoes1` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_esqueci_senha_usuarios1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
@@ -561,6 +628,29 @@ INSERT INTO `eventos` VALUES (1,1,'1ª Copa Brasil','2015-09-08 21:47:08',41.69,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `fonte_questao`
+--
+
+DROP TABLE IF EXISTS `fonte_questao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `fonte_questao` (
+  `id_fonte_questao` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nm_fonte_questao` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id_fonte_questao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fonte_questao`
+--
+
+LOCK TABLES `fonte_questao` WRITE;
+/*!40000 ALTER TABLE `fonte_questao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fonte_questao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `graduacoes`
 --
 
@@ -589,6 +679,101 @@ LOCK TABLES `graduacoes` WRITE;
 /*!40000 ALTER TABLE `graduacoes` DISABLE KEYS */;
 INSERT INTO `graduacoes` VALUES (1,1,1,'Faixa Branca','10ª GUB'),(2,1,1,'Ponta Amarela','09ª GUB'),(3,1,1,'Faixa Amarela','08ª GUB'),(4,1,1,'Ponta Verde','07ª GUB'),(5,1,1,'Faixa Verde','06ª GUB'),(6,1,1,'Ponta Azul','05ª GUB'),(7,1,1,'Faixa Azul','04ª GUB'),(8,1,1,'Ponta Vermelha','03ª GUB'),(9,1,1,'Faixa Vermelha','02ª GUB'),(10,1,1,'Ponta Preta','01ª GUB'),(11,1,1,'Faixa Preta','01ª a 10ª DAN');
 /*!40000 ALTER TABLE `graduacoes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `historico_alternativas_questao`
+--
+
+DROP TABLE IF EXISTS `historico_alternativas_questao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `historico_alternativas_questao` (
+  `id_historico_alternativa_questao` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_historico_questao_prova` bigint(20) DEFAULT NULL,
+  `id_alternativa_questao` bigint(20) DEFAULT NULL,
+  `id_usuario_cadastro` int(11) DEFAULT NULL,
+  `id_usuario_alteracao` int(11) DEFAULT NULL,
+  `id_questao` bigint(20) DEFAULT NULL,
+  `tx_alternativa_questao` text,
+  `tx_caminho_imagem_alternativa` varchar(1000) DEFAULT NULL,
+  `cs_correta` char(1) DEFAULT NULL,
+  `tx_justificativa` text,
+  `dt_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dt_alteracao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_historico_alternativa_questao`),
+  KEY `FK_Reference_63` (`id_historico_questao_prova`),
+  CONSTRAINT `FK_Reference_63` FOREIGN KEY (`id_historico_questao_prova`) REFERENCES `historico_questoes_prova` (`id_historico_questao_prova`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `historico_alternativas_questao`
+--
+
+LOCK TABLES `historico_alternativas_questao` WRITE;
+/*!40000 ALTER TABLE `historico_alternativas_questao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historico_alternativas_questao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `historico_prova`
+--
+
+DROP TABLE IF EXISTS `historico_prova`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `historico_prova` (
+  `id_prova_historico` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_prova` bigint(20) DEFAULT NULL,
+  `id_usuario` int(11) DEFAULT NULL,
+  `nm_prova` varchar(100) DEFAULT NULL,
+  `ds_prova` text,
+  `dt_aplicacao_prova` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dt_geracao_prova` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_prova_historico`),
+  KEY `FK_Reference_61` (`id_usuario`),
+  CONSTRAINT `FK_Reference_61` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `historico_prova`
+--
+
+LOCK TABLES `historico_prova` WRITE;
+/*!40000 ALTER TABLE `historico_prova` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historico_prova` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `historico_questoes_prova`
+--
+
+DROP TABLE IF EXISTS `historico_questoes_prova`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `historico_questoes_prova` (
+  `id_historico_questao_prova` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_prova_historico` bigint(20) DEFAULT NULL,
+  `id_questao_prova` bigint(20) DEFAULT NULL,
+  `id_questao` bigint(20) DEFAULT NULL,
+  `id_prova` bigint(20) DEFAULT NULL,
+  `tx_enunciado` text,
+  `tx_caminho_imagem_questao` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id_historico_questao_prova`),
+  KEY `FK_Reference_62` (`id_prova_historico`),
+  CONSTRAINT `FK_Reference_62` FOREIGN KEY (`id_prova_historico`) REFERENCES `historico_prova` (`id_prova_historico`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `historico_questoes_prova`
+--
+
+LOCK TABLES `historico_questoes_prova` WRITE;
+/*!40000 ALTER TABLE `historico_questoes_prova` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historico_questoes_prova` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -639,17 +824,11 @@ CREATE TABLE `login` (
   `id_situacao` int(11) NOT NULL,
   `id_perfil` int(11) NOT NULL,
   PRIMARY KEY (`id_Login`),
-  KEY `ix_Login_usuarios` (`id_usuario`),
   KEY `ix_Login_emails` (`id_email`),
-  KEY `ix_Login_situacao` (`id_situacao`),
-  KEY `ix_Login_perfil` (`id_perfil`),
   CONSTRAINT `FK_Reference_26` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_perfil`),
-  CONSTRAINT `FK_Reference_31` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`),
   CONSTRAINT `FK_Reference_39` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `fk_Login_emails` FOREIGN KEY (`id_email`) REFERENCES `email` (`id_email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Login_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_perfil`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Login_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Login_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Login_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -661,6 +840,52 @@ LOCK TABLES `login` WRITE;
 /*!40000 ALTER TABLE `login` DISABLE KEYS */;
 INSERT INTO `login` VALUES (1,'e10adc3949ba59abbe56e057f20f883e',1,'2014-08-27 21:53:33','2014-08-27 21:53:37',1,1,1,1),(2,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-01-30 15:01:11',2,2,1,2),(3,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:55',3,3,1,2),(4,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:57',4,4,1,2),(5,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:53',5,5,1,2),(6,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:20',6,6,1,2),(7,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:34',7,7,1,2),(8,'d04cbb637213179e1f8269f75d5d7cfc',NULL,NULL,'2015-02-20 17:02:44',8,8,1,2);
 /*!40000 ALTER TABLE `login` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `materia`
+--
+
+DROP TABLE IF EXISTS `materia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `materia` (
+  `id_materia` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nm_materia` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id_materia`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `materia`
+--
+
+LOCK TABLES `materia` WRITE;
+/*!40000 ALTER TABLE `materia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `materia` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nivel_dificuldade`
+--
+
+DROP TABLE IF EXISTS `nivel_dificuldade`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `nivel_dificuldade` (
+  `id_nivel_dificuldade` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `nm_nivel_dificuldade` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id_nivel_dificuldade`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nivel_dificuldade`
+--
+
+LOCK TABLES `nivel_dificuldade` WRITE;
+/*!40000 ALTER TABLE `nivel_dificuldade` DISABLE KEYS */;
+/*!40000 ALTER TABLE `nivel_dificuldade` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -717,6 +942,115 @@ LOCK TABLES `perfil_controller_action` WRITE;
 /*!40000 ALTER TABLE `perfil_controller_action` DISABLE KEYS */;
 INSERT INTO `perfil_controller_action` VALUES (1,1,1,1),(2,2,1,1),(3,3,1,1),(4,4,1,1),(5,5,1,1),(6,6,1,1),(7,1,5,1),(8,6,6,1),(9,5,6,1),(10,5,7,1),(11,6,7,1),(12,6,8,1),(13,1,2,1),(14,1,3,1),(15,1,9,1),(16,7,1,1),(17,1,4,1),(18,1,10,1),(19,1,11,1),(20,3,7,1),(21,2,5,1),(22,2,12,1),(23,2,13,1),(24,3,14,1),(25,8,18,1),(26,5,16,1),(27,3,17,1),(28,3,18,1),(29,8,19,1),(30,1,1,2),(31,2,1,2),(32,3,1,2),(33,4,1,2),(34,5,1,2),(35,6,1,2),(36,1,5,2),(37,6,6,2),(38,5,6,2),(39,5,7,2),(40,6,7,2),(41,6,8,2),(42,1,2,2),(43,1,3,2),(44,1,9,2),(45,7,1,2),(46,1,4,2),(47,1,10,2),(48,1,11,2),(49,3,7,2),(50,2,5,2),(51,2,12,2),(52,2,13,2),(53,3,14,2),(54,8,18,2),(55,8,20,1),(56,8,21,1),(57,8,22,1),(58,8,23,1),(59,3,15,2),(60,1,24,1),(61,1,24,2),(62,3,15,1),(63,2,25,1),(64,2,25,2),(65,2,26,1),(66,2,26,2),(67,2,27,1),(68,2,27,2),(69,2,28,1),(70,2,28,2),(71,2,29,1),(72,2,30,1),(73,8,9,1),(74,8,9,2),(75,8,31,1),(76,8,31,2),(77,8,32,1),(78,8,33,1),(79,8,34,1),(80,2,35,1),(81,3,36,1),(82,3,36,2),(83,3,37,1),(84,3,37,2),(85,5,16,2),(86,3,17,2),(87,9,1,1),(88,9,1,2),(89,3,6,1),(90,10,1,1),(91,10,6,1),(92,10,7,1),(93,11,1,1),(94,10,8,1),(95,12,1,1),(96,12,6,1),(97,12,7,1),(98,1,7,1),(99,1,6,1),(100,1,8,1),(101,2,6,1),(102,2,8,1),(103,2,7,1),(104,7,6,1),(105,7,7,1),(106,7,8,1),(107,13,1,1),(108,13,6,1),(109,13,7,1),(110,13,8,1),(111,14,1,1),(112,14,6,1),(113,14,7,1),(114,14,8,1),(115,7,39,1),(116,15,39,1),(117,15,1,1),(118,16,1,1),(119,16,6,1),(120,16,7,1),(121,16,8,1),(122,16,40,1),(123,16,41,1),(124,17,1,1),(125,17,6,1),(126,17,7,1),(127,17,8,1),(128,17,42,1),(129,17,43,1),(130,17,44,1),(131,17,45,1),(132,17,46,1),(133,17,47,1),(134,17,40,1),(135,18,1,1),(136,18,6,1),(137,18,7,1),(138,18,8,1),(139,19,1,1),(140,19,6,1),(141,19,7,1),(142,19,8,1),(143,20,1,1),(144,20,6,1),(145,20,7,1),(146,20,8,1),(147,21,1,1),(148,21,6,1),(149,21,7,1),(150,21,8,1),(151,19,48,1),(152,22,1,1),(153,22,6,1),(154,22,7,1),(155,22,8,1),(156,14,49,1),(157,5,40,1),(158,16,42,1),(159,16,47,1),(160,17,50,1),(161,17,51,1),(162,17,1,1);
 /*!40000 ALTER TABLE `perfil_controller_action` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `prova`
+--
+
+DROP TABLE IF EXISTS `prova`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `prova` (
+  `id_prova` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_usuario` int(11) DEFAULT NULL,
+  `nm_prova` varchar(100) DEFAULT NULL,
+  `ds_prova` text,
+  `dt_aplicacao_prova` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `dt_geracao_prova` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_prova`),
+  KEY `FK_Reference_47` (`id_usuario`),
+  CONSTRAINT `FK_Reference_47` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `prova`
+--
+
+LOCK TABLES `prova` WRITE;
+/*!40000 ALTER TABLE `prova` DISABLE KEYS */;
+/*!40000 ALTER TABLE `prova` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `questao`
+--
+
+DROP TABLE IF EXISTS `questao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `questao` (
+  `id_questao` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_usuario_cadastro` int(11) DEFAULT NULL,
+  `id_usuario_alteracao` int(11) DEFAULT NULL,
+  `id_classificacao_semestre` smallint(6) DEFAULT NULL,
+  `id_nivel_dificuldade` tinyint(4) DEFAULT NULL,
+  `id_temporizacao` smallint(6) DEFAULT NULL,
+  `id_tipo_questao` smallint(6) DEFAULT NULL,
+  `id_fonte_questao` smallint(6) DEFAULT NULL,
+  `id_assunto_materia` int(11) DEFAULT NULL,
+  `bo_utilizavel` char(1) DEFAULT NULL,
+  `tx_enunciado` text,
+  `bo_ativo` char(1) DEFAULT NULL,
+  `dt_cadastro` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dt_alteracao` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `tx_caminho_imagem_questao` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`id_questao`),
+  KEY `FK_Reference_48` (`id_usuario_cadastro`),
+  KEY `FK_Reference_49` (`id_usuario_alteracao`),
+  KEY `FK_Reference_50` (`id_classificacao_semestre`),
+  KEY `FK_Reference_51` (`id_nivel_dificuldade`),
+  KEY `FK_Reference_52` (`id_temporizacao`),
+  KEY `FK_Reference_53` (`id_tipo_questao`),
+  KEY `FK_Reference_54` (`id_fonte_questao`),
+  KEY `FK_Reference_55` (`id_assunto_materia`),
+  CONSTRAINT `FK_Reference_48` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
+  CONSTRAINT `FK_Reference_49` FOREIGN KEY (`id_usuario_alteracao`) REFERENCES `usuario` (`id_usuario`),
+  CONSTRAINT `FK_Reference_50` FOREIGN KEY (`id_classificacao_semestre`) REFERENCES `classificacao_semestre` (`id_classificacao_semestre`),
+  CONSTRAINT `FK_Reference_51` FOREIGN KEY (`id_nivel_dificuldade`) REFERENCES `nivel_dificuldade` (`id_nivel_dificuldade`),
+  CONSTRAINT `FK_Reference_52` FOREIGN KEY (`id_temporizacao`) REFERENCES `temporizacao` (`id_temporizacao`),
+  CONSTRAINT `FK_Reference_53` FOREIGN KEY (`id_tipo_questao`) REFERENCES `tipo_questao` (`id_tipo_questao`),
+  CONSTRAINT `FK_Reference_54` FOREIGN KEY (`id_fonte_questao`) REFERENCES `fonte_questao` (`id_fonte_questao`),
+  CONSTRAINT `FK_Reference_55` FOREIGN KEY (`id_assunto_materia`) REFERENCES `assunto_materia` (`id_assunto_materia`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `questao`
+--
+
+LOCK TABLES `questao` WRITE;
+/*!40000 ALTER TABLE `questao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `questao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `questoes_prova`
+--
+
+DROP TABLE IF EXISTS `questoes_prova`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `questoes_prova` (
+  `id_questao_prova` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id_questao` bigint(20) DEFAULT NULL,
+  `id_prova` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id_questao_prova`),
+  KEY `FK_Reference_56` (`id_questao`),
+  KEY `FK_Reference_57` (`id_prova`),
+  CONSTRAINT `FK_Reference_56` FOREIGN KEY (`id_questao`) REFERENCES `questao` (`id_questao`),
+  CONSTRAINT `FK_Reference_57` FOREIGN KEY (`id_prova`) REFERENCES `prova` (`id_prova`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `questoes_prova`
+--
+
+LOCK TABLES `questoes_prova` WRITE;
+/*!40000 ALTER TABLE `questoes_prova` DISABLE KEYS */;
+/*!40000 ALTER TABLE `questoes_prova` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -829,11 +1163,9 @@ CREATE TABLE `telefone` (
   `id_tipo_telefone` int(11) NOT NULL,
   `id_situacao` int(11) NOT NULL,
   PRIMARY KEY (`id_telefone`),
-  KEY `ix_telefones_tipo_telefone` (`id_tipo_telefone`),
   KEY `ix_telefones_situacao` (`id_situacao`),
   CONSTRAINT `FK_Reference_24` FOREIGN KEY (`id_tipo_telefone`) REFERENCES `tipo_telefone` (`id_tipo_telefone`),
-  CONSTRAINT `fk_telefones_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_telefones_tipo_telefone1` FOREIGN KEY (`id_tipo_telefone`) REFERENCES `tipo_telefone` (`id_tipo_telefone`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_telefones_situacao` FOREIGN KEY (`id_situacao`) REFERENCES `situacao` (`id_situacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -845,6 +1177,55 @@ LOCK TABLES `telefone` WRITE;
 /*!40000 ALTER TABLE `telefone` DISABLE KEYS */;
 INSERT INTO `telefone` VALUES (1,'12','34567890',1,1),(2,'61','91613193',1,1),(3,'61','91613193',1,1),(4,'61','989898989',1,1),(5,'56','576756756',1,1),(6,'87','878778787',1,1),(7,'78','787878787',1,1),(8,'87','878787878',1,1);
 /*!40000 ALTER TABLE `telefone` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `temporizacao`
+--
+
+DROP TABLE IF EXISTS `temporizacao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `temporizacao` (
+  `id_temporizacao` smallint(6) NOT NULL AUTO_INCREMENT,
+  `id_unidade_tempo` smallint(6) DEFAULT NULL,
+  `nm_temporizacao` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id_temporizacao`),
+  KEY `FK_Reference_46` (`id_unidade_tempo`),
+  CONSTRAINT `FK_Reference_46` FOREIGN KEY (`id_unidade_tempo`) REFERENCES `unidade_tempo` (`id_unidade_tempo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `temporizacao`
+--
+
+LOCK TABLES `temporizacao` WRITE;
+/*!40000 ALTER TABLE `temporizacao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `temporizacao` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tipo_questao`
+--
+
+DROP TABLE IF EXISTS `tipo_questao`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tipo_questao` (
+  `id_tipo_questao` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nm_tipo_questao` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id_tipo_questao`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tipo_questao`
+--
+
+LOCK TABLES `tipo_questao` WRITE;
+/*!40000 ALTER TABLE `tipo_questao` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tipo_questao` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -918,6 +1299,29 @@ LOCK TABLES `tipos_eventos` WRITE;
 /*!40000 ALTER TABLE `tipos_eventos` DISABLE KEYS */;
 INSERT INTO `tipos_eventos` VALUES (1,'Competição','Competição de Luta');
 /*!40000 ALTER TABLE `tipos_eventos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `unidade_tempo`
+--
+
+DROP TABLE IF EXISTS `unidade_tempo`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `unidade_tempo` (
+  `id_unidade_tempo` smallint(6) NOT NULL AUTO_INCREMENT,
+  `nm_unidade_tempo` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`id_unidade_tempo`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unidade_tempo`
+--
+
+LOCK TABLES `unidade_tempo` WRITE;
+/*!40000 ALTER TABLE `unidade_tempo` DISABLE KEYS */;
+/*!40000 ALTER TABLE `unidade_tempo` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1054,4 +1458,4 @@ USE `bdejur`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-09 16:05:29
+-- Dump completed on 2016-05-27 15:59:22
