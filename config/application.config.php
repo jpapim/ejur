@@ -32,6 +32,10 @@ return array(
         'DetalhesRegrasLuta',
         'InscricoesEvento',
         'ChavesLuta',
+        'Prova',
+        'Nivel',
+        'Unidade',
+        'Temporizacao',
         'CompactAsset', //Compacta o Javascript e CSS para retornar em apenas uma requisição (Responsável pela minificar o css e js: compila os arquivos em um só)
         #'ContaBancaria',
         #'DOMPDFModule',
