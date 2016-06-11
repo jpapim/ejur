@@ -1,5 +1,5 @@
 alter table `bdejur`.`controller` add column nm_modulo varchar(50) null;
-alter table `bdejur`.`controller` add column cs_exibir_combo char(1) default 'S';
+alter table `bdejur`.`controller` add column cs_exibir_combo char(1) default 'N';
 
 UPDATE `bdejur`.`controller` SET `nm_modulo`='Arte Marcial' WHERE `id_controller`='1';
 UPDATE `bdejur`.`controller` SET `nm_modulo`='Estilo da Arte' WHERE `id_controller`='2';
