@@ -51,6 +51,8 @@ return array(
         'Controller',
         'Action',
         'Check',
+        'PeriodoLetivo',
+        'DetalhePeriodoLetivo',
         #'GerenciadorPermissao'
     ),
     'module_listener_options' => array(
