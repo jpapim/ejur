@@ -35,7 +35,7 @@ class PermissaoForm extends AbstractForm{
         #        'selected' => in_array($action->getId(), $options['actions']) ? true : false,
         #    ];
         #}
-        $objForm->multicheckbox('id_action2', $actions)->required(false)->label('Gostaria de receber suporte de mais empresas?');
+        #$objForm->multicheckbox('id_action2', $actions)->required(false)->label('Gostaria de receber suporte de mais empresas?');
 
         $objForm->checkbox('id_action', array())->required(false)->label('Gostaria de receber suporte de mais empresas?');
 
