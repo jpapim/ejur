@@ -53,6 +53,8 @@ return array(
         'Check',
         'PeriodoLetivo',
         'DetalhePeriodoLetivo',
+        'Materia',
+        'TipoQuestao',
         #'GerenciadorPermissao'
     ),
     'module_listener_options' => array(
