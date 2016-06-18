@@ -13,7 +13,7 @@ class TipoQuestaoForm extends AbstractForm{
         $this->inputFilter = new InputFilter();
         $objForm = new FormObject('tipoquestaoform',$this,$this->inputFilter);
         $objForm->hidden("id")->required(false)->label("Id");
-        $objForm->text("nm_tipo_questao")->required(false)->label("Nova Questão");
+        $objForm->text("nm_tipo_questao")->required(false)->label("Novo tipo de questão");
 
         $this->formObject = $objForm;
     }

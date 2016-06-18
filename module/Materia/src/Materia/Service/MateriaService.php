@@ -106,7 +106,7 @@ class MateriaService extends Entity {
      * @return type
      */
 
-    public function getAtletasPaginator($filter = NULL, $camposFilter = NULL) {
+    public function getMateriaPaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 

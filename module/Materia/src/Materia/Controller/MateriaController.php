@@ -48,7 +48,7 @@ class MateriaController extends AbstractCrudController
         ];
 
 
-        $paginator = $this->service->getAtletasPaginator($filter, $camposFilter);
+        $paginator = $this->service->getMateriaPaginator($filter, $camposFilter);
 
         $paginator->setItemCountPerPage($paginator->getTotalItemCount());
 
