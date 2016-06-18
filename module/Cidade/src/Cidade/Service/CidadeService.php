@@ -119,7 +119,7 @@ class CidadeService extends Entity {
      * @return type
      */
 
-    public function getAtletasPaginator($filter = NULL, $camposFilter = NULL) {
+    public function getCidadesPaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
@@ -134,13 +134,6 @@ class CidadeService extends Entity {
             ->join('estado', 'estado.id_estado = cidade.id_estado', [
                 'nm_estado'
             ]);
-
-
-
-
-
-
-
 
         $where = [
         ];
