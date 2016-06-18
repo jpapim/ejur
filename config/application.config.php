@@ -55,6 +55,7 @@ return array(
         'DetalhePeriodoLetivo',
         'Materia',
         'TipoQuestao',
+        'AssuntoMateria'
         #'GerenciadorPermissao'
     ),
     'module_listener_options' => array(

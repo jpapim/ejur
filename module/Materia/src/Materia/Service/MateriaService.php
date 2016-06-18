@@ -1,16 +1,16 @@
 <?php
 
-namespace TipoQuestao\Service;
+namespace Materia\Service;
 
-use \TipoQuestao\Entity\TipoQuestaoEntity as Entity;
-use TipoQuestao\Table\TipoQuestaoTable;
+use \Materia\Entity\MateriaEntity as Entity;
+use Materia\Table\MateriaTable;
 use Zend\Db\Sql\Select;
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Stdlib\Hydrator\Reflection;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
-class TipoQuestaoService extends Entity {
+class MateriaService extends Entity {
 
 
 
@@ -19,48 +19,48 @@ class TipoQuestaoService extends Entity {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
         #die($id);
-        $select = $sql->select('tipo_questao')
+        $select = $sql->select('materia')
             ->where([
-                'tipo_questao.id_tipo_questao = ?' => $id,
+                'materia.id_materia = ?' => $id,
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
-    public function getFiltrarTiposPorNomeToArray($nm_tipo_questao) {
+    public function getFiltrarTiposPorNomeToArray($nm_materia) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
-        $select = $sql->select('tipo_questao')
-            ->columns(array('nm_tipo_questao',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
+        $select = $sql->select('materia')
+            ->columns(array('nm_materia',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
-                "tipo_questao.id_tipo_questao LIKE ?" => '%'.$nm_tipo_questao.'%',
+                "materia.id_materia LIKE ?" => '%'.$nm_materia.'%',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
     }
 
-    public function getIdTipoPorNomeToArray($nm_tipo_questao) {
+    public function getIdTipoPorNomeToArray($nm_materia) {
 
-        $arNomeDoTipo = explode('(', $nm_tipo_questao);
-        $nm_tipo_questao = $arNomeDoTipo[0];
+        $arNomeMateria = explode('(', $nm_materia);
+        $nm_materia = $arNomeMateria[0];
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
         $filter = new \Zend\Filter\StringTrim();
-        $select = $sql->select('tipo_questao')
-            ->columns(array('id_tipo_questao') )
+        $select = $sql->select('materia')
+            ->columns(array('id_materia') )
             ->where([
-                'tipo_questao.nm_tipo_questao = ?' => $filter->filter($nm_tipo_questao),
+                'materia.nm_materia = ?' => $filter->filter($nm_materia),
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
-    public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_tipo_questao DESC', $like = null, $itensPaginacao = 5) {
+    public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_materia DESC', $like = null, $itensPaginacao = 5) {
         //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
         // preparar um select para tabela contato com uma ordem
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
-        $select = $sql->select('tipo_questao')->order($ordem);
+        $select = $sql->select('materia')->order($ordem);
 
         if (isset($like)) {
             $select
@@ -76,7 +76,7 @@ class TipoQuestaoService extends Entity {
         }
 
         // criar um objeto com a estrutura desejada para armazenar valores
-        $resultSet = new HydratingResultSet(new Reflection(), new \TipoQuestao\Entity\TipoQuestao());
+        $resultSet = new HydratingResultSet(new Reflection(), new \Materia\Entity\Materia());
 
         // criar um objeto adapter paginator
         $paginatorAdapter = new DbSelect(
@@ -106,13 +106,13 @@ class TipoQuestaoService extends Entity {
      * @return type
      */
 
-    public function getTipoQuestaoPaginator($filter = NULL, $camposFilter = NULL) {
+    public function getAtletasPaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
-        $select = $sql->select('tipo_questao')->columns([
-            'id_tipo_questao',
-            'nm_tipo_questao',
+        $select = $sql->select('materia')->columns([
+            'id_materia',
+            'nm_materia',
 
 
 
@@ -147,7 +147,7 @@ class TipoQuestaoService extends Entity {
             }
         }
 
-        $select->where($where)->order(['nm_tipo_questao DESC']);
+        $select->where($where)->order(['nm_materia DESC']);
 
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }

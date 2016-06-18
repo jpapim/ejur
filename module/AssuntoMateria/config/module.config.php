@@ -3,21 +3,12 @@
 return array(
     'router' => array(
         'routes' => array(
-            'navegacao' => array(
-                'type' => 'Segment',
-                'options' => array(
-                    'route'    => '/:controller[/:action[/:id]]',
-                    'defaults' => array(
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-            'atleta-home' => array(
+            'assunto_materia-home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/materia',
+                    'route'    => '/assunto_materia',
                     'defaults' => array(
-                        'controller' => 'materia',
+                        'controller' => 'assunto_materia',
                         'action'     => 'index',
                     ),
                 ),
@@ -45,8 +36,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'materia' => 'Materia\Controller\MateriaController',
-            'materia-materia' => 'Materia\Controller\MateriaController',
+            'assunto_materia' => 'AssuntoMateria\Controller\AssuntoMateriaController',
+            'assunto_materia-assuntomateria' => 'AssuntoMateria\Controller\AssuntoMateriaController',
 
         ),
     ),

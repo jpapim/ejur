@@ -1,12 +1,12 @@
 <?php
 
-namespace TipoQuestao\Controller;
+namespace Materia\Controller;
 
 use Estrutura\Controller\AbstractCrudController;
 use Zend\View\Model\ViewModel;
 
 
-class TipoQuestaoController extends AbstractCrudController
+class MateriaController extends AbstractCrudController
 {
     /**
      * @var \Action\Service\Action
@@ -42,13 +42,13 @@ class TipoQuestaoController extends AbstractCrudController
 
         $camposFilter = [
             '0' => [
-                'filter' => "tipo_questao.nm_tipo_questao LIKE ?",
+                'filter' => "materia.nm_materia LIKE ?",
             ],
             '1' => NULL,
         ];
 
 
-        $paginator = $this->service->getTipoQuestaoPaginator($filter, $camposFilter);
+        $paginator = $this->service->getAtletasPaginator($filter, $camposFilter);
 
         $paginator->setItemCountPerPage($paginator->getTotalItemCount());
 

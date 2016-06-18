@@ -2,16 +2,16 @@
 
 <div class="col-md-12">
     <div class="table-responsive">
-        <table class="table table-striped" id="tablesorterTipoQuestao">
+        <table class="table table-striped" id="tablesorterAtletas">
             <thead>
             <tr>
-                <th class="text-center">Tipos Questao</th>
+                <th class="text-center">Assuntos</th>
                 <th class="text-center">Ações</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
-                <th class="text-center">Tipo Questao</th>
+                <th class="text-center">Assuntos</th>
                 <th class="text-center">Ações</th>
             </tr>
             <tr>
@@ -19,9 +19,9 @@
                     <?php
                     echo $this->paginationControl(
                         $paginator, 'Sliding', 'partials/pagination.phtml', [
-                        'urlPagination' => '/tipo-questao-tipo-questao/index-pagination',
+                        'urlPagination' => '/assunto-materia-assunto-materia/index-pagination',
                         'countPerPage' => $countPerPage,
-                        'divData' => '#tipo-questao-pagination',
+                        'divData' => '#assunto-materia-pagination',
                     ]);
 
                     ?>
@@ -55,16 +55,16 @@
                     ?>
                 </tr>
                 <?php
-                foreach ($paginator as $key => $tipoquestao) {
+                foreach ($paginator as $key => $assunto) {
                     ?>
                     <tr>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($tipoquestao['nm_tipo_questao']) ?></td>
-                        
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($assunto['nm_assunto_materia']) ?></td>
+
 
                         <td class="text-center">
                                 <span class="btn-group" style="width: 100px;">
-                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($tipoquestao['id_tipo_questao'])))) ?>
-                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($tipoquestao['id_tipo_questao'])))) ?>
+                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($assunto['id_assunto_materia'])))) ?>
+                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($assunto['id_assunto_materia'])))) ?>
                                 </span>
                         </td>
                     </tr>
@@ -79,7 +79,7 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="<?= $this->url('navegacao', ['controller' => 'principal-principal']) ?>" class="btn btn-primary" title="Retorna para a Página Principal">Home</a>
-                <a class="btn btn-default" href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro')) ?>" title="Adiciona um novo atleta">Novo tipo de questão</a>
+                <a class="btn btn-default" href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro')) ?>" title="Adiciona um novo atleta">Novo Assunto</a>
             </div>
         </div>
     </div>
@@ -110,7 +110,7 @@
         };
 
         // call the tablesorter plugin and apply the uitheme widget
-        $("#tablesorterTipoQuestao").tablesorter({
+        $("#tablesorterAtletas").tablesorter({
             // this will apply the bootstrap theme if "uitheme" widget is included
             // the widgetOptions.uitheme is no longer required to be set
             theme: "bootstrap",
