@@ -55,7 +55,10 @@ return array(
         'Permissao',
         'PeriodoLetivo',
         'DetalhePeriodoLetivo',
-        #'GerenciadorPermissao'
+        'Materia',
+        'TipoQuestao',
+        'AssuntoMateria',
+        'PerfilControllerAction',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

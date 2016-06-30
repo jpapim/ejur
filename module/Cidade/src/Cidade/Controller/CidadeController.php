@@ -52,7 +52,7 @@ class CidadeController extends AbstractCrudController
         ];
 
 
-        $paginator = $this->service->getAtletasPaginator($filter, $camposFilter);
+        $paginator = $this->service->getCidadesPaginator($filter, $camposFilter);
 
         $paginator->setItemCountPerPage($paginator->getTotalItemCount());
 
