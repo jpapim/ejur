@@ -81,10 +81,6 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="/nivel_dificuldade-niveldificuldade">Cad. Niveis de Dificuldade</a></li>
-                <li><a href="/unidade_tempo-unidadetempo">Cad. Unidade de Tempo</a></li>
-                <li><a href="/temporizacao-temporizacao">Cad. Temporizacao</a></li>
-                <li class="divider"></li>
                 <li><a href="/usuario-usuario">Usuários - Modelo</a></li>
                 <li><a href="/perfil-perfil">Perfis</a></li>
                 <li class="divider"></li>
@@ -94,6 +90,17 @@
         </li>
 
     </ul>
+
+    <?php if ($this->Auth()->id_perfil == TXT_CONST_PERFIL_ADMINISTRADOR) { ?>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="/infra-infra" title="Botão para limpar as pastas Cache automaticamente.">
+                    <span class="glyphicon glyphicon-ban-circle"></span> Limpar
+                </a>
+            </li>
+        </ul>
+    <?php } ?>
+
     <ul class="nav navbar-nav navbar-right">
         <li>
             <a href="/usuario-usuario">
