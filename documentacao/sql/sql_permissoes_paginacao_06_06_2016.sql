@@ -1,2 +1,0 @@
-INSERT INTO bdejur.perfil_controller_action (id_controller, id_action, id_perfil) VALUES ('5','51','1');
-INSERT INTO bdejur.perfil_controller_action (id_controller, id_action, id_perfil) VALUES ('5','51','2');
