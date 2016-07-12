@@ -60,6 +60,7 @@ return array(
         'AssuntoMateria',
         'PerfilControllerAction',
         'Infra',
+        'MateriaSemestre',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
