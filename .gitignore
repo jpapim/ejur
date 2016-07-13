@@ -4,3 +4,5 @@
 .idea/*
 config/autoload/global.php
 config/autoload/development.php
+data/cache/*
+public/assets/cache/*

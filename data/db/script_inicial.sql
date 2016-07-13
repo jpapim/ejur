@@ -925,7 +925,7 @@ CREATE TABLE `materia_semestre` (
   KEY `FK_Reference_118` (`id_materia`),
   CONSTRAINT `FK_Reference_117` FOREIGN KEY (`id_classificacao_semestre`) REFERENCES `classificacao_semestre` (`id_classificacao_semestre`),
   CONSTRAINT `FK_Reference_118` FOREIGN KEY (`id_materia`) REFERENCES `materia` (`id_materia`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -934,7 +934,7 @@ CREATE TABLE `materia_semestre` (
 
 LOCK TABLES `materia_semestre` WRITE;
 /*!40000 ALTER TABLE `materia_semestre` DISABLE KEYS */;
-INSERT INTO `materia_semestre` VALUES (6,1,1),(10,1,2),(12,1,3),(13,1,4);
+INSERT INTO `materia_semestre` VALUES (6,1,1),(10,1,2),(12,1,3),(15,1,4),(16,1,4);
 /*!40000 ALTER TABLE `materia_semestre` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1563,4 +1563,4 @@ USE `bdejur`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-07-12 19:23:18
+-- Dump completed on 2016-07-13 11:12:11
