@@ -8,7 +8,6 @@ return array(
         'Banco',
         'Principal',
         'Email',
-        'Usuario',
         'Perfil',
         'EsqueciSenha',
         'Config',
@@ -61,6 +60,7 @@ return array(
         'PerfilControllerAction',
         'Infra',
         'MateriaSemestre',
+        'Usuario',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
