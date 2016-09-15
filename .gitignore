@@ -2,7 +2,10 @@
 .idea/encodings.xml
 .idea/workspace.xml
 .idea/*
-config/autoload/global.php
+/nbproject/private/
 config/autoload/development.php
+config/autoload/gerador.php
+config/autoload/global.php
+nbproject/*
 data/cache/*
 public/assets/cache/*
