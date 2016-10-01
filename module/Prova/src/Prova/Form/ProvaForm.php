@@ -16,8 +16,8 @@ class ProvaForm extends AbstractForm{
         $objForm->hidden("id_usuario")->required(false)->label("Id Usuario");  
         $objForm->text("nm_prova")->required(false)->label("Prova");  
         $objForm->text("ds_prova")->required(false)->label("descrição");
-        $objForm->date("dt_geracao_prova")->required(true)->setAttribute('class', 'data')->label("Data de geraçao da prova");
-        $objForm->date("dt_aplicacao_prova")->required(true)->setAttribute('class', 'data')->label("Data de aplicação da prova");
+        $objForm->date("dt_geracao_prova")->required(false)->setAttribute('class', 'data')->label("Data de geraçao da prova");
+        $objForm->date("dt_aplicacao_prova")->required(false)->setAttribute('class', 'data')->label("Data de aplicação da prova");
        
 
 
