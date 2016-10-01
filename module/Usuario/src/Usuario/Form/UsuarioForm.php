@@ -19,7 +19,7 @@ class UsuarioForm extends AbstractForm {
         //add captcha element...
         #$objForm->captcha('captcha')->required(true);
         $objForm->hidden("id")->required(false)->label("Id");
-        $objForm->text("nm_usuario")->required(true)->label("Nome completo");
+        $objForm->text("nm_usuario")->required(true)->setAttribute('placeholder', 'Informe seu nome completo')->label("Nome completo");
         $objForm->date("dt_nascimento")->required(true)->label("Data de nascimento");
         $objForm->text("nm_nacionalidade")->required(false)->label("Nacionalidade");
         $objForm->combo("id_sexo", '\Sexo\Service\SexoService', 'id', 'nm_sexo')->required(false)->label("Sexo");
@@ -30,7 +30,7 @@ class UsuarioForm extends AbstractForm {
                 ->setAttribute('data-match', '#em_email')
                 ->setAttribute('data-match-error', 'Email não correspondem');
         $objForm->combo("id_email", '\Email\Service\EmailService', 'id', 'em_email')->required(false)->label("Email");
-        $objForm->telefone("nr_telefone")->required(true)->label("Telefone");
+        $objForm->telefone("nr_telefone")->required(true)->setAttribute('class', 'telefone')->label("Telefone");
         $objForm->telefone("id_telefone", '\Telefone\Service\TelefoneService', 'id', 'nr_telefone')->required(true)->label("Telefone");
 
         $objForm->password("pw_senha")->required(true)->label("Senha");
