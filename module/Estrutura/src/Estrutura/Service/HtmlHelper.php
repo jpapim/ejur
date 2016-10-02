@@ -35,6 +35,12 @@ class HtmlHelper{
         return self::botaoLink($url, 'glyphicon glyphicon-user', $attributos, $title);
     }
 
+    public static function botaoAcao($url, $title='Ação', $id = 'botaoacao', $icone_bootstrap = 'glyphicon glyphicon-screenshot', $classe = 'btn btn-default'){
+        $attributos = ['class'=>$classe, 'id'=>$id];
+        #$attributos = ['class'=>'btn-alterar btn-xs btn-alterar-customizado', 'id'=>$id];
+        return self::botaoLink($url, $icone_bootstrap, $attributos, $title);
+    }
+
     private static function arrayToString($array){
         $string = '';
         foreach($array as $chave => $item){

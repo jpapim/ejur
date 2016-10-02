@@ -45,6 +45,8 @@ return array(
         'Infra',
         'MateriaSemestre',
         'Usuario',
+        'Questao',
+        'AlternativaQuestao',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
