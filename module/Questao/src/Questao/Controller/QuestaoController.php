@@ -159,40 +159,15 @@ class QuestaoController extends AbstractQuestaoController
                 if (isset($post['id']) && $post['id']) {
                     $post['id'] = Cript::dec($post['id']);
                 }
-
-                $arAlternativas['id_alternativa_questao_1'] = isset($post['id_alternativa_questao_1']) && $post['id_alternativa_questao_1'] ? $post['id_alternativa_questao_1'] : null;
-                $arAlternativas['tx_alternativa_questao_1'] = isset($post['tx_alternativa_questao_1']) && $post['tx_alternativa_questao_1'] ? $post['tx_alternativa_questao_1'] : null;
-                $arAlternativas['cs_correta_1'] = isset($post['cs_correta_1']) && $post['cs_correta_1'] ? $post['cs_correta_1'] : null;
-                $arAlternativas['tx_justificativa_1'] = isset($post['tx_alternativa_questao_1']) && $post['tx_alternativa_questao_1'] ? $post['tx_alternativa_questao_1'] : null;
-
-                $arAlternativas['id_alternativa_questao_2'] = isset($post['id_alternativa_questao_2']) && $post['id_alternativa_questao_2'] ? $post['id_alternativa_questao_2'] : null;
-                $arAlternativas['tx_alternativa_questao_2'] = isset($post['tx_alternativa_questao_2']) && $post['tx_alternativa_questao_2'] ? $post['tx_alternativa_questao_2'] : null;
-                $arAlternativas['cs_correta_2'] =  isset($post['cs_correta_2']) && $post['cs_correta_2'] ? $post['cs_correta_2'] : null;
-                $arAlternativas['tx_justificativa_2'] = isset($post['tx_justificativa_2']) && $post['tx_justificativa_2'] ? $post['tx_justificativa_2'] : null;
-
-                $arAlternativas['id_alternativa_questao_3'] = isset($post['id_alternativa_questao_3']) && $post['id_alternativa_questao_3'] ? $post['id_alternativa_questao_3'] : null;
-                $arAlternativas['tx_alternativa_questao_3'] = isset($post['tx_alternativa_questao_3']) && $post['tx_alternativa_questao_3'] ? $post['tx_alternativa_questao_3'] : null;
-                $arAlternativas['cs_correta_3'] = isset($post['cs_correta_3']) && $post['cs_correta_3'] ? $post['cs_correta_3'] : null;
-                $arAlternativas['tx_justificativa_3'] = isset($post['tx_justificativa_3']) && $post['tx_justificativa_3'] ? $post['tx_justificativa_3'] : null;
-
-                $arAlternativas['id_alternativa_questao_4'] = isset($post['id_alternativa_questao_4']) && $post['id_alternativa_questao_4'] ? $post['id_alternativa_questao_4'] : null;
-                $arAlternativas['tx_alternativa_questao_4'] = isset($post['tx_alternativa_questao_4']) && $post['tx_alternativa_questao_4'] ? $post['tx_alternativa_questao_4'] : null;
-                $arAlternativas['cs_correta_4'] = isset($post['cs_correta_4']) && $post['cs_correta_4'] ? $post['cs_correta_4'] : null;
-                $arAlternativas['tx_justificativa_4'] = isset($post['tx_justificativa_4']) && $post['tx_justificativa_4'] ? $post['tx_justificativa_4'] : null;
-
-                $arAlternativas['id_alternativa_questao_5'] = isset($post['id_alternativa_questao_5']) && $post['id_alternativa_questao_5'] ? $post['id_alternativa_questao_5'] : null;
-                $arAlternativas['tx_alternativa_questao_5'] = isset($post['tx_alternativa_questao_5']) && $post['tx_alternativa_questao_5'] ? $post['tx_alternativa_questao_5'] : null;
-                $arAlternativas['cs_correta_5'] = isset($post['cs_correta_5']) && $post['cs_correta_5'] ? $post['cs_correta_5'] : null;
-                $arAlternativas['tx_justificativa_5'] = isset($post['tx_justificativa_5']) && $post['tx_justificativa_5'] ? $post['tx_justificativa_5'] : null;
-
+                
                 $alternativaService = new \AlternativaQuestao\Service\AlternativaQuestaoService();
                 $alternativaService->setIdQuestao($id_questao);
                 $alternativaService->excluir();
                 for($i = 1; $i <= 5; $i++) {
-                    $arFormatado['id_alternativa_questao'] = isset($arAlternativas['id_alternativa_questao_'.$i]) && $arAlternativas['id_alternativa_questao_'.$i] ? $arAlternativas['id_alternativa_questao_'.$i] : "";
-                    $arFormatado['tx_alternativa_questao'] = isset($arAlternativas['tx_alternativa_questao_'.$i]) && $arAlternativas['tx_alternativa_questao_'.$i] ? $arAlternativas['tx_alternativa_questao_'.$i] : "";
-                    $arFormatado['cs_correta'] = isset($arAlternativas['cs_correta_'.$i]) && $arAlternativas['cs_correta_'.$i] ? $arAlternativas['cs_correta_'.$i] : "";
-                    $arFormatado['tx_justificativa'] = isset($arAlternativas['tx_justificativa_'.$i]) && $arAlternativas['tx_justificativa_'.$i] ? $arAlternativas['tx_justificativa_'.$i] : "";
+                    $arFormatado['id_alternativa_questao'] = isset($post['id_alternativa_questao_'.$i]) && $post['id_alternativa_questao_'.$i] ? $post['id_alternativa_questao_'.$i] : "";
+                    $arFormatado['tx_alternativa_questao'] = isset($post['tx_alternativa_questao_'.$i]) && $post['tx_alternativa_questao_'.$i] ? $post['tx_alternativa_questao_'.$i] : "";
+                    $arFormatado['cs_correta'] = isset($post['cs_correta_'.$i]) && $post['cs_correta_'.$i] ? $post['cs_correta_'.$i] : "";
+                    $arFormatado['tx_justificativa'] = isset($post['tx_justificativa_'.$i]) && $post['tx_justificativa_'.$i] ? $post['tx_justificativa_'.$i] : "";
 
                     $this->getRequest()->getPost()->set('id_alternativa_questao', $arFormatado['id_alternativa_questao']);
                     $this->getRequest()->getPost()->set('id_questao', $id_questao);
