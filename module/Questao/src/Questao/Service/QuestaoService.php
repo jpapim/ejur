@@ -114,27 +114,28 @@ class QuestaoService extends Entity{
             'id_questao',
             'tx_enunciado',
             'tx_caminho_imagem_questao'
-        ]);
+        ])
 
 
-//        ->join('fonte_questao', 'fonte_questao.id_fonte_questao = questao.id_fonte_questao', [
-//                'nm_fonte_questao'
-//            ])
-//            ->join('classificacao_semestre', 'classificacao_semestre.id_classificacao_semestre = questao.id_classificacao_semestre', [
-//                'nm_classificacao_semestre'
-//           ])
-//            ->join('nivel_dificuldade', 'nivel_dificuldade.id_nivel_dificuldade = questao.id_nivel_dificuldade', [
-//                'nm_nivel_dificuldade'
-//            ])
-//            ->join('temporizacao', 'temporizacao.id_temporizacao = questao.id_temporizacao', [
-//                'nm_temporizacao',
-//            ])
+            ->join('nivel_dificuldade', 'nivel_dificuldade.id_nivel_dificuldade = questao.id_nivel_dificuldade', [
+                'nm_nivel_dificuldade'
+            ])
+
+            ->join('assunto_materia', 'assunto_materia.id_assunto_materia = questao.id_assunto_materia', [
+                'nm_assunto_materia',
+            ])
+
+            ->join('materia', 'materia.id_materia = assunto_materia.id_materia', [
+                'nm_materia'
+           ])
+
+            ->join('temporizacao', 'temporizacao.id_temporizacao = questao.id_temporizacao', [
+                'nm_temporizacao',
+            ])
 //            ->join('tipo_questao', 'tipo_questao.id_tipo_questao = questao.id_tipo_questao', [
 //                'nm_tipo_questao',
 //           ])
-//         ->join('assunto_materia', 'assunto_materia.id_assunto_materia = questao.id_assunto_materia', [
-//                'nm_assunto_materia',
-//            ]);
+         ;
 
 
 
