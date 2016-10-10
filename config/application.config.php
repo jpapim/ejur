@@ -24,7 +24,7 @@ return array(
         'Fonte',
         'Classificacao',
         'CompactAsset', //Compacta o Javascript e CSS para retornar em apenas uma requisição (Responsável pela minificar o css e js: compila os arquivos em um só)
-        #'DOMPDFModule',
+        'DOMPDFModule',
         //Ronaldo 02/03/2016 - Responsável por melhorar o desempenho da aplicação
         'EdpSuperluminal', //http://dev.ejur.com.br/?EDPSUPERLUMINAL_CACHE - Execute isso na URL para compilar os arquivos e ficar mais rapido - em cada requisição, em vês de baixar em tempo de execução cada require do autoload, ele salva um unico arquivo, minificado, com todas as classes dentro
         'Gerador',
@@ -47,6 +47,7 @@ return array(
         'Usuario',
         'Questao',
         'AlternativaQuestao',
+        'Relatorio',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
