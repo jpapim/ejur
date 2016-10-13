@@ -47,6 +47,7 @@ return array(
         'Usuario',
         'Questao',
         'AlternativaQuestao',
+        'Prova',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

@@ -67,7 +67,7 @@ class Data
         $y = $data->get(Zend_Date::YEAR);
 
         // verifica se a data é válida!
-        $res = checkdate($m, $d, $y);
+        $res = checkdate($y, $m, $d);
         if (($res == 1) && ($y > 1900)) {
 
             return true;
