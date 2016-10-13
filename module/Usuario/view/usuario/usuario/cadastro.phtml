@@ -38,6 +38,7 @@
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
+           
             <div class="form-group">
                 <div class="col-md-7">
                     <?= $this->formRow($form->get('em_email')) ?>
@@ -49,7 +50,7 @@
                     <?= $this->formRow($form->get('em_email_confirm')) ?>
                     <div class="help-block with-errors"></div>
                 </div>                    
-            </div>
+            </div> 
             <div class="form-group">
                 <div class="col-md-7">
                     <?= $this->formRow($form->get('pw_senha')) ?>
@@ -62,23 +63,7 @@
                     <div class="help-block with-errors"></div>
                 </div>                    
             </div>
-            <div class="form-group">
-                <div class="col-md-7">
-                    <?= $this->formLabel($form->get('dt_nascimento')) ?>
-                    <div class="input-group" id="datetimepicker">
-                        <?= $this->formInput($form->get('dt_nascimento')) ?>
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>                            
-                    </div>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>                
-            <div class="form-group">
-                <div class="col-md-7">
-                    <?= $this->formRow($form->get('nr_telefone')) ?>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-
+            <!-- CAMPOS RETIRADOS: DT NASCIMENTO E NR TELEFONE - Nathália-->
             <div class="form-group">
                 <div class="col-md-10">
                     <button type="submit" class="btn btn-primary">Salvar</button>

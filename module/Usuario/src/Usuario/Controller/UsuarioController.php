@@ -82,7 +82,10 @@ class UsuarioController extends AbstractCrudController
             '6' => [
                 'filter' => "CAST( (TO_DAYS(NOW())- TO_DAYS(dt_nascimento)) / 365.25 AS SIGNED) = ?",
             ],
-            '7' => NULL,
+            '7' => [
+                'filter' => "email.em_email LIKE ?", // NATHÁLIA
+            ],
+            '8' => NULL,
         ];
 
 
@@ -202,7 +205,7 @@ class UsuarioController extends AbstractCrudController
             if ($resultEmail) {
 
                 $this->getRequest()->getPost()->set('nm_usuario', $this->getRequest()->getPost()->get('nm_usuario'));
-                $this->getRequest()->getPost()->set('dt_nascimento', $dateNascimento->format('Y-m-d'));
+                //$this->getRequest()->getPost()->set('dt_nascimento', $dateNascimento->format('Y-m-d')); //NATHÁLIA
                 #$this->getRequest()->getPost()->set('nu_cpf', \Estrutura\Helpers\Cpf::cpfFilter($this->getRequest()->getPost()->get('nu_cpf')));
                 $this->getRequest()->getPost()->set('id_sexo', $this->getRequest()->getPost()->get('id_sexo'));
                 $this->getRequest()->getPost()->set('id_tipo_usuario', $this->getRequest()->getPost()->get('id_tipo_usuario'));
