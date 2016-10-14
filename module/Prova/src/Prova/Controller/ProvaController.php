@@ -2,6 +2,7 @@
 
 namespace Prova\Controller;
 
+use DOMPDFModule\View\Model\PdfModel;
 use Estrutura\Controller\AbstractCrudController;
 use Zend\View\Model\JsonModel;
 use Estrutura\Helpers\Cript;
@@ -136,9 +137,6 @@ public function gravarAction() {
 
     }
 
-
-
-
     public function cadastroAction()
     {
         return parent::cadastro($this->service, $this->form);
@@ -147,5 +145,24 @@ public function gravarAction() {
     public function excluirAction()
     {
         return parent::excluir($this->service, $this->form);
+    }
+
+    public function gerarRelatorioPdfAction()
+    {
+        $catequizandoService = new \Prova\Service\ProvaService();
+        $arteste = $catequizandoService->fetchAll()->toArray();
+        $pdf = new PdfModel();
+        $pdf->setVariables(array(
+            'caminho_imagem'=>__DIR__,
+            'inicio_contador'=>3,
+            'teste' => $arteste,
+
+        ));
+        $pdf->setOption('filename', 'ordem_serviço_'); // Triggers PDF download, automatically appends ".pdf"
+        $pdf->setOption("paperSize", "a4"); //Defaults to 8x11
+        $pdf->setOption("basePath", __DIR__); //Defaults to 8x11
+        #$pdf->setOption("paperOrientation", "landscape"); //Defaults to portrait
+        return $pdf;
+
     }
 }

@@ -39,15 +39,15 @@ class QuestaoController extends AbstractQuestaoController
         $filter = $this->getFilterPage();
 
         $camposFilter = [
-//            '0' => [
-//                'filter' => "fonte_questao.nm_fonte_questao LIKE ?",
-//            ],
-//            '1' => [
-//                'filter' => "classificacao_semestre.nm_classificacao_semestre LIKE ?",
-//            ],
-//            '2' => [
-//                'filter' => "nivel_dificuldade.nm_nivel_dificuldade LIKE ?",
-//            ],
+            '0' => [
+                'filter' => "questao.tx_enunciado LIKE ?",
+            ],
+            '1' => [
+                'filter' => "nivel_dificuldade.nm_nivel_dificuldade LIKE ?",
+            ],
+            '2' => [
+                'filter' => "assunto_materia.nm_assunto_materia LIKE ?",
+            ],
 //            '3' => [
 //                'filter' => "temporizacao.nm_temporizacao LIKE ?",
 //            ],
@@ -57,13 +57,13 @@ class QuestaoController extends AbstractQuestaoController
 //            '5' => [
 //                'filter' => "assunto_materia.nm_assunto_materia LIKE ?",
 //            ],
-            '0' => [
-                'filter' => "questao.tx_enunciado LIKE ?",
+            '3' => [
+                'filter' => "assunto_materia.nm_assunto_materia LIKE ?",
             ],
 //            '7' => [
 //                'filter' => "questao.tx_caminho_imagem_questao LIKE ?",
 //            ],
-            '1' => NULL,
+            '4' => NULL,
         ];
         $paginator = $this->service->getQuestaoPaginator($filter, $camposFilter);
 

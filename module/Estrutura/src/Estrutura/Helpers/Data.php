@@ -67,7 +67,7 @@ class Data
         $y = $data->get(Zend_Date::YEAR);
 
         // verifica se a data é válida!
-        $res = checkdate($m, $d, $y);
+        $res = checkdate($y, $m, $d);
         if (($res == 1) && ($y > 1900)) {
 
             return true;
@@ -441,6 +441,40 @@ class Data
     public static function pegarAnoCorrente() {
 
         return date("Y");
+    }
+
+    public static function pegarMesCorrente()
+    {
+
+        return date("m");
+    }
+
+    public static function pegarUltimoDiaDoMesCorrente()
+    {
+        return date('t/m/Y');
+    }
+
+    public static function pegarUltimoDiaDoMes($dataMysql)
+    {
+        if (isset($dataMysql) && $dataMysql) {
+            return date('t/m/Y', strtotime($dataMysql));
+        } else {
+            return '';
+        }
+    }
+
+    public static function pegarPrimeiroDiaDoMes($dataMysql)
+    {
+        if (isset($dataMysql) && $dataMysql) {
+            return "01/" . date("m", strtotime($dataMysql)) . "/" . date("Y", strtotime($dataMysql));
+        } else {
+            return '';
+        }
+    }
+
+    public static function pegarPrimeiroDiaDoMesCorrente()
+    {
+        return "01/" . date("m") . "/" . date("Y");
     }
 
     /**
