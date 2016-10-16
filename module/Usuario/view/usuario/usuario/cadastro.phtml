@@ -14,12 +14,6 @@
             $form->prepare();
             echo $this->form()->openTag($form);
             ?>
-<!--            <div class="bs-callout bs-callout-info">-->
-<!--                <h3>Patrocinador: --><?//= $atributos['usuario']['nm_usuario']; ?><!-- - Código: --><?//= $atributos['id_usuario']; ?><!--</h3>-->
-<!--            </div>-->
-<!--            <br />-->
-
-<!--            <input type="hidden" name="id_usuario_pai" value="--><?//= $atributos['id_usuario'] ?><!--" />-->
             <div class="form-group">
                 <div class="col-md-7">
                     <?= $this->formRow($form->get('id_tipo_usuario')) ?>
@@ -63,7 +57,6 @@
                     <div class="help-block with-errors"></div>
                 </div>                    
             </div>
-            <!-- CAMPOS RETIRADOS: DT NASCIMENTO E NR TELEFONE - Nathália-->
             <div class="form-group">
                 <div class="col-md-10">
                     <button type="submit" class="btn btn-primary">Salvar</button>
