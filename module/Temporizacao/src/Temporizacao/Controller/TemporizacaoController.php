@@ -19,7 +19,8 @@ class TemporizacaoController extends AbstractCrudController
      */
     protected $form;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::init();
     }
 
@@ -37,29 +38,29 @@ class TemporizacaoController extends AbstractCrudController
     public function indexPaginationAction()
     {
         //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
-        
+
         $filter = $this->getFilterPage();
 
         $camposFilter = [
             '0' => [
                 'filter' => "temporizacao.nm_temporizacao LIKE ?",
-            ],            
-            
+            ],
+
             '2' => NULL,
-                
+
         ];
-        
-        
+
+
         $paginator = $this->service->getTemporizacaoPaginator($filter, $camposFilter);
 
         $paginator->setItemCountPerPage($paginator->getTotalItemCount());
 
         $countPerPage = $this->getCountPerPage(
-                current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
+            current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
         );
 
         $paginator->setItemCountPerPage($this->getCountPerPage(
-                        current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
+            current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
         ))->setCurrentPageNumber($this->getCurrentPage());
 
         $viewModel = new ViewModel([
@@ -75,75 +76,76 @@ class TemporizacaoController extends AbstractCrudController
 
         return $viewModel->setTerminal(TRUE);
     }
-    
-/*public function gravarAction() {
-        try {
-            $controller = $this->params('controller');
-            $request = $this->getRequest();
-            $service = $this->service;
-            $form = $this->form;
 
-            if (!$request->isPost()) {
-                throw new \Exception('Dados Inválidos');
-            }
+    /*public function gravarAction() {
+            try {
+                $controller = $this->params('controller');
+                $request = $this->getRequest();
+                $service = $this->service;
+                $form = $this->form;
 
-            $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
+                if (!$request->isPost()) {
+                    throw new \Exception('Dados Inválidos');
+                }
 
-            $files = $request->getFiles();
-            $upload = $this->uploadFile($files);
+                $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
 
-            $post = array_merge($post, $upload);
+                $files = $request->getFiles();
+                $upload = $this->uploadFile($files);
 
-            if (isset($post['id']) && $post['id']) {
-                $post['id'] = Cript::dec($post['id']);
-            }
+                $post = array_merge($post, $upload);
+
+                if (isset($post['id']) && $post['id']) {
+                    $post['id'] = Cript::dec($post['id']);
+                }
 
 
-            $cidade = new \Cidade\Service\CidadeService();
-            $arrCidade = $cidade->getIdCidadePorNomeToArray($post['id_cidade']);
-            $post['id_cidade'] = $arrCidade['id_cidade'];
+                $cidade = new \Cidade\Service\CidadeService();
+                $arrCidade = $cidade->getIdCidadePorNomeToArray($post['id_cidade']);
+                $post['id_cidade'] = $arrCidade['id_cidade'];
 
-            $form->setData($post);
+                $form->setData($post);
 
-            if (!$form->isValid()) {
-                $this->addValidateMessages($form);
+                if (!$form->isValid()) {
+                    $this->addValidateMessages($form);
+                    $this->setPost($post);
+                    $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
+                    return false;
+                }
+
+                $service->exchangeArray($form->getData());
+                $this->addSuccessMessage('Registro Alterado com sucesso');
+                $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
+                return $service->salvar();
+
+            } catch (\Exception $e) {
+
                 $this->setPost($post);
+                $this->addErrorMessage($e->getMessage());
                 $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
                 return false;
             }
 
-            $service->exchangeArray($form->getData());
-            $this->addSuccessMessage('Registro Alterado com sucesso');
-            $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
-            return $service->salvar();
-
-        } catch (\Exception $e) {
-
-            $this->setPost($post);
-            $this->addErrorMessage($e->getMessage());
-            $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
-            return false;
         }
 
-    }
 
 
 
+        public function cadastroAction()
+        {
+            return parent::cadastro($this->service, $this->form);
+        }
 
-    public function cadastroAction()
+        public function excluirAction()
+        {
+            return parent::excluir($this->service, $this->form);
+        }
+    }*/
+    public function gravarAction()
     {
-        return parent::cadastro($this->service, $this->form);
-    }
-
-    public function excluirAction()
-    {
-        return parent::excluir($this->service, $this->form);
-    }
-}*/
-public function gravarAction(){
         #Alysson
         $controller = $this->params('controller');
-        $this->addSuccessMessage('Registro Alterado com sucesso');
+        $this->addSuccessMessage('Registro salvo com sucesso');
         $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
         return parent::gravar($this->service, $this->form);
     }
@@ -157,14 +159,14 @@ public function gravarAction(){
     {
         return parent::excluir($this->service, $this->form);
     }
-    
+
     public function obterTemporizacaoAction()
     {
-        
+
         $params = $this->getRequest()->getPost()->toArray();
-        
+
         $form = new \Temporizacao\Form\TemporizacaoForm(['params' => $params]);
-        
+
         $dadosView = [
             'form' => $form,
             'controller' => $this->params('controller'),
@@ -177,7 +179,7 @@ public function gravarAction(){
     /**
      * Return AutoComplete stuff
      */
-   
+
 
     /**
      * @return ViewModel

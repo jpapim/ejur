@@ -19,7 +19,9 @@
                     <table class="table table-bordered dataTable">
                         <thead>
                             <tr>
-                                
+                                <th>Id</th>
+                                <th>Prova</th>
+                                <th>Questao</th>
                                 <th>Ações</th>
                             </tr>
                         </thead>
@@ -27,7 +29,9 @@
 
                         <?php foreach($lista as $item){ ?>
                             <tr>
-                                                                
+                                <td><?=$item->getId()?></td>
+                                <td><?=$item->getIdProva()?></td>
+                                <td><?=$item->getIdQuestao()?></td>
                                 <td style="width: 150px;">
                                     <?=\Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao',array('controller'=>$controller,'action'=>'cadastro','id'=>Estrutura\Helpers\Cript::enc($item->getId()))))?>
                                     <?=\Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao',array('controller'=>$controller,'action'=>'excluir','id'=>Estrutura\Helpers\Cript::enc($item->getId()))))?>

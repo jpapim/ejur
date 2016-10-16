@@ -62,7 +62,7 @@
                         ?>                            
                     </tr>
                     <?php
-                    foreach ($paginator as $key => $prova) {
+                    foreach ($paginator as $key => $prova) { #x($prova['id_prova']);
                         ?>                        
                         <tr>                            
                             <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($prova['nm_prova']) ?></td>
@@ -71,7 +71,21 @@
                             <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($prova['ds_prova'])?></td>
 
                             <td class="text-center">
-                                <span class="btn-group" style="width: 100px;">
+                                <span class="btn-group" style="width: 200px;">
+                                    <?= \Estrutura\Service\HtmlHelper::botaoAcao(
+                                        $this->url('navegacao', array('controller' => $controller, 'action' => 'imprimir-prova-pdf', 'id' => Estrutura\Helpers\Cript::enc($prova['id_prova']))),
+                                        'Gerar PDF',
+                                        'gerar_pdf_da_prova',
+                                        'glyphicon glyphicon-print',
+                                        'btn-alterar btn-xs btn-alterar-customizado'
+                                    ) ?>
+                                    <?= \Estrutura\Service\HtmlHelper::botaoAcao(
+                                        $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro-questao', 'id' => Estrutura\Helpers\Cript::enc($prova['id_prova']))),
+                                        'Visualizar Prova',
+                                        'visualizar_prova',
+                                        'glyphicon glyphicon-eye-open',
+                                        'btn-alterar btn-xs btn-alterar-customizado'
+                                    ) ?>
                                     <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($prova['id_prova'])))) ?>
                                     <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($prova['id_prova'])))) ?>
                                 </span>

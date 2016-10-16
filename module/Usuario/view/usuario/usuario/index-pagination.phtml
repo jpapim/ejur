@@ -6,23 +6,19 @@
             <thead>
                 <tr>
                     <th class="text-center">Usuário</th>
-                    <th class="text-center">Data de Nascimento</th>
-                    <th class="text-center">RG</th>
-                    <th class="text-center">CPF</th>
-                    <th class="text-center">Profissão</th>
-                    <th class="text-center">Nacionalidade</th>
+                    <th class="text-center">Email</th><!-- correção - Nathália, troquei data de nascimento por email -->
+                    <th class="text-center">Perfil</th><!-- correção - Nathália,troquei profissão por perfil -->
                     <th class="text-center">Ações</th>
+                    <!--retirei os campos RG,CPF E NACIONALIDADE -->
                 </tr>
             </thead>
             <tfoot>
                 <tr>
                     <th class="text-center">Usuário</th>
-                    <th class="text-center">Data de Nascimento</th>
-                    <th class="text-center">RG</th>
-                    <th class="text-center">CPF</th>
-                    <th class="text-center">Profissão</th>
-                    <th class="text-center">Nacionalidade</th>
+                    <th class="text-center">Email</th><!-- correção - Nathália, troquei data de nascimento por email -->
+                    <th class="text-center">Perfil</th><!-- correção - Natháli,troquei profissão por perfil -->
                     <th class="text-center">Ações</th>
+                    <!--retirei os campos RG,CPF E NACIONALIDADE -->
                 </tr>
                 <tr>
                     <th colspan="6" class="ts-pager form-horizontal">
@@ -69,20 +65,22 @@
                     ?>
                         <tr>
                             <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($usuario['nm_usuario']) ?></td>
-                            <td class="text-center"><?= $usuario['dt_nascimento'] ?></td>
-                            <td class="text-center"><?= $usuario['nu_rg'] ?></td>
-                            <td class="text-center"><?= $usuario['nu_cpf'] ?></td>
-                            <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($usuario['nm_profissao']) ?></td>
-                            <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($usuario['nm_nacionalidade']) ?></td>
-
+                            <td class="text-center"><?= $usuario['em_email'] ?></td> <!-- Reaproveitei o campo nr_rg para EMAIL - Nathália -->
+                            <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($usuario['nm_profissao']) ?></td> <!-- Reaproveitei o campo profissão para PERFIL - Nathália-->
+                            <!-- Retirei os campos dt_ nascimento, nu_cpf e nm_nacionalidade - Nathália-->
 
                             <td class="text-center">
+                                <?php
+                                if($usuario['id_tipo_usuario'] != 1) {
+                                    ?>
+                                
                                 <span class="btn-group" style="width: 120px;">
                                     <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($usuario['id_usuario'])))) 
                                     ?>
                                     <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($usuario['id_usuario'])))) 
                                     ?>
                                 </span>
+                                <?php } ?>
                             </td>
                         </tr>                    
                     <?php

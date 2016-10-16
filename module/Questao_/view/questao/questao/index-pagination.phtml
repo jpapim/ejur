@@ -5,13 +5,27 @@
         <table class="table table-striped" id="tablesorterAtletas">
             <thead>
             <tr>
-                <th class="text-center">Matéria</th> <!--Correção - Nathália-->
+<!--                <th class="text-center">Fonte</th>-->
+<!--                <th class="text-center">Semestre</th>-->
+                    <th class="text-center">Enunciado</th>
+<!--                <th class="text-center">Tempo</th>-->
+<!--                <th class="text-center">Tipo</th>-->
+                    <th class="text-center">Nível de Dificuldade</th>
+                    <th class="text-center">Materia</th>
+                <th class="text-center">Assunto</th>
                 <th class="text-center">Ações</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
-                <th class="text-center">Matéria</th><!-- Correção - Nathália -->
+<!--                <th class="text-center">Fonte</th>-->
+<!--                <th class="text-center">Semestre</th>-->
+                <th class="text-center">Enunciado</th>
+<!--                <th class="text-center">Tempo</th>-->
+<!--                <th class="text-center">Tipo</th>-->
+                <th class="text-center">Nível de Dificuldade</th>
+                <th class="text-center">Enunciado</th>
+                <th class="text-center">Assunto</th>
                 <th class="text-center">Ações</th>
             </tr>
             <tr>
@@ -19,9 +33,9 @@
                     <?php
                     echo $this->paginationControl(
                         $paginator, 'Sliding', 'partials/pagination.phtml', [
-                        'urlPagination' => '/materia-materia/index-pagination',
+                        'urlPagination' => '/cadastro-questao-cadastro-questao/index-pagination',
                         'countPerPage' => $countPerPage,
-                        'divData' => '#materia-pagination',
+                        'divData' => '#cadastro-questao-pagination',
                     ]);
 
                     ?>
@@ -55,16 +69,32 @@
                     ?>
                 </tr>
                 <?php
-                foreach ($paginator as $key => $materia) {
+                foreach ($paginator as $key => $questao) {
                     ?>
                     <tr>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($materia['nm_materia']) ?></td>
+<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_fonte_questao']) ?><!--</td>-->
+<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_classificacao_semestre']) ?><!--</td>-->
+<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_temporizacao']) ?><!--</td>-->
+<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_tipo_questao']) ?><!--</td>-->
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['tx_enunciado']) ?></td>
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_nivel_dificuldade']) ?></td>
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_materia']) ?></td>
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_assunto_materia']) ?></td>
+<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['tx_caminho_imagem_questao']) ?><!--</td>-->
 
 
                         <td class="text-center">
-                                <span class="btn-group" style="width: 100px;">
-                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($materia['id_materia'])))) ?>
-                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($materia['id_materia'])))) ?>
+                                <span class="btn-group" style="width: 250px;">
+                                    <?= \Estrutura\Service\HtmlHelper::botaoAcao(
+                                        $this->url('navegacao', array('controller'=>$controller,'action'=>'cadastro-alternativas','id'=>Estrutura\Helpers\Cript::enc($questao['id_questao']))),
+                                        'Editar Alternativas da Questao',
+                                        'editar_alternativa_questao',
+                                        'glyphicon glyphicon-pencil',
+                                        'btn-alterar btn-xs btn-alterar-customizado'
+                                    ) ?>
+
+                                <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao'])))) ?>
+                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao'])))) ?>
                                 </span>
                         </td>
                     </tr>
@@ -79,7 +109,7 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="<?= $this->url('navegacao', ['controller' => 'principal-principal']) ?>" class="btn btn-primary" title="Retorna para a Página Principal">Home</a>
-                <a class="btn btn-default" href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro')) ?>" title="Adiciona uma nova matéria">Nova Matéria</a>
+                <a class="btn btn-default" href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro')) ?>" title="Adiciona um novo atleta">Novo tipo de questão</a>
             </div>
         </div>
     </div>

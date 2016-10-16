@@ -49,6 +49,7 @@ return array(
         'AlternativaQuestao',
         'Relatorio',
         'Prova',
+        'QuestoesProva',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
