@@ -26,7 +26,9 @@ class SituacaoController extends AbstractCrudController
     }
 
     public function gravarAction(){
-        return parent::gravar($this->service, $this->form);
+        $controller = $this->params('controller');
+        $this->addSuccessMessage('Registro salvo com sucesso');
+        $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
     }
 
     public function cadastroAction()

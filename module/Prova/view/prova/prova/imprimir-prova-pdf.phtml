@@ -1,0 +1,39 @@
+<?php
+$nrQuestoes = count($arQuestoesProva);
+if ($nrQuestoes == 0) { ?>
+    <div style="text-align: left" class="row form-group">
+        <div class="col-md-12">
+            <?php
+            echo "<h2> Nao existem questoes adicionadas a esta avaliação</h2>";
+            ?>
+        </div>
+    </div>
+    <?php
+} else {
+    echo "<h2> Questoes da Prova </h2>";
+    ?>
+    <div style="text-align: left" class="row form-group">
+        <div class="col-md-12">
+            <?php
+            $questaoService = new \Questao\Service\QuestaoService();
+            $alternativaquestaoService = new \AlternativaQuestao\Service\AlternativaQuestaoService();
+            $i = 1;
+            foreach ($arQuestoesProva as $key => $item) {
+                $arQuestao = $questaoService->buscar($item['id_questao'])->toArray();
+                echo "<h3>" . $i++ . " - " . $arQuestao['nm_titulo_questao'] . "</h3>";
+                echo "<h4>" . $arQuestao['tx_enunciado'] . "</h4>";
+                $arAlternativaQuestao = $alternativaquestaoService->fetchAllById(['id_questao' => $item['id_questao']]);
+                $j = 'a';
+                foreach ($arAlternativaQuestao as $key => $alternativa) {
+                    echo "<h4>" . $j++ . " - " . $alternativa['tx_alternativa_questao'] . "</h4>";
+                }
+                echo "<br/>";
+            } ?>
+        </div>
+    </div>
+    <?php
+}
+?>
+
+
+

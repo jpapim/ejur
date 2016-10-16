@@ -56,7 +56,7 @@ class ProvaService extends Entity {
     }
 
     /**
-     * Localizar itens por pagina��o
+     * Localizar itens por paginaçao
      *
      * @param type $pagina
      * @param type $itensPagina

@@ -192,6 +192,22 @@ class AbstractEstruturaService {
         return $arrayResults;
     }
 
+    /**
+     * @author Alysson Vicuña de Oliveira
+     * @param $arrayFiltro array('coluna_tabela' => 'valor')
+     * @return array Registros retortnados do Banco de Dados
+     */
+    public function fetchAllByArrayAtributo($arrayFiltro)
+    {
+        $arrayResults = $this->select($arrayFiltro)->toArray();
+        return $arrayResults;
+    }
+
+    /**
+     * @author Alysson Vicuña de Oliveira
+     * @param $arrayFiltro array('coluna_tabela' => 'valor')
+     * @return array Registros retortnados do Banco de Dados
+     */
     public function select($where = null) {
         return $this->getTable()->select($where);
     }

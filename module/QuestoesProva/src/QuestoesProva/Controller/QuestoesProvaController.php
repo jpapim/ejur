@@ -26,21 +26,15 @@ class QuestoesProvaController extends AbstractCrudController
     }
 
     public function gravarAction(){
+        $controller = $this->params('controller');
+        $this->addSuccessMessage('Registro salvo com sucesso');
+        $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
         return parent::gravar($this->service, $this->form);
     }
 
     public function cadastroAction()
     {
-        
-        if ($result = parent::gravar($this->service, $this->form);) {
-            
-            $this->addSuccessMessage('Registro salvo com sucesso!');
-            $this->redirect()->toRoute('navegacao', array(
-                'controller' => $controller, 
-                'action' => 'index')
-            );
-        }
-        return $result;
+        return parent::cadastro($this->service, $this->form);
     }
 
     public function excluirAction()

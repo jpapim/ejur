@@ -42,15 +42,6 @@
                 <li><a href="/tipo_questao-tipoquestao">Cad. Tipo Questão</a></li>
             </ul>
         </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                Relatorios
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li><a href="/prova-prova/gerar-relatorio-pdf">Teste de PDF</a></li>
-            </ul>
-        </li>
         <?php
         #Alysson - Exibe este item de menu apenas para administradores
         $usuario_logado = $this->Auth(); #Pega o Usuario Logado
@@ -66,6 +57,7 @@
                         Quantitativo Questões por Assunto
                     </a>
                 </li>
+                <li><a href="/prova-prova/gerar-relatorio-pdf">Teste de PDF</a></li>
             </ul>
         </li>
         <?php

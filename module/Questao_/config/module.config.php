@@ -3,15 +3,26 @@
 return array(
     'router' => array(
         'routes' => array(
-            'questoes_prova-home' => array(
+            'questao-home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/questoes_prova',
+                    'route'    => '/questao',
                     'defaults' => array(
-                        'controller' => 'questoes_prova',
+                        'controller' => 'questao',
                         'action'     => 'index',
                     ),
                 ),
+            ),
+            'rota_questao' => array(
+                'type'    => 'Segment',
+                'options' => array(
+                    'route'    => '/questao-questao/:action[/:id][/:id_alternativa]',
+                    'defaults' => array(
+                        'controller' => 'questao-questao',
+                        'action'     => 'index',
+                    ),
+                ),
+
             ),
         ),
     ),
@@ -36,8 +47,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'questoes_prova' => 'QuestoesProva\Controller\QuestoesProvaController',
-            'questoes_prova-questoesprova' => 'QuestoesProva\Controller\QuestoesProvaController',
+            'questao' => 'Questao\Controller\QuestaoController',
+            'questao-questao' => 'Questao\Controller\QuestaoController',
 
         ),
     ),

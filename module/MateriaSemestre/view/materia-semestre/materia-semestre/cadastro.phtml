@@ -6,7 +6,7 @@
         <div class="block-flat">
             <div class="content">
                 <?php
-                $form->setAttribute('action', $this->url('navegacao', array('controller'=>$controller,'action' => 'gravar')));
+                $form->setAttribute('action', $this->url('navegacao', array('controller' => $controller, 'action' => 'gravar')));
                 $form->setAttribute('class', 'form-horizontal');
                 $form->setAttribute('data-role', 'form');
                 $form->prepare();
@@ -18,31 +18,31 @@
 
             <div class="form-group">
                 <div class="col-md-12">
-                    <?=$this->formRow($form->get('id_classificacao_semestre'))?>
+                    <?= $this->formRow($form->get('id_classificacao_semestre')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-12">
-                    <?=$this->formRow($form->get('id_materia'))?>
+                    <?= $this->formRow($form->get('id_materia')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-10">
-                    <a id="relacionar_disciplina" class="btn btn-primary" href="#" title="Adicionar data do encontro">Relacionar Disciplina</a>
+                    <a id="relacionar_disciplina" class="btn btn-primary" href="#" title="Adicionar data do encontro">Relacionar
+                        Disciplina</a>
                     <a href="<?= $this->url('navegacao', ['controller' => $controller]) ?>" class="btn btn-default">Voltar</a>
                 </div>
             </div>
-
-            <div class="row" id="materiasemestre-pagination"></div>
-
-            <?= $this->form()->closeTag(); ?>
         </div>
     </div>
+    <br>
 
+    <div class="row" id="materiasemestre-pagination"></div>
+    <?= $this->form()->closeTag(); ?>
 </div>
 
 <script type="text/javascript"
