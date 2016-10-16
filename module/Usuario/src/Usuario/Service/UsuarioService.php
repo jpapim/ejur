@@ -25,23 +25,25 @@ class UsuarioService extends Entity {
         //die($id);
         $select = $sql->select('usuario')
                 //->join(
-                 //       'contrato', 'contrato.id_usuario = usuario.id_usuario'
+                //       'contrato', 'contrato.id_usuario = usuario.id_usuario'
                 //)
                 //->join(
                 //        'conta_bancaria', 'conta_bancaria.id_usuario = usuario.id_usuario', \Zend\Db\Sql\Select::SQL_STAR, \Zend\Db\Sql\Select::JOIN_LEFT
-               // )
+                // )
                 ->join(
                         'estado_civil', 'estado_civil.id_estado_civil = usuario.id_estado_civil', \Zend\Db\Sql\Select::SQL_STAR, \Zend\Db\Sql\Select::JOIN_LEFT
                 )
                 ->join(
                         'situacao_usuario', 'situacao_usuario.id_situacao_usuario = usuario.id_situacao_usuario'
                 )
+                
+
                 ->join(
-                        'email', 'email.id_email = usuario.id_email'
+                   'email', 'email.id_email = usuario.id_email'
                 )
                 ->join(
-                        'telefone', 'telefone.id_telefone = usuario.id_telefone'
-                )                
+                   'telefone', 'telefone.id_telefone = usuario.id_telefone'
+                 )                
                 ->join(
                         'endereco', 'endereco.id_endereco = usuario.id_endereco', \Zend\Db\Sql\Select::SQL_STAR, \Zend\Db\Sql\Select::JOIN_LEFT
                 )
@@ -50,7 +52,7 @@ class UsuarioService extends Entity {
                 )
                 ->join(
                         'estado', 'estado.id_estado = cidade.id_estado', \Zend\Db\Sql\Select::SQL_STAR, \Zend\Db\Sql\Select::JOIN_LEFT
-                )                
+                )
                 // ->join(
                 //        'banco', 'banco.id_banco = conta_bancaria.id_banco', \Zend\Db\Sql\Select::SQL_STAR, \Zend\Db\Sql\Select::JOIN_LEFT
                 //)
@@ -59,7 +61,7 @@ class UsuarioService extends Entity {
                 //)
                 ->where([
             'usuario.id_usuario = ?' => $id,
-            ]);
+        ]);
         //print_r($sql->prepareStatementForSqlObject($select)->execute());exit;
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -77,7 +79,7 @@ class UsuarioService extends Entity {
 
         /* @var $contratoAsContratoService \ContratoAsContrato\Service\ContratoAsContratoService */
         $contratoAsContratoService = $this->getServiceLocator()->get('\ContratoAsContrato\Service\ContratoAsContratoService');
-            
+
         foreach ($resultSetUsuarios as $usuarioEntity) {
 
             /* @var $contratoService \Contrato\Service\ContratoService */
@@ -87,7 +89,7 @@ class UsuarioService extends Entity {
 
             $contratoAsContratoService->setIdContrato($contrato->getId());
             $contratoAsContratoService->setIdNivel(1);
-            
+
 
             if ($contratoAsContratoService->filtrarObjeto()->count() < $configList['qtd_por_nivel']) {
 
@@ -96,6 +98,7 @@ class UsuarioService extends Entity {
         }
         return NULL;
     }
+
     public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_usuario ASC', $like = null, $itensPaginacao = 5) {
         //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
         // preparar um select para tabela contato com uma ordem
@@ -150,15 +153,17 @@ class UsuarioService extends Entity {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
         $select = $sql->select('usuario')->columns([
-                    'id_usuario',
-                    'nm_usuario',
-                    'dt_nascimento',
-                    'nu_rg',
-                    'nu_cpf',
-                    'nm_profissao',
-                    'nm_nacionalidade',
-                
-        ]);
+            'id_usuario',
+            'nm_usuario',
+            'dt_nascimento',
+            'nu_rg',
+            'nu_cpf',
+            'nm_profissao',
+            'nm_nacionalidade',
+            'id_tipo_usuario',
+     
+        ])
+        ->join('email', 'email.id_email = usuario.id_email', ['em_email']);//adicionado - Nathália
 
         $where = [
         ];
@@ -184,5 +189,5 @@ class UsuarioService extends Entity {
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 
+   
 }
-
