@@ -249,8 +249,6 @@ class ProvaController extends AbstractCrudController
 
             $controller = $this->params('controller');
             $request = $this->getRequest();
-            $service = $this->service; #remover
-            $form = $this->form; #remover
 
             if (!$request->isPost()) {
                 throw new \Exception('Dados Inválidos');
@@ -268,13 +266,17 @@ class ProvaController extends AbstractCrudController
             $arrFiltro['bo_utilizavel'] = 'S';
             if (isset($post['id_tipo_questao']) && $post['id_tipo_questao']) {
                 $arrFiltro['id_tipo_questao'] = $post['id_tipo_questao'];
-            } elseif (isset($post['id_fonte_questao']) && $post['id_fonte_questao']) {
+            }
+            if (isset($post['id_fonte_questao']) && $post['id_fonte_questao']) {
                 $arrFiltro['id_fonte_questao'] = $post['id_fonte_questao'];
-            } elseif (isset($post['id_assunto_materia']) && $post['id_assunto_materia']) {
+            }
+            if (isset($post['id_assunto_materia']) && $post['id_assunto_materia']) {
                 $arrFiltro['id_assunto_materia'] = $post['id_assunto_materia'];
-            } elseif (isset($post['id_nivel_dificuldade']) && $post['id_nivel_dificuldade']) {
+            }
+            if (isset($post['id_nivel_dificuldade']) && $post['id_nivel_dificuldade']) {
                 $arrFiltro['id_nivel_dificuldade'] = $post['id_nivel_dificuldade'];
-            } elseif (isset($post['id_classificacao_semestre']) && $post['id_classificacao_semestre']) {
+            }
+            if (isset($post['id_classificacao_semestre']) && $post['id_classificacao_semestre']) {
                 $arrFiltro['id_classificacao_semestre'] = $post['id_classificacao_semestre'];
             }
 
@@ -282,11 +284,15 @@ class ProvaController extends AbstractCrudController
             $questaoService = new \Questao\Service\QuestaoService();
             $resultado = $questaoService->fetchAllByArrayAtributo($arrFiltro);
 
+            //TODO: Alysson - Implementar um código que não permita inserir questões repetidas ao exame.
             #Chama o modulo que efetuara a gravacao na tabela Questoes_prova
             $questoes_provaService = new \QuestoesProva\Service\QuestoesProvaService();
+            #$resultQuestoesProva = $questoes_provaService->fetchAllByArrayAtributo($arrFiltro);
+            #xd($resultQuestoesProva);
             foreach($resultado as $key => $item) {
                 $dados['id_prova'] = $id_prova;
                 $dados['id_questao'] = $item['id_questao'];
+
                 #Grava na Tabela Questoes_Prova as questoes retornadas no filtro
                 $resultGravacao = $questoes_provaService->getTable()->salvar($dados, null);
                 if(!$resultGravacao){

@@ -112,6 +112,7 @@ class QuestaoService extends Entity{
 
         $select = $sql->select('questao')->columns([
             'id_questao',
+            'nm_titulo_questao',
             'tx_enunciado',
             'tx_caminho_imagem_questao'
         ])

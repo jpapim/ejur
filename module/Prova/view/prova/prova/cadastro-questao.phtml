@@ -37,11 +37,11 @@
             <div class="well col-md-12">
                 <div class="col-md-6">
                     <a href="<?= $this->url('navegacao', ['controller' => 'questao-questao', 'action' => 'cadastro-via-prova', 'id' => Estrutura\Helpers\Cript::enc($dadosProva->getId()) ]) ?>"
-                       class="btn btn-primary">Adicionar Questao Manualmente</a>
+                       class="btn btn-primary">Adicionar Questão Manualmente</a>
                 </div>
                 <div class="col-md-6">
                     <a href="<?= $this->url('navegacao', ['controller' => $controller, 'action' => 'adicionar-questao-aleatoria', 'id' => Estrutura\Helpers\Cript::enc($dadosProva->getId())]) ?>"
-                       class="btn btn-primary">Adicionar Questao Aleatoria</a>
+                       class="btn btn-primary">Adicionar Questão Aleatória</a>
                 </div>
             </div>
         </div>
@@ -52,10 +52,10 @@
                 <?php
                 $nrQuestoes = count($arQuestoesProva);
                 if ($nrQuestoes == 0) { ?>
-                    <div style="text-align: left" class="row form-group">
+                    <div style="text-align: center" class="row form-group">
                         <div class="col-md-12">
                             <?php
-                            echo "<h2> Nao existem questoes adicionadas a esta avaliação</h2>";
+                            echo "<h2> Não existem questões adicionadas a esta avaliação</h2>";
                             ?>
                         </div>
                     </div>
@@ -71,14 +71,16 @@
                             $i = 1;
                             foreach ($arQuestoesProva as $key => $item) {
                                 $arQuestao = $questaoService->buscar($item['id_questao'])->toArray();
-                                echo "<h3>" . $i++ . " - " . $arQuestao['nm_titulo_questao'] . "</h3>";
-                                echo "<h4>" . $arQuestao['tx_enunciado'] . "</h4>";
-                                $arAlternativaQuestao = $alternativaquestaoService->fetchAllById(['id_questao' => $item['id_questao']]);
-                                $j = 'a';
-                                foreach ($arAlternativaQuestao as $key => $alternativa) {
-                                    echo "<h4>" . $j++ . " - " . $alternativa['tx_alternativa_questao'] . "</h4>";
-                                }
-                                echo "<br/>";
+                                echo "<div id='quest_{$i}'>";
+                                    echo "<h3>" . $i++ . " - " . $arQuestao['nm_titulo_questao'] . "</h3>";
+                                    echo "<h4>" . $arQuestao['tx_enunciado'] . "</h4>";
+                                    $arAlternativaQuestao = $alternativaquestaoService->fetchAllById(['id_questao' => $item['id_questao']]);
+                                    $j = 'a';
+                                    foreach ($arAlternativaQuestao as $key => $alternativa) {
+                                        echo "<h4>(     ) " . $j++ . " - " . $alternativa['tx_alternativa_questao'] . "</h4>";
+                                    }
+                                    echo "<br/>";
+                                echo "</div>";
                             } ?>
                         </div>
                     </div>

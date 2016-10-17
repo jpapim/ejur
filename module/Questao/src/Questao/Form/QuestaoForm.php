@@ -24,8 +24,8 @@ class QuestaoForm extends AbstractForm{
         $objForm->textareaHtml("tx_enunciado")->required(false)->label("Enunciado da Questão");
         $objForm->text("tx_caminho_imagem_questao")->required(false)->label("Caminho da Imagem");
 
-        #$objForm->combo("id_usuario_cadastro", '\Usuario\Service\UsuarioService', 'id', 'nm_usuario')->required(false)->label("Usuário");
-        #$objForm->combo("id_usuario_alteracao", '\Usuario\Service\UsuarioService', 'id', 'nm_usuario')->required(false)->label("Usuário");
+        $objForm->hidden("id_usuario_cadastro")->required(false)->label("id_usuario_cadastro");
+        $objForm->hidden("id_usuario_alteracao")->required(false)->label("id_usuario_alteracao");
 
         $this->formObject = $objForm;
     }
