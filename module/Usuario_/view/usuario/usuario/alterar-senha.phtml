@@ -12,8 +12,6 @@
             $form->setAttribute('data-toggle', 'validator');
             $form->prepare();
             echo $this->form()->openTag($form);
-            $form->get('id')->setValue(Estrutura\Helpers\Cript::enc($id_usuario));
-            echo $this->formHidden($form->get('id'));
             ?>
             <div class="form-group">
                 <div class="col-md-12">
@@ -53,17 +51,13 @@
             ?>
         </div>
     </div>
-
-    <?php
-    //Invoca um Template
-    /*
-    echo $this->partial('partials/menu-left', [
+    <?=
+    $this->partial('partials/menu-left', [
         'auth' => $auth,
-        'contratoEntity' => array(),
-        'configList' => array(),
-        'meusGanhosList' => array(),
+        'contratoEntity' => $contratoEntity,
+        'configList' => $configList,
+        'meusGanhosList' => $meusGanhosList,
     ]);
-    */
     ?>
 </div>
 <script type="text/javascript" src="/assets/compact-js/validator.min.js,jquery.mask.min.js,jquery.complexify.js,usuario|usuario|alterar-senha.js"></script>

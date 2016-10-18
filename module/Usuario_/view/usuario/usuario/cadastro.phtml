@@ -16,7 +16,7 @@
             ?>
             <div class="form-group">
                 <div class="col-md-7">
-                    <?= $this->formRow($form->get('id_perfil')) ?>
+                    <?= $this->formRow($form->get('id_tipo_usuario')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -32,18 +32,7 @@
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-md-7">
-                    <?= $this->formRow($form->get('nm_funcao')) ?>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-7">
-                    <?= $this->formRow($form->get('nr_telefone')) ?>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
+           
             <div class="form-group">
                 <div class="col-md-7">
                     <?= $this->formRow($form->get('em_email')) ?>
@@ -55,7 +44,7 @@
                     <?= $this->formRow($form->get('em_email_confirm')) ?>
                     <div class="help-block with-errors"></div>
                 </div>                    
-            </div>
+            </div> 
             <div class="form-group">
                 <div class="col-md-7">
                     <?= $this->formRow($form->get('pw_senha')) ?>
@@ -68,20 +57,10 @@
                     <div class="help-block with-errors"></div>
                 </div>                    
             </div>
-
-
-<!--            <div class="form-group">-->
-<!--                <div class="col-md-7">-->
-<!--                    --><?//= $this->formRow($form->get('id_situacao_usuario')) ?>
-<!--                    <div class="help-block with-errors"></div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-
             <div class="form-group">
                 <div class="col-md-10">
                     <button type="submit" class="btn btn-primary">Salvar</button>
-                    <a href="<?= $this->url('navegacao', ['controller' => 'auth', 'action' => 'login']) ?>" class="btn btn-default">Voltar</a>                    
+                    <a href="<?= $this->url('navegacao', ['controller' => 'usuario-usuario', 'action' => 'index']) ?>" class="btn btn-default">Voltar</a>
                 </div>
             </div>
             <?= $this->form()->closeTag(); ?>
