@@ -21,7 +21,7 @@ class ProvaService extends Entity {
             ->where([
                 'prova.id_prova = ?' => $id,
             ]);
-        #print_r($sql->prepareStatementForSqlObject($select)->execute());exit;
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
@@ -52,6 +52,7 @@ class ProvaService extends Entity {
                 'prova.nm_prova = ?' => $filter->filter($nm_prova),
             ]);
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
@@ -155,6 +156,7 @@ class ProvaService extends Entity {
 
         $select->where($where)->order(['nm_prova DESC']);
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 

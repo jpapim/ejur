@@ -284,22 +284,34 @@ class ProvaController extends AbstractCrudController
             $questaoService = new \Questao\Service\QuestaoService();
             $resultado = $questaoService->fetchAllByArrayAtributo($arrFiltro);
 
-            //TODO: Alysson - Implementar um código que não permita inserir questões repetidas ao exame.
+            $arIdQuestoesSelecionadas = array();
+            foreach($resultado as $item){
+                $arIdQuestoesSelecionadas[] = $item['id_questao'];
+            }
+
             #Chama o modulo que efetuara a gravacao na tabela Questoes_prova
             $questoes_provaService = new \QuestoesProva\Service\QuestoesProvaService();
-            #$resultQuestoesProva = $questoes_provaService->fetchAllByArrayAtributo($arrFiltro);
-            #xd($resultQuestoesProva);
-            foreach($resultado as $key => $item) {
-                $dados['id_prova'] = $id_prova;
-                $dados['id_questao'] = $item['id_questao'];
+            $resultQuestoesProva = $questoes_provaService->retornaQuestoesExistentes($arIdQuestoesSelecionadas, $id_prova );
+            $arIdQuestoesExistentes = array();
+            foreach($resultQuestoesProva as $objeto){
+                $arIdQuestoesExistentes[] = $objeto['id_questao'];
+            }
 
-                #Grava na Tabela Questoes_Prova as questoes retornadas no filtro
-                $resultGravacao = $questoes_provaService->getTable()->salvar($dados, null);
-                if(!$resultGravacao){
-                    $this->setPost($post);
-                    $this->addSuccessMessage('Houve problema ao relacionar a questao!');
-                    $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'adicionar-questao-aleatoria','id' => Cript::enc($id_prova)));
-                    return false;
+            #Este Código não permita inserir questões repetidas ao exame.
+            foreach($resultado as $key => $item) {
+                #Se a questao ja existir cadastrada para a prova, ela nao sera adicionada a prova.
+                if(!in_array($item['id_questao'], $arIdQuestoesExistentes)) {
+                    $dados['id_prova'] = $id_prova;
+                    $dados['id_questao'] = $item['id_questao'];
+
+                    #Grava na Tabela Questoes_Prova as questoes retornadas no filtro
+                    $resultGravacao = $questoes_provaService->getTable()->salvar($dados, null);
+                    if (!$resultGravacao) {
+                        $this->setPost($post);
+                        $this->addSuccessMessage('Houve problema ao relacionar a questao!');
+                        $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'adicionar-questao-aleatoria', 'id' => Cript::enc($id_prova)));
+                        return false;
+                    }
                 }
             }
 

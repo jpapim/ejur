@@ -37,6 +37,7 @@ class QuestaoService extends Entity{
                 "questao.id_questao LIKE ?" => '%'.$tx_enunciado.'%',
             ]);
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return $sql->prepareStatementForSqlObject($select)->execute();
     }
 
@@ -53,6 +54,7 @@ class QuestaoService extends Entity{
                 'questao.tx_enunciado = ?' => $filter->filter($tx_enunciado),
             ]);
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
@@ -139,12 +141,6 @@ class QuestaoService extends Entity{
          ;
 
 
-
-
-
-
-
-
         $where = [
         ];
 
@@ -166,8 +162,10 @@ class QuestaoService extends Entity{
 
         $select->where($where)->order(['tx_enunciado DESC']);
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
+
 
 
 }

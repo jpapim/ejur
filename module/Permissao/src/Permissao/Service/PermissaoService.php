@@ -15,7 +15,7 @@ class PermissaoService extends Entity {
             ->where([
                 'perfil_controller_action.id_perfil_controller_action = ?' => $id,
             ]);
-        #print_r($sql->prepareStatementForSqlObject($select)->execute());exit;
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
@@ -46,6 +46,7 @@ class PermissaoService extends Entity {
         }
 
         $select->where($where)->order(['id_controller ASC']);
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 
