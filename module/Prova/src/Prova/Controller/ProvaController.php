@@ -284,6 +284,9 @@ class ProvaController extends AbstractCrudController
             $questaoService = new \Questao\Service\QuestaoService();
             $resultado = $questaoService->fetchAllByArrayAtributo($arrFiltro);
 
+            #Essa função mistura de forma aleatória os elementos de um array.
+            shuffle($resultado);
+
             $arIdQuestoesSelecionadas = array();
             foreach($resultado as $item){
                 $arIdQuestoesSelecionadas[] = $item['id_questao'];
@@ -341,6 +344,30 @@ class ProvaController extends AbstractCrudController
         $pdf->setOption('filename', 'prova.pdf');
         $pdf->setOption('paperSize', 'a4');
         $pdf->setOption('paperOrientation', 'portrait');
+        $pdf->setOption("basePath", __DIR__);
+
+        $pdf->setVariables(array(
+            'dadosProva' => $dadosProva,
+            'arQuestoesProva' => $arQuestoesProva,
+        ));
+
+        return $pdf;
+    }
+
+    public function imprimirGabaritoPdfAction() {
+        $id_prova = Cript::dec($this->params()->fromRoute('id'));  // From RouteMatch
+        $obProvaService = new \Prova\Service\ProvaService();
+        $dadosProva = $obProvaService->buscar($id_prova);
+
+        $obQuestoesProvaService = new \QuestoesProva\Service\QuestoesProvaService();
+        $arQuestoesProva = $obQuestoesProvaService->fetchAllByArrayAtributo(['id_prova'=>$id_prova]);
+
+        $pdf = new PdfModel();
+
+        $pdf->setOption('filename', 'gabarito_prova.pdf');
+        $pdf->setOption('paperSize', 'a4');
+        $pdf->setOption('paperOrientation', 'portrait');
+        $pdf->setOption("basePath", __DIR__);
 
         $pdf->setVariables(array(
             'dadosProva' => $dadosProva,

@@ -7,7 +7,6 @@
     body {
         font: 15px arial;
         color: rgba(0, 0, 0, .7);
-        /*padding: ;*/
     }
 
     .conteudo {
@@ -38,11 +37,6 @@
     .bloco_pai {
         width:100%;
         position: relative;
-    }
-
-    .bloco_filho_centralizado {
-        margin: 0 auto;
-        width: 50%;
     }
 
     .bloco_filho_direita {
@@ -129,7 +123,7 @@ if ($nrQuestoes == 0) { ?>
     </div>
     <?php
 } else {
-    echo "<h2 style='text-align: center'> Questoes da Prova </h2>";
+    echo "<h2 style='text-align: center'> Gabarito da Prova - " . $dadosProva->getNmProva() . "</h2>";
     ?>
     <div style="text-align: left" class="row form-group">
         <div class="col-md-12">
@@ -144,7 +138,13 @@ if ($nrQuestoes == 0) { ?>
                 $arAlternativaQuestao = $alternativaquestaoService->fetchAllById(['id_questao' => $item['id_questao']]);
                 $j = 'a';
                 foreach ($arAlternativaQuestao as $key => $alternativa) {
-                    echo "<h4>" . $j++ . ") - (___) " . $alternativa['tx_alternativa_questao'] . "</h4>";
+                    if($alternativa['cs_correta'] == 'C'){
+                        echo "<h4 style='background-color: #FCC612'>" . $j++ . ") - (_x_) " . $alternativa['tx_alternativa_questao'] . "</h4>";
+                        echo "<h5 style='background-color: #4cae4c'>Justificativa: " . $alternativa['tx_justificativa'] . "</h5>";
+                    } else {
+                        echo "<h4>" . $j++ . ") - (___) " . $alternativa['tx_alternativa_questao'] . "</h4>";
+                        echo "<h5>Justificativa: " . $alternativa['tx_justificativa'] . "</h5>";
+                    }
                 }
                 echo "<br/>";
             } ?>
@@ -156,4 +156,6 @@ if ($nrQuestoes == 0) { ?>
 </div>
 
 <?=  $dadosProva->getDsProva() ?>
+
+
 
