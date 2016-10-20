@@ -2,6 +2,7 @@
 
 namespace Estrutura\Service;
 
+use Estrutura\Helpers\Utilities;
 use Estrutura\Table\AbstractEstruturaTable;
 use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
@@ -137,7 +138,7 @@ class AbstractEstruturaService {
 
     /**
      * Retorna o nome do objeto Table
-     * 
+     *
      * @return type
      */
     private function getTableName() {
@@ -158,9 +159,9 @@ class AbstractEstruturaService {
     }
 
     public function getAdapter() {
-        
+
         if (!self::$adapter) {
-            
+
             self::$adapter = new \Zend\Db\Adapter\Adapter($this->getConfig());
         }
         return self::$adapter;
@@ -180,6 +181,33 @@ class AbstractEstruturaService {
         return $resultSet;
     }
 
+    /**
+     * @author Alysson Vicuña de Oliveira
+     * @param $arrayFiltro array('coluna_tabela' => 'valor')
+     * @return array Registros retortnados do Banco de Dados
+     */
+    public function fetchAllById($arrayFiltro)
+    {
+        $arrayResults = $this->select($arrayFiltro)->toArray();
+        return $arrayResults;
+    }
+
+    /**
+     * @author Alysson Vicuña de Oliveira
+     * @param $arrayFiltro array('coluna_tabela' => 'valor')
+     * @return array Registros retortnados do Banco de Dados
+     */
+    public function fetchAllByArrayAtributo($arrayFiltro)
+    {
+        $arrayResults = $this->select($arrayFiltro)->toArray();
+        return $arrayResults;
+    }
+
+    /**
+     * @author Alysson Vicuña de Oliveira
+     * @param $arrayFiltro array('coluna_tabela' => 'valor')
+     * @return array Registros retortnados do Banco de Dados
+     */
     public function select($where = null) {
         return $this->getTable()->select($where);
     }
@@ -204,11 +232,20 @@ class AbstractEstruturaService {
         return $select;
     }
 
+    /**
+     * @author Alysson Vicuña de Oliveira
+     * @return \Estrutura\Table\id
+     */
+    public function inserir_nao_identity() {
+        $dados = $this->hydrate();
+        $dados = Utilities::replaceEmptyPorNuloInArray($dados);
+
+        return $this->getTable()->inserir_nao_identity($dados);
+    }
+
     public function salvar() {
         $this->preSave();
-
         $dados = $this->hydrate();
-
         $where = null;
 
         if ($this->getId()) {
@@ -218,27 +255,37 @@ class AbstractEstruturaService {
 
             $where = [$field => $this->getId()];
         }
-        #var_dump( $dados );
-        #die;
+
         $result = $this->getTable()->salvar($dados, $where);
         if (is_string($result)) {
             $this->setId($result);
         }
-        $this->posSave();
+        $this->posSave($result);
+
         return $result;
     }
 
     public function preSave() {
-        
+
     }
 
     public function posSave() {
-        
+
+    }
+
+    public function preDelete() {
+
+    }
+
+    public function posDelete() {
+
     }
 
     public function excluir() {
         $arr = $this->hydrate();
+        $this->preDelete();
         $this->getTable()->delete($arr);
+        $this->posDelete();
     }
 
     public function load() {

@@ -2,6 +2,7 @@
 
 namespace Estrutura\Table;
 
+use Estrutura\Helpers\Utilities;
 use Zend\Db\Sql\Select;
 
 class AbstractEstruturaTable {
@@ -19,7 +20,7 @@ class AbstractEstruturaTable {
             $this->tableGateway = $tableGateway;
         }
     }
-    
+
     public function getTableGateway(){
         return $this->tableGateway;
     }
@@ -28,18 +29,34 @@ class AbstractEstruturaTable {
         return $this->tableGateway->select($where);
     }
 
-    public function inserir($dados){
+    public function inserir($dados)
+    {
+        $dados = Utilities::replaceEmptyPorNuloInArray($dados); # correção do erro mysql 1366 incorrect integer value sql Mode
         $this->tableGateway->insert($dados);
         return $this->tableGateway->getLastInsertValue();
     }
+
+    /**
+     * Retorna a primeira posição do array, que é o ID inserido.
+     *
+     * @param $dados
+     * @return id_inserido
+     */
+    public function inserir_nao_identity($dados)
+    {
+        $this->tableGateway->insert($dados);
+        return array_values($dados)[0];
+    }
+
     public function atualizar($dados, $where){
         $this->tableGateway->update($dados, $where);
     }
 
-    public function salvar($dados, $where){
-        if($where){
+    public function salvar($dados, $where)
+    {
+        if ($where) {
             $this->atualizar($dados, $where);
-        }else{
+        } else {
             return $this->inserir($dados);
         }
 

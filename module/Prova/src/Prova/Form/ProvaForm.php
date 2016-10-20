@@ -14,10 +14,10 @@ class ProvaForm extends AbstractForm{
         $objForm = new FormObject('provaform',$this,$this->inputFilter);
         $objForm->hidden("id")->required(false)->label("Id");  
         $objForm->hidden("id_usuario")->required(false)->label("Id Usuario");  
-        $objForm->text("nm_prova")->required(false)->label("Prova");  
-        $objForm->text("ds_prova")->required(false)->label("descrição");
-        $objForm->date("dt_geracao_prova")->required(true)->setAttribute('class', 'data')->label("Data de geraçao da prova");
-        $objForm->date("dt_aplicacao_prova")->required(true)->setAttribute('class', 'data')->label("Data de aplicação da prova");
+        $objForm->text("nm_prova")->required(false)->label("Nome da Prova");
+        $objForm->textareaHtml("ds_prova")->required(false)->label("Instruções");
+        $objForm->dateTime("dt_geracao_prova")->required(false)->setAttribute('class', 'data')->label("Data de Geração");
+        $objForm->date("dt_aplicacao_prova")->required(false)->setAttribute('class', 'data')->label("Data de Aplicação");
        
 
 

@@ -25,6 +25,11 @@ class HtmlHelper{
         return self::botaoLink($url, 'glyphicon glyphicon-remove-sign', $attributos, $title);
     }
 
+    public static function botaoDesativar($url, $title='Desativar', $icone_bootstrap = 'glyphicon glyphicon-off', $id = 'botaodesativar'){
+        $attributos = ['class'=>'btn-desativar btn-xs', 'id'=>$id];
+        return self::botaoLink($url, $icone_bootstrap, $attributos, $title);
+    }
+
     public static function botaoAlterar($url, $title='Alterar'){
         $attributos = ['class'=>'btn-alterar btn-xs', 'id'=>'botaoalterar'];
         return self::botaoLink($url, 'glyphicon glyphicon-edit', $attributos, $title);
@@ -33,6 +38,18 @@ class HtmlHelper{
     public static function botaoAlterarCustomizado($url, $title='Modificar'){
         $attributos = ['class'=>'btn-alterar btn-xs btn-alterar-customizado', 'id'=>'botaomodificar'];
         return self::botaoLink($url, 'glyphicon glyphicon-user', $attributos, $title);
+    }
+
+    public static function botaoAcao($url, $title='A��o', $id = 'botaoacao', $icone_bootstrap = 'glyphicon glyphicon-screenshot', $classe = 'btn btn-default'){
+        $attributos = ['class'=>$classe, 'id'=>$id];
+        #$attributos = ['class'=>'btn-alterar btn-xs btn-alterar-customizado', 'id'=>$id];
+        return self::botaoLink($url, $icone_bootstrap, $attributos, $title);
+    }
+
+    public static function botaoDownload($url, $title='A��o', $id = 'botaoacao', $icone_bootstrap = 'glyphicon glyphicon-screenshot', $classe = 'btn btn-default'){
+        $attributos = ['class'=>$classe, 'id'=>$id];
+        #$attributos = ['class'=>'btn-alterar btn-xs btn-alterar-customizado', 'id'=>$id];
+        return self::botaoLink($url, $icone_bootstrap, $attributos, $title, " target='_blank'");
     }
 
     private static function arrayToString($array){
