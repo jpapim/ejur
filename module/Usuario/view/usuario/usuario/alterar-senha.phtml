@@ -14,13 +14,21 @@
             echo $this->form()->openTag($form);
             $form->get('id')->setValue(Estrutura\Helpers\Cript::enc($id_usuario));
             echo $this->formHidden($form->get('id'));
+
             ?>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <?= $this->formRow($form->get('pw_senha')) ?>
-                    <div class="help-block with-errors"></div>
+            <?php
+            #So mostra este item se o usuario nao for o administrador do sistema
+            if($this->Auth()->id_perfil != TXT_CONST_PERFIL_ADMINISTRADOR) {
+                ?>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <?= $this->formRow($form->get('pw_senha')) ?>
+                        <div class="help-block with-errors"></div>
+                    </div>
                 </div>
-            </div>
+                <?php
+            }
+            ?>
             <div class="form-group">
                 <div class="col-md-12">
                     <?= $this->formRow($form->get('pw_nova_senha')) ?>
@@ -44,7 +52,7 @@
             <div class="form-group">
                 <div class="col-md-4">
                     <button type="submit" class="btn btn-primary">Redefinir senha</button>                        
-                    <a href="<?= $this->url('navegacao', ['controller' => 'usuario-usuario', 'action' => 'atualizar-dados']) ?>" class="btn btn-default">Voltar</a>                    
+                    <a href="<?= $this->url('navegacao', ['controller' => 'usuario-usuario', 'action' => 'atualizar-dados', 'id'=>Estrutura\Helpers\Cript::enc($id_usuario)]) ?>" class="btn btn-default">Voltar</a>
                 </div>
             </div>
 

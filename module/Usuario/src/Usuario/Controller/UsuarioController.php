@@ -440,6 +440,7 @@ class UsuarioController extends AbstractCrudController
             'usuarioEntity' => $usuarioEntity,
             'auth' => $auth,
             'id_usuario' => $id, //Passa o Id_usuario para aview
+
         ]);
     }
 
@@ -492,14 +493,15 @@ class UsuarioController extends AbstractCrudController
             return FALSE;
         }
 
-        //Verifica se a senha atual é válida
-        if (strcasecmp(md5($this->getRequest()->getPost()->get('pw_senha')), $loginEntity->getPwSenha()) != 0) {
-
-            $this->addErrorMessage('Senha atual inválida.');
-            $this->redirect()->toRoute('navegacao', ['controller' => 'usuario-usuario', 'action' => 'alterar-senha', 'id'=>Cript::enc($id_usuario)]);
-            return FALSE;
+        #so faz esta validacao se for o usuario diferente do Administrador
+        if($auth->id_perfil != TXT_CONST_PERFIL_ADMINISTRADOR) {
+            //Verifica se a senha atual é válida
+            if (strcasecmp(md5($this->getRequest()->getPost()->get('pw_senha')), $loginEntity->getPwSenha()) != 0) {
+                $this->addErrorMessage('Senha atual inválida.');
+                $this->redirect()->toRoute('navegacao', ['controller' => 'usuario-usuario', 'action' => 'alterar-senha', 'id' => Cript::enc($id_usuario)]);
+                return FALSE;
+            }
         }
-
         //Verifica se as novas senhas são iguais
         if (strcasecmp($this->getRequest()->getPost()->get('pw_nova_senha_confirm'), $this->getRequest()->getPost()->get('pw_nova_senha')) != 0) {
 
