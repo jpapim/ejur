@@ -1,11 +1,11 @@
-<div class="page-head"><h2>Filtrar Questões Aleatórias para a Prova</h2> </br>
+<div class="page-head"><h2>Filtrar Questões Manualmente para a Prova</h2> </br>
 </div>
 <div class="cl-mcont">
     <div class="row">
         <div class="block-flat">
             <div class="content">
                 <?php
-                $form->setAttribute('action', $this->url('navegacao', array('controller' => $controller, 'action' => 'gravar-questao-aleatoria')));
+                $form->setAttribute('action', $this->url('navegacao', array('controller' => $controller, 'action' => 'gravar-questao-manual')));
                 $form->setAttribute('class', 'form-horizontal');
                 $form->setAttribute('data-role', 'form');
                 $form->prepare();
