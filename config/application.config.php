@@ -45,6 +45,7 @@ return array(
         'Relatorio',
         'Prova',
         'QuestoesProva',
+        'FiltroProva',
     ),
     'module_listener_options' => array(
         'module_paths' => array(
