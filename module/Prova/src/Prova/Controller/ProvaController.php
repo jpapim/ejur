@@ -714,7 +714,6 @@ class ProvaController extends AbstractCrudController
         $id_questao = $post['id_questao'];
         $id_prova = $post['id_prova'];
 
-
         #Chama o modulo que efetuara a gravacao na tabela Questoes_prova
         $questoes_provaService = new \QuestoesProva\Service\QuestoesProvaService();
         $questoes_provaService->getTable()->delete(['id_questao'=>$id_questao, 'id_prova'=>$id_prova]);
