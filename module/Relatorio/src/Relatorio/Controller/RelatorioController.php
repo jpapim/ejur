@@ -31,5 +31,20 @@ class RelatorioController extends AbstractCrudController {
 
         return $pdf;
     }
+    public function gerarPdfMateriaSemestreAction(){
+        $pdf = new PdfModel();
+
+        $pdf->setOption('filename', 'Materia-semestre.pdf');
+        $pdf->setOption('paperSize', 'a4');
+        $pdf->setOption('paperOrientation', 'portrait');
+
+        $resultado = $this->service->getMateriasSemestre();
+
+        $pdf->setVariables(array(
+            'resultado' => $resultado
+        ));
+
+        return $pdf;
+    }
 
 }
