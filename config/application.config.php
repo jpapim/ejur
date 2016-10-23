@@ -10,13 +10,9 @@ return array(
         'Perfil',
         'EsqueciSenha',
         'Config',
-        'Cidade',
-        'Estado',
         'Sexo',
-        'EstadoCivil',
         'TipoUsuario',
         'SituacaoUsuario',
-        'Endereco',
         'Prova',
         'NivelDificuldade',
         'UnidadeTempo',
@@ -29,7 +25,6 @@ return array(
         'EdpSuperluminal', //http://dev.ejur.com.br/?EDPSUPERLUMINAL_CACHE - Execute isso na URL para compilar os arquivos e ficar mais rapido - em cada requisição, em vês de baixar em tempo de execução cada require do autoload, ele salva um unico arquivo, minificado, com todas as classes dentro
         'Gerador',
         'Login',
-        #'PhpBoletoZf2',
         'Situacao',
         'Telefone',
         'TipoTelefone',
@@ -50,6 +45,7 @@ return array(
         'Relatorio',
         'Prova',
         'QuestoesProva',
+        'FiltroProva',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

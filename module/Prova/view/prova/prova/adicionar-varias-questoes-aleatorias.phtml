@@ -1,11 +1,11 @@
-<div class="page-head"><h2>Filtrar Questões Aleatórias para a Prova</h2> </br>
+<div class="page-head"><h2>Filtrar Vários Tipos Questões Aleatórias para a Prova</h2> </br>
 </div>
 <div class="cl-mcont">
     <div class="row">
         <div class="block-flat">
             <div class="content">
                 <?php
-                $form->setAttribute('action', $this->url('navegacao', array('controller' => $controller, 'action' => 'gravar-questao-aleatoria')));
+                $form->setAttribute('action', $this->url('navegacao', array('controller' => $controller, 'action' => 'gravar-varias-questoes-aleatorias')));
                 $form->setAttribute('class', 'form-horizontal');
                 $form->setAttribute('data-role', 'form');
                 $form->prepare();
@@ -13,6 +13,7 @@
 
                 $form->get('id')->setValue(Estrutura\Helpers\Cript::enc($dadosProva->getId()));
                 echo $this->formHidden($form->get('id'));
+
                 ?>
                 <div class="form-group">
                     <div class="col-md-6">-
@@ -48,10 +49,16 @@
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <a id="adicionar" class="btn btn-default" href="#" title="Adicionar Filtro">Adicionar Filtro</a>
+                    </div>
+                </div>
 
+                <div class="row" id="detalhesfiltros-pagination"></div>
                 <div class="form-group">
                     <div class="col-md-10">
-                        <button type="submit" class="btn btn-primary">Adicionar</button>
+                        <button type="submit" class="btn btn-primary">Relacionar Todas</button>
                         <a href="<?= $this->url('navegacao', ['controller' => $controller, 'action'=>'cadastro-questao', 'id'=> Estrutura\Helpers\Cript::enc($dadosProva->getId()) ]) ?>" class="btn btn-default">Voltar</a>
                     </div>
                 </div>
@@ -69,6 +76,47 @@
             {dateFormat: 'dd/mm/yy'}
         );
 
+        //Função que faz a listagem ser paginada.
+        function carregarGridPaginadaAjax(){
+            $.ajax({
+                type: "post",
+                dataType: "text",
+                cache: false,
+                url: '/prova-prova/detalhes-filtros-pagination',
+                async: true,
+                data: { id_prova : <?=$dadosProva->getId()?>},
+                beforeSend: function () {
+                    $('#detalhesfiltros-pagination').html(
+                        '<div class="row"><div class="col-md-12 text-center"><p><img src="/assets/img/carregando.gif"><p></div></div>'
+                    );
+                },
+                success: function (data) {
+                    $('#detalhesfiltros-pagination').html(data);
+                }
+            });
+        }
+        carregarGridPaginadaAjax(); //Chama a Paginação da listagem
+
+        /*Função Ajax que adiciona os encontros ao Banco de dados*/
+        $('#adicionar').click(function() {
+            //TODO: Adicionar filtro de preenchimento dos filtros das questoes
+            var dados = $('#variasquestaoprovaaleatoriaform').serialize();
+            $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                url: '/prova-prova/gravar-adicionar-varias-questoes-aleatorias',
+                async: true,
+                data: dados,
+                success: function(response) {
+                    $("#id_materia").val("");
+                    if(response.sucesso == true){
+                        carregarGridPaginadaAjax();
+                    }
+                }
+            });
+            return false;
+        });
+
         $('#id_classificacao_semestre').change(function(){
             if( $(this).val() ) {
                 $('#id_materia').hide();
@@ -79,8 +127,8 @@
                     url: '/prova-prova/carregar-combo-materias-ajax',
                     async: true,
                     data: {
-                        id_classificacao_semestre: $(this).val(),
-                        id_prova : <?=$dadosProva->getId()?>
+                            id_classificacao_semestre: $(this).val(),
+                            id_prova : <?=$dadosProva->getId()?>
                     },
                     success: function(response) {
                         if(response.sucesso == true){
