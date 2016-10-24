@@ -2,7 +2,8 @@
 
 namespace Relatorio\Service;
 
-use \AssuntoMateria\Entity\AssuntoMateriaEntity as Entity;
+use \AssuntoMateria\Entity\AssuntoMateriaEntity ;
+use \Usuario\Entity\UsuarioEntity;
 //use AssuntoMateria\Table\AssuntoMateriaTable;
 //use Zend\Db\Sql\Select;
 //use Zend\Db\ResultSet\HydratingResultSet;
@@ -24,5 +25,18 @@ class RelatorioService extends Entity {
 
         return $sql->prepareStatementForSqlObject($select)->execute();
     }
+
+    public function getUsuariosPerfis() {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+
+        $select = $sql->select()
+            ->from(array('usuario' => 'usuario'))
+            ->join('usuario', 'usuario.id_perfil = pefil.id_usuario')
+            ->columns(array('nm_usaurio', 'perfil' => new Expression('COUNT(*)')))
+            ->group(array('nm_usuario', 'nm_perfil'));
+
+        return $sql->prepareStatementForSqlObject($select)->execute();
+    }
+
 
 }
