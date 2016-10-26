@@ -90,4 +90,9 @@ class AssuntoMateriaController extends AbstractCrudController
     {
         return parent::excluir($this->service, $this->form);
     }
+    
+    public function semestreMateria(){
+        $resultado = $this->service->getSemestreMateria();
+        return ;
+    }
 }
