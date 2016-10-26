@@ -111,12 +111,12 @@ class MateriaSemestreService extends Entity {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
         $select = $sql->select('materia_semestre')->columns([
-            #'id_materia_semestre',
+            'id_materia_semestre',
             'id_classificacao_semestre',
-            #'id_materia',
-        ])#->join('materia', 'materia.id_materia = materia_semestre.id_materia', [
-          #      'nm_materia'
-          #])
+            'id_materia',])
+                
+        ->join('materia', 'materia.id_materia = materia_semestre.id_materia', ['nm_materia'])//NF
+                
         ->join('classificacao_semestre', 'materia_semestre.id_classificacao_semestre = classificacao_semestre.id_classificacao_semestre', [
             'nm_classificacao_semestre'
         ]);
