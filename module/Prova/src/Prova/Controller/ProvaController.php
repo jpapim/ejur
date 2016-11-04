@@ -586,51 +586,51 @@ class ProvaController extends AbstractCrudController
 
     }
 
-        public function detalhesFiltrosPaginationAction()
-        {
-            #$this->params()->fromPost('paramname');   // From POST
-            #$this->params()->fromQuery('paramname');  // From GET
-            #$this->params()->fromRoute('paramname');  // From RouteMatch
-            #$this->params()->fromHeader('paramname'); // From header
-            #$this->params()->fromFiles('paramname');  // From file being uploaded
-            $filter = $this->getFilterPage();
+    public function detalhesFiltrosPaginationAction()
+    {
+        #$this->params()->fromPost('paramname');   // From POST
+        #$this->params()->fromQuery('paramname');  // From GET
+        #$this->params()->fromRoute('paramname');  // From RouteMatch
+        #$this->params()->fromHeader('paramname'); // From header
+        #$this->params()->fromFiles('paramname');  // From file being uploaded
+        $filter = $this->getFilterPage();
 
-            $request = $this->getRequest();
-            $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
-            $id_prova = $post['id_prova'];
+        $request = $this->getRequest();
+        $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
+        $id_prova = $post['id_prova'];
 
-            $camposFilter = [
-                '0' => [
-                    //'filter' => "periodoletivodetalhe.nm_sacramento LIKE ?",
-                ],
+        $camposFilter = [
+            '0' => [
+                //'filter' => "periodoletivodetalhe.nm_sacramento LIKE ?",
+            ],
 
-            ];
+        ];
 
-            $paginator = $this->service->getDetalhesFiltrosPaginator($id_prova, $filter, $camposFilter);
-            $paginator->setItemCountPerPage($paginator->getTotalItemCount());
+        $paginator = $this->service->getDetalhesFiltrosPaginator($id_prova, $filter, $camposFilter);
+        $paginator->setItemCountPerPage($paginator->getTotalItemCount());
 
-            $countPerPage = $this->getCountPerPage(
-                current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
-            );
+        $countPerPage = $this->getCountPerPage(
+            current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
+        );
 
-            $paginator->setItemCountPerPage($this->getCountPerPage(
-                current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
-            ))->setCurrentPageNumber($this->getCurrentPage());
+        $paginator->setItemCountPerPage($this->getCountPerPage(
+            current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
+        ))->setCurrentPageNumber($this->getCurrentPage());
 
-            $viewModel = new ViewModel([
-                'service' => $this->service,
-                'form' => new \Prova\Form\QuestaoAleatoriaForm(),
-                'paginator' => $paginator,
-                'filter' => $filter,
-                'countPerPage' => $countPerPage,
-                'camposFilter' => $camposFilter,
-                'controller' => $this->params('controller'),
-                'id_prova' => $id_prova,
-                'atributos' => array()
-            ]);
+        $viewModel = new ViewModel([
+            'service' => $this->service,
+            'form' => new \Prova\Form\QuestaoAleatoriaForm(),
+            'paginator' => $paginator,
+            'filter' => $filter,
+            'countPerPage' => $countPerPage,
+            'camposFilter' => $camposFilter,
+            'controller' => $this->params('controller'),
+            'id_prova' => $id_prova,
+            'atributos' => array()
+        ]);
 
-            return $viewModel->setTerminal(TRUE);
-        }
+        return $viewModel->setTerminal(TRUE);
+    }
 
     public function carregarComboMateriasAjaxAction()
     {
@@ -645,8 +645,10 @@ class ProvaController extends AbstractCrudController
 
         #Recupera os materias cadastradas por semestre
         $materiaSemestreService = new \MateriaSemestre\Service\MateriaSemestreService();
-        $arMaterias = $materiaSemestreService->fetchAllById(['id_classificacao_semestre' => $id_classificacao_semestre]);
+        #$arMaterias = $materiaSemestreService->fetchAllById(['id_classificacao_semestre' => $id_classificacao_semestre]);
+        $arMaterias = $materiaSemestreService->filtrarMateriaPorSemestreEBancoQuestao($id_classificacao_semestre)->toArray();
 
+        #xd($arMaterias);
         #Faz o Tratamento do Array para enviar para View
         $arMateriasCombo = array();
         $materiaService = new \Materia\Service\MateriaService();
@@ -716,7 +718,7 @@ class ProvaController extends AbstractCrudController
 
         #Chama o modulo que efetuara a gravacao na tabela Questoes_prova
         $questoes_provaService = new \QuestoesProva\Service\QuestoesProvaService();
-        $questoes_provaService->getTable()->delete(['id_questao'=>$id_questao, 'id_prova'=>$id_prova]);
+        $questoes_provaService->getTable()->delete(['id_questao' => $id_questao, 'id_prova' => $id_prova]);
 
         $valuesJson = new JsonModel(array('sucesso' => true, 'id_prova' => $id_prova, 'id_questao' => $id_questao));
 

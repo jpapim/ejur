@@ -2,16 +2,11 @@
 
 namespace Relatorio\Service;
 
-use \AssuntoMateria\Entity\AssuntoMateriaEntity ;
-use \Usuario\Entity\UsuarioEntity;
-//use AssuntoMateria\Table\AssuntoMateriaTable;
-//use Zend\Db\Sql\Select;
-//use Zend\Db\ResultSet\HydratingResultSet;
-//use Zend\Stdlib\Hydrator\Reflection;
-//use Zend\Paginator\Adapter\DbSelect;
-use Zend\Db\Sql\Expression;
 
-class RelatorioService extends Entity {
+use Zend\Db\Sql\Expression;
+use Estrutura\Service\AbstractEstruturaService;
+
+class RelatorioService extends AbstractEstruturaService {
 
     public function getQuantitativoQuestoesPorAssunto() {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
