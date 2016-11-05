@@ -648,7 +648,7 @@ class ProvaController extends AbstractCrudController
         #$arMaterias = $materiaSemestreService->fetchAllById(['id_classificacao_semestre' => $id_classificacao_semestre]);
         $arMaterias = $materiaSemestreService->filtrarMateriaPorSemestreEBancoQuestao($id_classificacao_semestre)->toArray();
 
-        #xd($arMaterias);
+        $arMaterias = array_unique($arMaterias, SORT_REGULAR);
         #Faz o Tratamento do Array para enviar para View
         $arMateriasCombo = array();
         $materiaService = new \Materia\Service\MateriaService();

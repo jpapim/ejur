@@ -73,7 +73,7 @@ class MateriaSemestreService extends Entity {
             'questao.id_classificacao_semestre = ?' => $id_classificacao_semestre,
         ]);
         $select->order(['materia.nm_materia ASC']);
-
+        $select->quantifier('DISTINCT');
         return $this->getTable()->getTableGateway()->selectWith($select);
     }
 
