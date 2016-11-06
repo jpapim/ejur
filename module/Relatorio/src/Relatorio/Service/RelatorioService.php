@@ -2,15 +2,10 @@
 
 namespace Relatorio\Service;
 
-use \AssuntoMateria\Entity\AssuntoMateriaEntity as Entity;
-//use AssuntoMateria\Table\AssuntoMateriaTable;
-//use Zend\Db\Sql\Select;
-//use Zend\Db\ResultSet\HydratingResultSet;
-//use Zend\Stdlib\Hydrator\Reflection;
-//use Zend\Paginator\Adapter\DbSelect;
+use Estrutura\Service\AbstractEstruturaService;
 use Zend\Db\Sql\Expression;
 
-class RelatorioService extends Entity {
+class RelatorioService extends AbstractEstruturaService {
 
     public function getQuantitativoQuestoesPorAssunto() {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
@@ -29,11 +24,6 @@ class RelatorioService extends Entity {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
         $select = $sql->select()
-//                ->from(array('materia_semestre' => 'materia_semestre'))
-//                ->join('materia', 'materia.id_materia = materia_semestre.id_materia')
-//                ->join('classificacao_semestre', 'classificacao_semestre.id_classificacao_semestre = materia_semestre.id_classificacao_semestre')
-//                ->columns(array('materia.nm_materia'))
-//                ->group(array('nm_classificacao_semestre', 'materia.nm_materia'))
                 ->from(array('materia' => 'materia'))
                 ->join('materia_semestre', 'materia_semestre.id_materia = materia.id_materia')
                 ->join('classificacao_semestre', 'classificacao_semestre.id_classificacao_semestre = materia_semestre.id_classificacao_semestre')
