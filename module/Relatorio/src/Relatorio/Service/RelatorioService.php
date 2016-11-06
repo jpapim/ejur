@@ -4,6 +4,7 @@ namespace Relatorio\Service;
 
 use Estrutura\Service\AbstractEstruturaService;
 use Zend\Db\Sql\Expression;
+use Estrutura\Service\AbstractEstruturaService;
 
 class RelatorioService extends AbstractEstruturaService {
 
@@ -19,6 +20,19 @@ class RelatorioService extends AbstractEstruturaService {
 
         return $sql->prepareStatementForSqlObject($select)->execute();
     }
+
+    public function getUsuariosPerfis() {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+
+        $select = $sql->select()
+            ->from(array('usuario' => 'usuario'))
+            ->join('usuario', 'usuario.id_perfil = pefil.id_usuario')
+            ->columns(array('nm_usaurio', 'perfil' => new Expression('COUNT(*)')))
+            ->group(array('nm_usuario', 'nm_perfil'));
+
+        return $sql->prepareStatementForSqlObject($select)->execute();
+    }
+
 
     public function getMateriasSemestre() {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());

@@ -15,7 +15,7 @@ class RelatorioController extends AbstractCrudController {
     public function __construct() {
         parent::setServiceObj();
     }
-    
+
     public function gerarPdfQuantitativoQuestoesPorAssuntoAction() {
         $pdf = new PdfModel();
 
@@ -31,7 +31,23 @@ class RelatorioController extends AbstractCrudController {
 
         return $pdf;
     }
-    public function gerarPdfMateriaSemestreAction(){
+
+    public function relatorioUsuarios() {
+        $pdf = new PdfModel();
+
+        $pdf->setOption('filename', 'relatorio-usuario.pdf');
+        $pdf->setOption('paperSize', 'a4');
+        $pdf->setOption('paperOrientation', 'portrait');
+
+        $resultado = $this->service->getUsuarioPerfis();
+
+        $pdf->setVariables(array(
+                //'nm_usaurio' => $usuario,
+                //'nm_perfil' => $perfil,
+        ));
+    }
+
+    public function gerarPdfMateriaSemestreAction() {
         $pdf = new PdfModel();
 
         $pdf->setOption('filename', 'Materia-semestre.pdf');
