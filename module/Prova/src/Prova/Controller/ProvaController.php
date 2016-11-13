@@ -332,7 +332,6 @@ class ProvaController extends AbstractCrudController
 
     public function adicionarQuestaoManualAction()
     {
-        $request = $this->getRequest();
         $service = $this->service;
         $form = new \Prova\Form\QuestaoManualForm();
 
