@@ -2,7 +2,7 @@
 
 namespace Relatorio\Service;
 
-
+use Estrutura\Service\AbstractEstruturaService;
 use Zend\Db\Sql\Expression;
 use Estrutura\Service\AbstractEstruturaService;
 
@@ -33,5 +33,18 @@ class RelatorioService extends AbstractEstruturaService {
         return $sql->prepareStatementForSqlObject($select)->execute();
     }
 
+
+    public function getMateriasSemestre() {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+
+        $select = $sql->select()
+                ->from(array('materia' => 'materia'))
+                ->join('materia_semestre', 'materia_semestre.id_materia = materia.id_materia')
+                ->join('classificacao_semestre', 'classificacao_semestre.id_classificacao_semestre = materia_semestre.id_classificacao_semestre')
+                ->columns(array('nm_materia'))
+                
+                ->group(array('nm_classificacao_semestre', 'nm_materia'));
+        return $sql->prepareStatementForSqlObject($select)->execute();
+    }
 
 }

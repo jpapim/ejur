@@ -56,23 +56,6 @@ class TipoQuestaoService extends Entity {
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
-    /**
-     * Busca apenas os Tipos de Questao que já estão relacionados a alguma questão
-     *
-     * @return null|\Zend\Db\ResultSet\ResultSetInterface
-     */
-    public function filtrarTipoQuestaoPorBancoQuestao() {
-        $select = new \Zend\Db\Sql\Select('tipo_questao');
-        $select->columns([
-            'id_tipo_questao',
-            'nm_tipo_questao'
-        ])->join('questao', 'questao.id_tipo_questao = tipo_questao.id_tipo_questao');
-
-        $select->order(['tipo_questao.nm_tipo_questao ASC']);
-
-        return $this->getTable()->getTableGateway()->selectWith($select);
-    }
-
     public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_tipo_questao DESC', $like = null, $itensPaginacao = 5) {
         //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
         // preparar um select para tabela contato com uma ordem
