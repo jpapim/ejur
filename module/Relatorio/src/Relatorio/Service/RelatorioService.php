@@ -4,7 +4,6 @@ namespace Relatorio\Service;
 
 use Estrutura\Service\AbstractEstruturaService;
 use Zend\Db\Sql\Expression;
-use Estrutura\Service\AbstractEstruturaService;
 
 class RelatorioService extends AbstractEstruturaService {
 
