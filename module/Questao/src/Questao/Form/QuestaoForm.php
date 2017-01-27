@@ -18,9 +18,11 @@ class QuestaoForm extends AbstractForm{
         $objForm->combo("id_nivel_dificuldade", '\NivelDificuldade\Service\NivelDificuldadeService','id','nm_nivel_dificuldade')->required(true)->label("Nível de Dificuldade");
         $objForm->combo("id_temporizacao", '\Temporizacao\Service\TemporizacaoService','id','nm_temporizacao')->required(true)->label("Temporizador");
         $objForm->combo("id_tipo_questao", '\TipoQuestao\Service\TipoQuestaoService','id','nm_tipo_questao')->required(true)->label("Tipo");
-        $objForm->combo("id_materia", '\Materia\Service\MateriaService','id','nm_materia')->required(false)->label("Materia");
-        $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService','id','nm_assunto_materia')->required(true)->label("Assunto");
-        $objForm->text("nm_titulo_questao")->required(false)->label("Título da Questão");
+
+        $objForm->select("id_materia", array(''=>'Selecione um Semestre...'))->required(false)->label("Materia");
+        $objForm->select("id_assunto_materia", array(''=>'Selecione uma Matéria...'))->required(false)->label("Assunto");
+        
+        $objForm->text("nm_titulo_questao")->required(false)->label("Titulo da Questão");
         $objForm->textareaHtml("tx_enunciado")->required(false)->label("Enunciado da Questão");
         $objForm->text("tx_caminho_imagem_questao")->required(false)->label("Caminho da Imagem");
 
