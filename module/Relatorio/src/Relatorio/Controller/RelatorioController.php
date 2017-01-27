@@ -45,6 +45,7 @@ class RelatorioController extends AbstractCrudController {
                 //'nm_usaurio' => $usuario,
                 //'nm_perfil' => $perfil,
         ));
+        return $pdf;
     }
 
     public function gerarPdfMateriaSemestreAction() {

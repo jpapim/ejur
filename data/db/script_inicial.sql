@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.6.26, for Win32 (x86)
+-- MySQL dump 10.16  Distrib 10.1.9-MariaDB, for Win32 (AMD64)
 --
 -- Host: localhost    Database: bdejur
 -- ------------------------------------------------------
--- Server version	5.6.24
+-- Server version	10.1.9-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -24,16 +24,17 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/ `bdejur` /*!40100 DEFAULT CHARACTER SET
 USE `bdejur`;
 
 --
--- Temporary view structure for view `acl`
+-- Temporary table structure for view `acl`
 --
 
 DROP TABLE IF EXISTS `acl`;
 /*!50001 DROP VIEW IF EXISTS `acl`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `acl` AS SELECT 
- 1 AS `id_perfil`,
- 1 AS `nm_resource`*/;
+/*!50001 CREATE TABLE `acl` (
+  `id_perfil` tinyint NOT NULL,
+  `nm_resource` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -47,7 +48,7 @@ CREATE TABLE `action` (
   `id_action` int(11) NOT NULL AUTO_INCREMENT,
   `nm_action` varchar(200) DEFAULT NULL COMMENT '{"label":"Ação"}',
   PRIMARY KEY (`id_action`)
-) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -56,7 +57,7 @@ CREATE TABLE `action` (
 
 LOCK TABLES `action` WRITE;
 /*!40000 ALTER TABLE `action` DISABLE KEYS */;
-INSERT INTO `action` VALUES (1,'index'),(6,'cadastro'),(7,'gravar'),(8,'excluir'),(9,'upload'),(14,'dados-pessoais'),(15,'atualizar-dados'),(17,'gravar-atualizacao'),(27,'enviar-id'),(30,'ativar-id'),(35,'negar-id'),(36,'alterar-senha'),(37,'salvar-redefinicao-senha'),(51,'index-pagination'),(52,'cadastroperiodoletivodetalhe'),(53,'detalhe-pagination'),(54,'adicionarperiodoletivodetalhe'),(55,'excluirvialistagemperiodoletivo'),(57,'listar-permissoes-acoes'),(58,'relacionar-materia'),(59,'excluir-relacao-materia-semestre'),(60,'cadastro-alternativas'),(61,'gravar-alternativas'),(62,'gerar-pdf-quantitativo-questoes-por-assunto'),(63,'gerar-relatorio-pdf'),(64,'cadastro-questao'),(65,'adicionar-questao-aleatoria'),(66,'gravar-questao-aleatoria'),(67,'imprimir-prova-pdf'),(68,'cadastro-via-prova'),(69,'imprimir-gabarito-pdf'),(70,'desativar'),(71,'adicionar-questao-manual'),(72,'adicionar-varias-questoes-aleatorias'),(73,'detalhes-filtros-pagination'),(74,'gravar-varias-questoes-aleatorias'),(75,'gravar-adicionar-varias-questoes-aleatorias'),(76,'gravar-questao-manual'),(77,'remover-questao-prova-ajax'),(78,'carregar-combo-materias-ajax'),(79,'relatorio-usuarios'),(80,'gravar-via-prova'),(81,'cadastro-alternativas-via-prova'),(82,'gravar-alternativas-via-prova'),(83,'carregar-combo-assunto-materia-ajax');
+INSERT INTO `action` VALUES (1,'index'),(6,'cadastro'),(7,'gravar'),(8,'excluir'),(9,'upload'),(14,'dados-pessoais'),(15,'atualizar-dados'),(17,'gravar-atualizacao'),(27,'enviar-id'),(30,'ativar-id'),(35,'negar-id'),(36,'alterar-senha'),(37,'salvar-redefinicao-senha'),(51,'index-pagination'),(52,'cadastroperiodoletivodetalhe'),(53,'detalhe-pagination'),(54,'adicionarperiodoletivodetalhe'),(55,'excluirvialistagemperiodoletivo'),(57,'listar-permissoes-acoes'),(58,'relacionar-materia'),(59,'excluir-relacao-materia-semestre'),(60,'cadastro-alternativas'),(61,'gravar-alternativas'),(62,'gerar-pdf-quantitativo-questoes-por-assunto'),(63,'gerar-relatorio-pdf'),(64,'cadastro-questao'),(65,'adicionar-questao-aleatoria'),(66,'gravar-questao-aleatoria'),(67,'imprimir-prova-pdf'),(68,'cadastro-via-prova'),(69,'imprimir-gabarito-pdf'),(70,'desativar'),(71,'adicionar-questao-manual'),(72,'adicionar-varias-questoes-aleatorias'),(73,'detalhes-filtros-pagination'),(74,'gravar-varias-questoes-aleatorias'),(75,'gravar-adicionar-varias-questoes-aleatorias'),(76,'gravar-questao-manual'),(77,'remover-questao-prova-ajax'),(78,'carregar-combo-materias-ajax'),(79,'relatorio-usuarios'),(80,'gravar-via-prova'),(81,'cadastro-alternativas-via-prova'),(82,'gravar-alternativas-via-prova'),(83,'carregar-combo-assunto-materia-ajax'),(84,'gerar-pdf-materia-semestre'),(85,'detalhar-questoes-pagination'),(86,'adicionar-questao-prova-manual');
 /*!40000 ALTER TABLE `action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,7 +86,7 @@ CREATE TABLE `alternativa_questao` (
   CONSTRAINT `FK_Reference_58` FOREIGN KEY (`id_usuario_cadastro`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `FK_Reference_59` FOREIGN KEY (`id_usuario_alteracao`) REFERENCES `usuario` (`id_usuario`),
   CONSTRAINT `FK_Reference_60` FOREIGN KEY (`id_questao`) REFERENCES `questao` (`id_questao`)
-) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +95,7 @@ CREATE TABLE `alternativa_questao` (
 
 LOCK TABLES `alternativa_questao` WRITE;
 /*!40000 ALTER TABLE `alternativa_questao` DISABLE KEYS */;
-INSERT INTO `alternativa_questao` VALUES (128,1,1,12,'0, 1 e 0 no caso de passagem de parâmetros por valor e 0, 1 e 0 no caso de passagem de parâmetros por referência','E','Justificativa Questão 1','2016-10-17 17:01:07','2016-10-17 17:01:07',NULL),(129,1,1,12,'0, 1 e 0 no caso de passagem de parâmetros por valor e 0, 1 e 1 no caso de passagem de parâmetros por referência.','C','Justificativa 2','2016-10-17 17:01:07','2016-10-17 17:01:07',NULL),(130,1,1,12,'0, 1 e 1 no caso de passagem de parâmetros por valor e 0, 1 e 0 no caso de passagem de parâmetros por referência.','E','Justificativa 3','2016-10-17 17:01:07','2016-10-17 17:01:07',NULL),(131,1,1,12,'0, 1 e 1 no caso de passagem de parâmetros por valor e 0, 1 e 1 no caso de passagem de parâmetros por referência.','E','Justificativa 4','2016-10-17 17:01:07','2016-10-17 17:01:07',NULL),(132,1,1,12,'0, 0 e 0 no caso de passagem de parâmetros por valor e 0, 1 e 1 no caso de passagem de parâmetros por referência.','E','Justificativa 5','2016-10-17 17:01:07','2016-10-17 17:01:07',NULL),(133,1,1,1,'percorrer a subárvore da direita, em seguida visitar a raiz e, finalmente, percorrer a subárvore da esquerda','E','Justificativa 1','2016-10-17 17:12:51','2016-10-17 17:12:51',NULL),(134,1,1,1,'percorrer a subárvore da esquerda, em seguida percorrer a subárvore da direita e, finalmente, visitar a raiz.','E','Justificativa 2','2016-10-17 17:12:51','2016-10-17 17:12:51',NULL),(135,1,1,1,'percorrer a subárvore da direita, em seguida percorrer a subárvore da esquerda e, finalmente, visitar a raiz.','E','Justificativa 3','2016-10-17 17:12:51','2016-10-17 17:12:51',NULL),(136,1,1,1,'percorrer a subárvore da esquerda, em seguida visitar a raiz e, finalmente, percorrer a subárvore da direita.','E','Justificativa 4','2016-10-17 17:12:51','2016-10-17 17:12:51',NULL),(137,1,1,1,'visitar a raiz, em seguida percorrer a subárvore da esquerda e, finalmente, percorrer a subárvore da direita.','C','Justificativa 5','2016-10-17 17:12:51','2016-10-17 17:12:51',NULL),(138,1,1,13,'hiberbólica','E','...','2016-10-17 17:14:46','2016-10-17 17:14:46',NULL),(139,1,1,13,'de busca binária.','E','...','2016-10-17 17:14:46','2016-10-17 17:14:46',NULL),(140,1,1,13,'ordenada.','E','...','2016-10-17 17:14:46','2016-10-17 17:14:46',NULL),(141,1,1,13,'AVL','C','...','2016-10-17 17:14:46','2016-10-17 17:14:46',NULL),(142,1,1,13,'binária','E','...','2016-10-17 17:14:46','2016-10-17 17:14:46',NULL),(143,1,1,14,'Uma árvore binária é aquela que tem como conteúdo somente valores binários.','E','...','2016-10-17 17:17:47','2016-10-17 17:17:47',NULL),(144,1,1,14,'O percurso de uma árvore binária, conhecido como préordem, visita a raiz, depois a sub-árvore esquerda e depois a sub-árvore direita.','C','...','2016-10-17 17:17:47','2016-10-17 17:17:47',NULL),(145,1,1,14,'Uma árvore é composta por duas raízes, sendo uma principal e a outra secundária.','E','...','2016-10-17 17:17:47','2016-10-17 17:17:47',NULL),(146,1,1,14,'As operações básicas sobre árvores são extrai-raiz e alterarfolha.','E','...','2016-10-17 17:17:47','2016-10-17 17:17:47',NULL),(147,1,1,14,'O percurso de uma árvore binária, conhecido como subordem, visita a sub-árvore direita, depois a raiz e depois a subárvore esquerda.','E','...','2016-10-17 17:17:47','2016-10-17 17:17:47',NULL),(148,1,1,15,'SelectionSort e InsertionSort','E','...','2016-10-17 17:24:05','2016-10-17 17:24:05',NULL),(149,1,1,15,'MergeSort e BubbleSort','E','...','2016-10-17 17:24:05','2016-10-17 17:24:05',NULL),(150,1,1,15,'QuickSort e SelectionSort','E','...','2016-10-17 17:24:05','2016-10-17 17:24:05',NULL),(151,1,1,15,'BubbleSort e QuickSort','C','...','2016-10-17 17:24:05','2016-10-17 17:24:05',NULL),(152,1,1,15,'InsertionSort e MergeSort','E','...','2016-10-17 17:24:05','2016-10-17 17:24:05',NULL),(153,1,1,16,'1','E','...','2016-10-17 17:27:26','2016-10-17 17:27:26',NULL),(154,1,1,16,'2','E','...','2016-10-17 17:27:26','2016-10-17 17:27:26',NULL),(155,1,1,16,'3','E','...','2016-10-17 17:27:26','2016-10-17 17:27:26',NULL),(156,1,1,16,'4','C','...','2016-10-17 17:27:26','2016-10-17 17:27:26',NULL),(157,1,1,16,'5','E','...','2016-10-17 17:27:26','2016-10-17 17:27:26',NULL),(158,1,1,17,'1','E','...','2016-10-17 17:32:58','2016-10-17 17:32:58',NULL),(159,1,1,17,'2','E','...','2016-10-17 17:32:59','2016-10-17 17:32:59',NULL),(160,1,1,17,'3','E','...','2016-10-17 17:32:59','2016-10-17 17:32:59',NULL),(161,1,1,17,'4','E','...','2016-10-17 17:32:59','2016-10-17 17:32:59',NULL),(162,1,1,17,'5','C','...','2016-10-17 17:32:59','2016-10-17 17:32:59',NULL),(163,1,1,18,'1','E','...','2016-10-17 17:40:07','2016-10-17 17:40:07',NULL),(164,1,1,18,'2','E','...','2016-10-17 17:40:07','2016-10-17 17:40:07',NULL),(165,1,1,18,'3','E','...','2016-10-17 17:40:07','2016-10-17 17:40:07',NULL),(166,1,1,18,'4','C','...','2016-10-17 17:40:08','2016-10-17 17:40:08',NULL),(167,1,1,18,'5','E','...','2016-10-17 17:40:08','2016-10-17 17:40:08',NULL),(168,1,1,19,'V  V  V','E','...','2016-10-17 17:44:43','2016-10-17 17:44:43',NULL),(169,1,1,19,'F  F  V','C','...','2016-10-17 17:44:43','2016-10-17 17:44:43',NULL),(170,1,1,19,'F  F  F','E','...','2016-10-17 17:44:43','2016-10-17 17:44:43',NULL),(171,1,1,19,'V V  F','E','...','2016-10-17 17:44:44','2016-10-17 17:44:44',NULL),(172,1,1,19,'F  V V','E','....','2016-10-17 17:44:44','2016-10-17 17:44:44',NULL),(183,1,1,20,'V - V - V','E','... Alterado','2016-10-22 04:50:43','2016-10-22 04:50:43',NULL),(184,1,1,20,'F - F - V','E','...','2016-10-22 04:50:43','2016-10-22 04:50:43',NULL),(185,1,1,20,'F - F - F','E','...','2016-10-22 04:50:43','2016-10-22 04:50:43',NULL),(186,1,1,20,'V - V - F','C','...Correta','2016-10-22 04:50:43','2016-10-22 04:50:43',NULL),(187,1,1,20,'F - V - V','E','...Alterado','2016-10-22 04:50:43','2016-10-22 04:50:43',NULL),(188,1,1,21,'Enunciado - 1','C','Justificativa - 1','2016-11-04 18:05:29','2016-11-04 18:05:29',NULL),(189,1,1,21,'Enunciado - 2','E',NULL,'2016-11-04 18:05:29','2016-11-04 18:05:29',NULL),(190,1,1,21,'Enunciado - 3','E',NULL,'2016-11-04 18:05:29','2016-11-04 18:05:29',NULL),(191,1,1,21,'Enunciado - 4','E',NULL,'2016-11-04 18:05:29','2016-11-04 18:05:29',NULL),(192,1,1,21,'Enunciado - 5','E',NULL,'2016-11-04 18:05:29','2016-11-04 18:05:29',NULL),(193,1,1,22,'Alternativa 1','E','sss','2016-11-04 18:07:50','2016-11-04 18:07:50',NULL),(194,1,1,22,'Alternativa 2','E','ddd','2016-11-04 18:07:50','2016-11-04 18:07:50',NULL),(195,1,1,22,'Alternativa 3','E','edee','2016-11-04 18:07:50','2016-11-04 18:07:50',NULL),(196,1,1,22,'Alternativa 4','C','ceritnho','2016-11-04 18:07:50','2016-11-04 18:07:50',NULL),(197,1,1,22,'Alternativa 5','E','eeee','2016-11-04 18:07:50','2016-11-04 18:07:50',NULL),(198,1,1,23,'sssssssssssssss','E','sssssssss','2016-11-04 18:22:18','2016-11-04 18:22:18',NULL),(199,1,1,23,'ddddddddddd','E','ddddddddddddd','2016-11-04 18:22:18','2016-11-04 18:22:18',NULL),(200,1,1,23,'tttttttttt','E','tttttttttttttttttttt','2016-11-04 18:22:18','2016-11-04 18:22:18',NULL),(201,1,1,23,'yyyyyyyyyyy','E','yyyyyyyyyyyyyyyyyyyy','2016-11-04 18:22:18','2016-11-04 18:22:18',NULL),(202,1,1,23,'uuuuuuuuuuuuuuuuuuuuuuuuuuuu','C','uuuuuuuuuuuu','2016-11-04 18:22:18','2016-11-04 18:22:18',NULL);
+INSERT INTO `alternativa_questao` VALUES (1,1,1,24,'Garantia dos direitos à comunicação, à apresentação de alegações finais, à produção de provas e à interposição de recursos, nos processos de que possam resultar sanções e nas situações de litígio.','E','...','2016-12-01 02:48:18','2016-12-01 02:48:18',NULL),(2,1,1,24,'Divulgação oficial dos atos administrativos, ressalvadas as hipóteses de sigilo previstas na Constituição.','E','...','2016-12-01 02:48:18','2016-12-01 02:48:18',NULL),(3,1,1,24,'Adequação entre meios e fins, permitida a imposição de obrigações, restrições e sanções em medida superior àquelas necessárias ao atendimento do interesse público.','C','Certinho...','2016-12-01 02:48:18','2016-12-01 02:48:18',NULL),(4,1,1,24,'Atendimento a fins de interesse geral, vedada a renúncia total ou parcial de poderes ou competências, salvo autorização em lei.','E','...','2016-12-01 02:48:18','2016-12-01 02:48:18',NULL),(5,1,1,24,'Atendimento a fins de desinteresse geral, vedada a renúncia total ou parcial de poderes ou competências, salvo autorização em lei.','E','...','2016-12-01 02:48:18','2016-12-01 02:48:18',NULL),(6,1,1,25,'Frustrar a licitude de concurso público.','C','... Cabra bom de chute!','2016-12-01 03:01:35','2016-12-01 03:01:35',NULL),(7,1,1,25,'Frustrar a licitude de processo licitatório ou de processo seletivo para celebração de parcerias com entidades sem fins lucrativos, ou dispensá-los indevidamente.','E','.,,','2016-12-01 03:01:35','2016-12-01 03:01:35',NULL),(8,1,1,25,'Conceder benefício administrativo ou fiscal sem a observância das formalidades legais ou regulamentares aplicáveis à espécie.','E','....','2016-12-01 03:01:35','2016-12-01 03:01:35',NULL),(9,1,1,25,'Permitir, facilitar ou concorrer para que terceiro se enriqueça ilicitamente.','E','....','2016-12-01 03:01:35','2016-12-01 03:01:35',NULL),(10,1,1,25,'Frustrar a ilicitude de concurso público.','E','...','2016-12-01 03:01:35','2016-12-01 03:01:35',NULL);
 /*!40000 ALTER TABLE `alternativa_questao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,20 +127,21 @@ INSERT INTO `assunto_materia` VALUES (1,1,'Noções Gerais de Direito Administra
 UNLOCK TABLES;
 
 --
--- Temporary view structure for view `auth`
+-- Temporary table structure for view `auth`
 --
 
 DROP TABLE IF EXISTS `auth`;
 /*!50001 DROP VIEW IF EXISTS `auth`*/;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
-/*!50001 CREATE VIEW `auth` AS SELECT 
- 1 AS `id_usuario`,
- 1 AS `id_perfil`,
- 1 AS `em_email`,
- 1 AS `pw_senha`,
- 1 AS `nm_usuario`,
- 1 AS `id_contrato`*/;
+/*!50001 CREATE TABLE `auth` (
+  `id_usuario` tinyint NOT NULL,
+  `id_perfil` tinyint NOT NULL,
+  `em_email` tinyint NOT NULL,
+  `pw_senha` tinyint NOT NULL,
+  `nm_usuario` tinyint NOT NULL,
+  `id_contrato` tinyint NOT NULL
+) ENGINE=MyISAM */;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -305,7 +307,7 @@ CREATE TABLE `filtro_prova` (
   CONSTRAINT `FK_Reference_122` FOREIGN KEY (`id_assunto_materia`) REFERENCES `assunto_materia` (`id_assunto_materia`),
   CONSTRAINT `FK_Reference_123` FOREIGN KEY (`id_nivel_dificuldade`) REFERENCES `nivel_dificuldade` (`id_nivel_dificuldade`),
   CONSTRAINT `FK_Reference_124` FOREIGN KEY (`id_classificacao_semestre`) REFERENCES `classificacao_semestre` (`id_classificacao_semestre`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +316,6 @@ CREATE TABLE `filtro_prova` (
 
 LOCK TABLES `filtro_prova` WRITE;
 /*!40000 ALTER TABLE `filtro_prova` DISABLE KEYS */;
-INSERT INTO `filtro_prova` VALUES (1,14,1,1,2,4,3,6),(2,14,1,4,3,3,4,2);
 /*!40000 ALTER TABLE `filtro_prova` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -596,7 +597,7 @@ CREATE TABLE `perfil_controller_action` (
   CONSTRAINT `fk_perfil_controller_action_action` FOREIGN KEY (`id_action`) REFERENCES `action` (`id_action`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_perfil_controller_action_controller` FOREIGN KEY (`id_controller`) REFERENCES `controller` (`id_controller`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_perfil_controller_action_perfil` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_perfil`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=593 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=657 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -605,7 +606,7 @@ CREATE TABLE `perfil_controller_action` (
 
 LOCK TABLES `perfil_controller_action` WRITE;
 /*!40000 ALTER TABLE `perfil_controller_action` DISABLE KEYS */;
-INSERT INTO `perfil_controller_action` VALUES (4,4,1,1),(33,4,1,2),(87,9,1,1),(88,9,1,2),(93,11,1,1),(167,23,1,1),(168,23,6,1),(169,23,7,1),(170,23,8,1),(171,23,51,1),(172,23,52,1),(173,23,53,1),(174,23,54,1),(175,24,55,1),(176,25,1,1),(177,25,6,1),(178,25,7,1),(179,25,8,1),(180,25,51,1),(181,26,1,1),(182,26,6,1),(183,26,7,1),(184,26,8,1),(185,26,51,1),(191,29,1,1),(192,29,6,1),(193,29,7,1),(194,29,8,1),(195,29,51,1),(196,30,1,1),(197,30,6,1),(198,30,7,1),(199,30,8,1),(200,30,51,1),(201,31,1,1),(202,31,6,1),(203,31,7,1),(204,31,8,1),(205,31,51,1),(206,32,1,1),(207,32,6,1),(208,32,7,1),(209,32,8,1),(210,32,51,1),(211,33,1,1),(212,33,6,1),(213,33,7,1),(214,33,8,1),(215,33,51,1),(216,33,1,1),(217,33,6,1),(218,33,7,1),(219,33,8,1),(220,33,51,1),(221,25,57,1),(222,32,57,1),(244,35,1,1),(245,36,1,1),(246,36,6,1),(247,36,7,1),(248,36,8,1),(249,36,51,1),(250,37,1,1),(251,37,6,1),(252,37,7,1),(253,37,8,1),(254,37,51,1),(255,38,1,1),(256,38,6,1),(257,38,7,1),(258,38,8,1),(259,38,51,1),(260,39,1,1),(261,39,6,1),(262,39,7,1),(263,39,8,1),(264,39,51,1),(265,40,1,1),(266,40,6,1),(267,40,7,1),(268,40,8,1),(269,40,51,1),(288,41,1,1),(289,41,6,1),(290,41,7,1),(291,41,8,1),(292,41,51,1),(293,41,53,1),(294,41,58,1),(295,41,59,1),(296,11,1,2),(297,11,1,3),(315,12,1,1),(316,12,6,1),(317,12,7,1),(318,12,8,1),(365,44,1,1),(366,44,6,1),(367,44,7,1),(368,44,8,1),(369,44,51,1),(469,45,1,1),(470,45,6,1),(471,45,7,1),(472,45,8,1),(473,45,51,1),(474,45,1,2),(475,45,6,2),(476,45,7,2),(477,45,8,2),(478,45,9,2),(479,45,51,2),(499,28,65,2),(500,28,66,2),(501,28,67,2),(502,28,68,2),(503,28,69,2),(504,28,71,2),(505,28,72,2),(506,28,73,2),(507,28,74,2),(508,28,75,2),(509,28,76,2),(510,28,77,2),(511,28,78,2),(512,3,1,2),(513,3,7,2),(514,3,14,2),(515,3,15,2),(516,3,17,2),(517,3,36,2),(518,3,37,2),(519,3,79,2),(520,3,1,1),(521,3,6,1),(522,3,7,1),(523,3,14,1),(524,3,15,1),(525,3,17,1),(527,3,36,1),(528,3,37,1),(529,3,51,1),(530,3,70,1),(531,3,79,1),(556,42,1,1),(557,42,6,1),(558,42,7,1),(559,42,8,1),(560,42,9,1),(561,42,51,1),(562,42,60,1),(563,42,61,1),(564,42,68,1),(565,42,80,1),(566,42,81,1),(567,42,82,1),(568,42,80,2),(569,42,81,2),(570,42,82,2),(571,28,65,1),(572,28,71,1),(573,28,72,1),(574,28,6,1),(575,28,64,1),(576,28,83,1),(577,28,78,1),(578,28,73,1),(579,28,8,1),(580,28,63,1),(581,28,7,1),(582,28,75,1),(583,28,66,1),(584,28,76,1),(585,28,74,1),(586,28,69,1),(587,28,67,1),(588,28,1,1),(589,28,51,1),(590,28,77,1),(591,43,62,1),(592,43,79,1);
+INSERT INTO `perfil_controller_action` VALUES (4,4,1,1),(33,4,1,2),(87,9,1,1),(88,9,1,2),(93,11,1,1),(167,23,1,1),(168,23,6,1),(169,23,7,1),(170,23,8,1),(171,23,51,1),(172,23,52,1),(173,23,53,1),(174,23,54,1),(175,24,55,1),(176,25,1,1),(177,25,6,1),(178,25,7,1),(179,25,8,1),(180,25,51,1),(181,26,1,1),(182,26,6,1),(183,26,7,1),(184,26,8,1),(185,26,51,1),(191,29,1,1),(192,29,6,1),(193,29,7,1),(194,29,8,1),(195,29,51,1),(196,30,1,1),(197,30,6,1),(198,30,7,1),(199,30,8,1),(200,30,51,1),(201,31,1,1),(202,31,6,1),(203,31,7,1),(204,31,8,1),(205,31,51,1),(206,32,1,1),(207,32,6,1),(208,32,7,1),(209,32,8,1),(210,32,51,1),(211,33,1,1),(212,33,6,1),(213,33,7,1),(214,33,8,1),(215,33,51,1),(216,33,1,1),(217,33,6,1),(218,33,7,1),(219,33,8,1),(220,33,51,1),(221,25,57,1),(222,32,57,1),(244,35,1,1),(245,36,1,1),(246,36,6,1),(247,36,7,1),(248,36,8,1),(249,36,51,1),(250,37,1,1),(251,37,6,1),(252,37,7,1),(253,37,8,1),(254,37,51,1),(255,38,1,1),(256,38,6,1),(257,38,7,1),(258,38,8,1),(259,38,51,1),(260,39,1,1),(261,39,6,1),(262,39,7,1),(263,39,8,1),(264,39,51,1),(265,40,1,1),(266,40,6,1),(267,40,7,1),(268,40,8,1),(269,40,51,1),(288,41,1,1),(289,41,6,1),(290,41,7,1),(291,41,8,1),(292,41,51,1),(293,41,53,1),(294,41,58,1),(295,41,59,1),(296,11,1,2),(297,11,1,3),(315,12,1,1),(316,12,6,1),(317,12,7,1),(318,12,8,1),(469,45,1,1),(470,45,6,1),(471,45,7,1),(472,45,8,1),(473,45,51,1),(474,45,1,2),(475,45,6,2),(476,45,7,2),(477,45,8,2),(478,45,9,2),(479,45,51,2),(499,28,65,2),(500,28,66,2),(501,28,67,2),(502,28,68,2),(503,28,69,2),(504,28,71,2),(505,28,72,2),(506,28,73,2),(507,28,74,2),(508,28,75,2),(509,28,76,2),(510,28,77,2),(511,28,78,2),(512,3,1,2),(513,3,7,2),(514,3,14,2),(515,3,15,2),(516,3,17,2),(517,3,36,2),(518,3,37,2),(519,3,79,2),(520,3,1,1),(521,3,6,1),(522,3,7,1),(523,3,14,1),(524,3,15,1),(525,3,17,1),(527,3,36,1),(528,3,37,1),(529,3,51,1),(530,3,70,1),(531,3,79,1),(571,28,65,1),(572,28,71,1),(573,28,72,1),(574,28,6,1),(575,28,64,1),(576,28,83,1),(577,28,78,1),(578,28,73,1),(579,28,8,1),(580,28,63,1),(581,28,7,1),(582,28,75,1),(583,28,66,1),(584,28,76,1),(585,28,74,1),(586,28,69,1),(587,28,67,1),(588,28,1,1),(589,28,51,1),(590,28,77,1),(593,43,84,1),(594,43,62,1),(595,43,63,1),(596,43,69,1),(597,43,67,1),(598,43,79,1),(617,42,81,2),(618,42,83,2),(619,42,78,2),(620,42,82,2),(621,42,80,2),(622,42,77,2),(623,42,6,1),(624,42,60,1),(625,42,81,1),(626,42,68,1),(627,42,83,1),(628,42,78,1),(629,42,8,1),(630,42,7,1),(631,42,61,1),(632,42,82,1),(633,42,80,1),(634,42,1,1),(635,42,51,1),(636,42,9,1),(643,44,65,1),(644,44,71,1),(645,44,86,1),(646,44,72,1),(647,44,6,1),(648,44,85,1),(649,44,8,1),(650,44,7,1),(651,44,1,1),(652,44,51,1),(653,44,65,2),(654,44,71,2),(655,44,86,2),(656,44,72,2);
 /*!40000 ALTER TABLE `perfil_controller_action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -626,7 +627,7 @@ CREATE TABLE `prova` (
   PRIMARY KEY (`id_prova`),
   KEY `FK_Reference_47` (`id_usuario`),
   CONSTRAINT `FK_Reference_47` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -635,7 +636,7 @@ CREATE TABLE `prova` (
 
 LOCK TABLES `prova` WRITE;
 /*!40000 ALTER TABLE `prova` DISABLE KEYS */;
-INSERT INTO `prova` VALUES (13,1,'PROVA 01-2016','Orientações gerais:\r\n- Leia atentamente toda a prova;\r\n- Verifique o tempo de duração com o professor;\r\n- Utilize apenas caneta azul ou preta;\r\n- A prova é individual e sem consulta;\r\n- Não será considerada questão objetiva que estiver rasurada;\r\n- Saída permitida após 30 minutos do início de provas.','2016-07-08 03:00:00','2016-10-17 17:56:27'),(14,1,'Prova 02/2016','Instruções Gerais','2016-10-17 02:00:00','2016-10-17 19:44:26'),(15,1,'Institucional 02/2014','Nenhuma instrução adicional','2014-10-20 02:00:00','2016-10-18 14:57:39'),(16,1,'PROVA 01-2016','sddsdsds','2016-10-12 03:00:00','2016-10-21 03:00:54');
+INSERT INTO `prova` VALUES (17,1,'Primeira Prova do Semestre',NULL,'2016-12-31 02:00:00','2016-12-01 02:50:19');
 /*!40000 ALTER TABLE `prova` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -680,7 +681,7 @@ CREATE TABLE `questao` (
   CONSTRAINT `FK_Reference_53` FOREIGN KEY (`id_tipo_questao`) REFERENCES `tipo_questao` (`id_tipo_questao`),
   CONSTRAINT `FK_Reference_54` FOREIGN KEY (`id_fonte_questao`) REFERENCES `fonte_questao` (`id_fonte_questao`),
   CONSTRAINT `FK_Reference_55` FOREIGN KEY (`id_assunto_materia`) REFERENCES `assunto_materia` (`id_assunto_materia`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -689,7 +690,7 @@ CREATE TABLE `questao` (
 
 LOCK TABLES `questao` WRITE;
 /*!40000 ALTER TABLE `questao` DISABLE KEYS */;
-INSERT INTO `questao` VALUES (1,1,1,9,2,2,1,1,1,'S','ESAF - 2002 - MPOG - Especialista em Políticas Públicas – Superior:','Considerando-se as formas de se percorrer os nós de uma árvore binária, no caminhamento pré-fixado deve-se',NULL,'2016-10-01 17:56:46','2016-10-01 17:56:46',NULL),(12,1,1,8,3,2,1,3,4,'S','Prova: FCC - 2012 - TJ-RJ - Analista Judiciário - Análise de Sistemas / Algoritmos e Estrutura de Dados / Algoritmos;','O seguinte trecho de pseudo-código representa a definição de uma função (sub-rotina) f com um único argumento x.\r\n\r\n´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´\r\nfunção f (inteiro x) {\r\n   x = x + 1;\r\n   retorna x;\r\n}\r\n´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´\r\nConsidere agora o seguinte trecho de código que invoca a função f definida acima.\r\n´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´\r\na = 0;\r\nescreva a;\r\nescreva f(a);\r\nescreva a;\r\n´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´´\r\nA execução do trecho de código acima resultaria na escrita de:',NULL,'2016-10-02 03:45:56','2016-10-02 03:45:56',NULL),(13,1,1,8,5,2,1,4,2,'S','FCC - 2011 - TRE-RN - Técnico Judiciário - Programação de Sistemas','Uma estrutura de dados onde cada nó mantém uma informação adicional, chamada fator de balanceamento, que indica a diferença de altura entre as subárvores esquerda e direita, é conhecida por árvore:',NULL,'2016-10-15 17:58:58','2016-10-15 17:58:58',NULL),(14,1,1,4,4,1,1,3,5,'S','CETAP - 2010 - AL-RR - Analista de Sistemas.','Sobre as estruturas de dados conhecidas como árvores, selecione a alternativa CORRETA.',NULL,'2016-10-17 17:15:31','2016-10-17 17:15:31',NULL),(15,1,1,1,6,1,1,3,4,'S','Prova: FCC - 2009 - TRT - 15ª Região - Analista Judiciário - Tecnologia da Informação','São algoritmos de classificação por trocas apenas os métodos',NULL,'2016-10-17 17:22:21','2016-10-17 17:22:21',NULL),(16,1,1,4,3,2,1,4,3,'S','Analise o código abaixo e marque a alternativa que representa a saida do programa abaixo caso o usuario digite 12 para dd e 3 para dv.','#include <stdio.h>\r\n#include <stdlib.h>\r\n\r\nint main() {\r\n  	int dv, dd, n, i = 0;\r\n\r\n  	puts(\"digite o dd\");\r\n  	scanf(\"%i\",&dd);  \r\n  	puts(\"digite o dv\");\r\n  	scanf(\"%i\",&dv);  \r\n  	n = dv;\r\n  	while(n <= dd) {\r\n     		n = n + dv;\r\n     		i++;\r\n  	}\r\n\r\n 	printf(\"O resultado eh : %i .\\n\\n\", i);\r\n  	system(\"PAUSE\");\r\n  	return 0;\r\n}',NULL,'2016-10-17 17:26:42','2016-10-17 17:26:42',NULL),(17,1,1,4,4,2,1,4,3,'S','Analise o Código abaixo e indique quantos erros existem no código que o impedem de rodar sem problemas em um compilador C/C++','#include <stdlid.h>\r\n#include <stdio.h>\r\n\r\nvoid  main(){\r\n    int A, b, R;\r\n\r\n      printf(\"Digite um numero inteiro qualquer.\\n\"); //Escreva\r\n      scanf(\"%i\",&A); //Leia\r\n\r\n      printf(\"Digite outro numero inteiro qualquer.\\n\");\r\n      scanf(\"%f\",&B);\r\n\r\n      while (B != 0) { //Enquanto\r\n         R = (A % B); //(a mod b)\r\n         A = B;\r\n         B = R;\r\n        }\r\n      printf(\"O valor do MDC eh %i. \\n\\n\\n\",A);\r\n      system(\"PAUSE\");\r\n      returno 0;\r\n}',NULL,'2016-10-17 17:32:23','2016-10-17 17:32:23',NULL),(18,1,1,6,3,1,1,3,5,'S','Quantos dos itens destacados abaixo não podem ser utilizados como nomes de variaveis?','M234	void	$endereco	6six	Sete_seven	Return0	Sistema	__fita__\r\n_nome	_float	telefone	Endereço	beija-flor	variavel	idade	Cd',NULL,'2016-10-17 17:35:31','2016-10-17 17:35:31',NULL),(19,1,1,6,4,1,1,3,5,'S','Verifique se as afirmações sobre Grafos são verdadeiras (V) ou falsas (F) e assinale a alternativa que contém a sequência correta:','I.   Caminho é um circuito de um único nó.\r\nII.  Subgrafo é um subconjunto das arestas, com todos os nós do grafo original.\r\nIII. Na representação por lista de adjacência existe uma lista encadeada para cada nó.',NULL,'2016-10-17 17:43:42','2016-10-17 17:43:42',NULL),(20,1,1,3,4,2,1,1,2,'S','Verifique se as afirmações sobre Árvores são verdadeiras (V) ou falsas (F) e assinale a alternativa que contém a sequência correta:','I. Percorrerrrr uma árvore significa visitar cada nó pelo menos uma vez.\r\nII. Nas árvores binárias o número de filhos de cada nó é sempre menor que dois.\r\nIII. Uma árvore binária é denominada AVL quando, para qualquer nó, as alturas das subárvores, esquerda e direita, diferem em módulo de até uma unidade.',NULL,'2016-10-17 17:45:30','2016-10-17 17:45:30',NULL),(21,1,1,1,3,1,1,1,7,'S','Titulo da Questão','Enunciado da Questão',NULL,'2016-11-04 18:02:32','2016-11-04 18:02:32',NULL),(22,1,1,2,4,1,1,1,8,'S','Titulo da Questão do teste 1','Enunciado da questao do teste 1',NULL,'2016-11-04 18:07:04','2016-11-04 18:07:04',NULL),(23,1,1,2,4,2,1,1,9,'S','Titulo da questao','Enunciado da Questao',NULL,'2016-11-04 18:21:43','2016-11-04 18:21:43',NULL);
+INSERT INTO `questao` VALUES (24,1,1,1,3,1,1,1,1,'S','Marque a alternativa correta','A Lei nº. 9.784, de 29 de janeiro de 1.999, regula o Processo Administrativo no âmbito da Administração Pública Federal. A Administração Pública obedecerá, dentre outros, aos princípios da legalidade, finalidade, motivação, razoabilidade, proporcionalidade, moralidade, ampla defesa, contraditório, segurança jurídica, interesse público e eficiência. Nesse contexto, assinale a alternativa que CONTRADIZ os critérios legais.',NULL,'2016-12-01 02:45:47','2016-12-01 02:45:47',NULL),(25,1,1,1,2,1,1,1,1,'S','Marque a alternativa correta','Constitui ato de improbidade administrativa que causa lesão ao erário qualquer ação ou omissão, dolosa ou culposa, que enseje perda patrimonial, desvio, apropriação, malbaratamento ou dilapidação dos bens ou haveres das entidades referidas no art. 1º da Lei 8.429 de 02 de junho de 1992.\r\nAssinale a alternativa que NÃO caracteriza ato de improbidade administrativa que prejudica o erário público.',NULL,'2016-12-01 02:59:33','2016-12-01 02:59:33',NULL);
 /*!40000 ALTER TABLE `questao` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -709,7 +710,7 @@ CREATE TABLE `questoes_prova` (
   KEY `FK_Reference_57` (`id_prova`),
   CONSTRAINT `FK_Reference_56` FOREIGN KEY (`id_questao`) REFERENCES `questao` (`id_questao`),
   CONSTRAINT `FK_Reference_57` FOREIGN KEY (`id_prova`) REFERENCES `prova` (`id_prova`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -718,7 +719,7 @@ CREATE TABLE `questoes_prova` (
 
 LOCK TABLES `questoes_prova` WRITE;
 /*!40000 ALTER TABLE `questoes_prova` DISABLE KEYS */;
-INSERT INTO `questoes_prova` VALUES (1,20,14),(2,16,14),(3,22,16);
+INSERT INTO `questoes_prova` VALUES (1,24,17);
 /*!40000 ALTER TABLE `questoes_prova` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -998,6 +999,7 @@ USE `bdejur`;
 -- Final view structure for view `acl`
 --
 
+/*!50001 DROP TABLE IF EXISTS `acl`*/;
 /*!50001 DROP VIEW IF EXISTS `acl`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1016,6 +1018,7 @@ USE `bdejur`;
 -- Final view structure for view `auth`
 --
 
+/*!50001 DROP TABLE IF EXISTS `auth`*/;
 /*!50001 DROP VIEW IF EXISTS `auth`*/;
 /*!50001 SET @saved_cs_client          = @@character_set_client */;
 /*!50001 SET @saved_cs_results         = @@character_set_results */;
@@ -1039,4 +1042,4 @@ USE `bdejur`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-04 16:39:26
+-- Dump completed on 2016-12-01  1:04:20
