@@ -19,10 +19,10 @@ class QuestaoForm extends AbstractForm{
         $objForm->combo("id_temporizacao", '\Temporizacao\Service\TemporizacaoService','id','nm_temporizacao')->required(true)->label("Temporizador");
         $objForm->combo("id_tipo_questao", '\TipoQuestao\Service\TipoQuestaoService','id','nm_tipo_questao')->required(true)->label("Tipo");
 
-        $objForm->select("id_materia", array(''=>'Selecione um Semestre...'))->required(false)->label("Materia");
+        $objForm->select("id_materia", array(''=>'Selecione um Semestre...'))->required(false)->label("Matéria");
         $objForm->select("id_assunto_materia", array(''=>'Selecione uma Matéria...'))->required(false)->label("Assunto");
         
-        $objForm->text("nm_titulo_questao")->required(false)->label("Titulo da Questão");
+        $objForm->text("nm_titulo_questao")->required(false)->label("Título da Questão");
         $objForm->textareaHtml("tx_enunciado")->required(false)->label("Enunciado da Questão");
         $objForm->text("tx_caminho_imagem_questao")->required(false)->label("Caminho da Imagem");
 
