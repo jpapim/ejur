@@ -102,9 +102,6 @@
         <p></div>
     <script type="text/javascript" language="javascript" class="init">
         $(document).ready(function () {
-            if ($('#id').val()) {
-                carregarCombosAtualizados();
-            }
             $('.carregando').hide();
             $('#id_classificacao_semestre').change(function () {
                 if ($(this).val()) {
@@ -125,6 +122,7 @@
                                     options += '<option value="' + response.ar_materias[i].id + '">' + response.ar_materias[i].descricao + '</option>';
                                 });
                                 $('#id_materia').html(options).show();
+                                $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
                                 $('.carregando').hide();
                             } else {
                                 $('#id_materia').html('<option value="">-- Erro ao carregar matérias --</option>');
@@ -133,6 +131,7 @@
                     });
                 } else {
                     $('#id_materia').html('<option value="">-- Escolha uma Classificação --</option>');
+                    $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
                 }
             });
 
@@ -166,53 +165,6 @@
                 }
             });
 
-            function carregarCombosAtualizados() {
-                var id_materia = $('#id_materia').val();
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    url: '/questao-questao/carregar-combo-materias-ajax',
-                    async: true,
-                    data: {
-                        id_classificacao_semestre: <?= $form->get('id_classificacao_semestre')->getValue() ?>,
-                    },
-                    success: function (response) {
-                        if (response.sucesso == true) {
-                            var options = '<option value=""> Selecione...</option>';
-                            $.each(response.ar_materias, function (i, item) {
-                                options += '<option value="' + response.ar_materias[i].id + '">' + response.ar_materias[i].descricao + '</option>';
-                            });
-                            $('#id_materia').html(options).show();
-                            $('.carregando').hide();
-                        } else {
-                            $('#id_materia').html('<option value="">-- Erro ao carregar matérias --</option>');
-                        }
-                    }
-                });
-
-                $.ajax({
-                    type: 'POST',
-                    dataType: 'json',
-                    url: '/questao-questao/carregar-combo-assunto-materia-ajax',
-                    async: true,
-                    data: {
-                        id_materia: <?= $form->get('id_materia')->getValue() ?>,
-                    },
-                    success: function (response) {
-                        if (response.sucesso == true) {
-                            var options = '<option value=""> Selecione...</option>';
-                            $.each(response.ar_assunto_materia, function (i, item) {
-                                options += '<option value="' + response.ar_assunto_materia[i].id + '">' + response.ar_assunto_materia[i].descricao + '</option>';
-                            });
-                            $('#id_assunto_materia').html(options).show();
-                            $('.carregando').hide();
-                        } else {
-                            $('#id_assunto_materia').html('<option value="">-- Erro ao carregar Assuntos --</option>');
-                        }
-                    }
-                });
-
-            }
         });
 
     </script>

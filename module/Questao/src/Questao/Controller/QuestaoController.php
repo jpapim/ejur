@@ -120,8 +120,9 @@ class QuestaoController extends AbstractQuestaoController
 
             #xd($service->buscar($id)->toArray());
             $service = new \Questao\Service\QuestaoService();
-            $form = new \Questao\Form\AlterarQuestaoForm();
-            #$arrayQuestao = $service->buscar($id)->toArray();
+            $arrayPreenchidoQuestao = $service->buscar($id)->toArray();
+            $form = new \Questao\Form\AlterarQuestaoForm($arrayPreenchidoQuestao);
+
             if ($id) {
                 $form->setData($service->buscar($id)->toArray());
             }

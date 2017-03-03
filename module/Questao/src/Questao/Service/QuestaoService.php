@@ -166,15 +166,6 @@ class QuestaoService extends Entity{
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 
-//    public function fetchAllSemAdmE()
-//    {
-//
-//        return $this->select(
-//            [
-//                'escritorio.id_escritorio != ?' => $this->configList['escritorio_adve'],
-//            ]
-//        );
-//    }
 
 
 }

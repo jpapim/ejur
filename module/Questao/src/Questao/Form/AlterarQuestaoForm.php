@@ -12,6 +12,10 @@ class AlterarQuestaoForm extends AbstractForm
     {
         parent::__construct('alterarquestaoform');
 
+        #recuperar o ID da materia selecionada
+        $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+        $assuntoMateriaEntity = $assuntoMateriaService->buscar($options['id_assunto_materia']);
+
         $this->inputFilter = new InputFilter();
         $objForm = new FormObject('alterarquestaoform', $this, $this->inputFilter);
 
@@ -25,8 +29,10 @@ class AlterarQuestaoForm extends AbstractForm
         #$objForm->combo("id_tipo_questao", '\TipoQuestao\Service\TipoQuestaoService', 'id', 'nm_tipo_questao')->required(false)->label("Tipo");
         $objForm->hidden("id_tipo_questao")->required(false)->label("Id");
 
-        $objForm->select("id_materia", array('' => 'Selecione um Semestre...'))->required(false)->label("Matéria");
-        $objForm->select("id_assunto_materia", array('' => 'Selecione uma Matéria...'))->required(false)->label("Assunto");
+        #$objForm->select("id_materia", array('' => 'Selecione um Semestre...'))->required(false)->label("Matéria");
+        $objForm->combo("id_materia", '\Materia\Service\MateriaService', 'id', 'nm_materia', 'carregarMateriaPorSemestre', ['id_classificacao_semestre'=>$options['id_classificacao_semestre']])->required(true)->label("Matéria");
+        #$objForm->select("id_assunto_materia", array('' => 'Selecione uma Matéria...'))->required(false)->label("Assunto");
+        $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService', 'id', 'nm_assunto_materia', 'carregarAssuntoPorMateria', ['id_materia'=>$assuntoMateriaEntity->getIdMateria()])->required(true)->label("Matéria");
 
         $objForm->text("nm_titulo_questao")->required(true)->label("Título da Questão");
         $objForm->textareaHtml("tx_enunciado")->required(false)->label("Enunciado da Questão");
