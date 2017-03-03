@@ -72,28 +72,21 @@
                 foreach ($paginator as $key => $questao) {
                     ?>
                     <tr>
-<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_fonte_questao']) ?><!--</td>-->
-<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_classificacao_semestre']) ?><!--</td>-->
-<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_temporizacao']) ?><!--</td>-->
-<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_tipo_questao']) ?><!--</td>-->
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_titulo_questao']) ?></td>
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_nivel_dificuldade']) ?></td>
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_materia']) ?></td>
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_assunto_materia']) ?></td>
-<!--                        <td class="text-center">--><?//= \Estrutura\Helpers\String::nomeMaiusculo($questao['tx_caminho_imagem_questao']) ?><!--</td>-->
-
 
                         <td class="text-center">
                                 <span class="btn-group" style="width: 250px;">
+                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'atualizar-dados', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao'])))) ?>
                                     <?= \Estrutura\Service\HtmlHelper::botaoAcao(
-                                        $this->url('navegacao', array('controller'=>$controller,'action'=>'cadastro-alternativas','id'=>Estrutura\Helpers\Cript::enc($questao['id_questao']))),
+                                        $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro-alternativas', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao']))),
                                         'Editar Alternativas da Questão',
                                         'editar_alternativa_questao',
                                         'glyphicon glyphicon-pencil',
                                         'btn-alterar btn-xs btn-alterar-customizado'
                                     ) ?>
-
-                                <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao'])))) ?>
                                     <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao'])))) ?>
                                 </span>
                         </td>

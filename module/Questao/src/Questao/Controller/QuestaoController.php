@@ -111,6 +111,42 @@ class QuestaoController extends AbstractQuestaoController
         return parent::excluir($this->service, $this->form);
     }
 
+    public function atualizarDadosAction()
+    {
+        try {
+            //recuperar o id do Periodo Letivo
+            $id = Cript::dec($this->params('id'));
+            $post = $this->getPost();
+
+            #xd($service->buscar($id)->toArray());
+            $service = new \Questao\Service\QuestaoService();
+            $form = new \Questao\Form\AlterarQuestaoForm();
+            #$arrayQuestao = $service->buscar($id)->toArray();
+            if ($id) {
+                $form->setData($service->buscar($id)->toArray());
+            }
+
+            if (!empty($post)) {
+
+                $form->setData($post);
+            }
+
+            $dadosView = [
+                'service' => $service,
+                'form' => $form,
+                'controller' => $this->params('controller'),
+                'atributos' => []
+            ];
+
+            return new ViewModel($dadosView);
+
+            return new ViewModel($dadosView);
+        } catch (\Exception $e) {
+            $this->addErrorMessage($e->getMessage());
+            return false;
+        }
+    }
+
     public function cadastroAlternativasAction()
     {
         try {

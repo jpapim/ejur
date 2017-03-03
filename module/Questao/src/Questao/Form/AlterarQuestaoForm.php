@@ -6,14 +6,14 @@ use Estrutura\Form\AbstractForm;
 use Estrutura\Form\FormObject;
 use Zend\InputFilter\InputFilter;
 
-class QuestaoForm extends AbstractForm
+class AlterarQuestaoForm extends AbstractForm
 {
     public function __construct($options = [])
     {
-        parent::__construct('cadastroquestaoform');
+        parent::__construct('alterarquestaoform');
 
         $this->inputFilter = new InputFilter();
-        $objForm = new FormObject('cadastroquestaoform', $this, $this->inputFilter);
+        $objForm = new FormObject('alterarquestaoform', $this, $this->inputFilter);
 
         $objForm->hidden("id")->required(false)->label("Id");
         $objForm->combo("id_fonte_questao", '\Fonte\Service\FonteService', 'id', 'nm_fonte_questao')->required(true)->label("Selecionar a fonte");

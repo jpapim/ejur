@@ -92,7 +92,7 @@ class QuestaoService extends Entity{
 
         # var_dump($paginatorAdapter);
         #die;
-        // resultado da pagina��o
+        // resultado da paginaçao
         return (new Paginator($paginatorAdapter))
             // pagina a ser buscada
             ->setCurrentPageNumber((int) $pagina)
@@ -166,6 +166,15 @@ class QuestaoService extends Entity{
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 
+//    public function fetchAllSemAdmE()
+//    {
+//
+//        return $this->select(
+//            [
+//                'escritorio.id_escritorio != ?' => $this->configList['escritorio_adve'],
+//            ]
+//        );
+//    }
 
 
 }

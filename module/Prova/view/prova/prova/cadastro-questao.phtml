@@ -35,20 +35,20 @@
         </div>
         <div style="text-align: center" class="row form-group">
             <div class="well col-md-12">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <a href="<?= $this->url('navegacao', ['controller' => $controller, 'action' => 'adicionar-questao-manual', 'id' => Estrutura\Helpers\Cript::enc($dadosProva->getId())]) ?>"
                        class="btn btn-primary">Adicionar Questão Manual</a>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <a href="<?= $this->url('navegacao', ['controller' => $controller, 'action' => 'adicionar-questao-aleatoria', 'id' => Estrutura\Helpers\Cript::enc($dadosProva->getId())]) ?>"
                        class="btn btn-primary">Adicionar Questão Aleatória</a>
                 </div>
 
-                <div class="col-md-4">
-                    <a href="<?= $this->url('navegacao', ['controller' => $controller, 'action' => 'adicionar-varias-questoes-aleatorias', 'id' => Estrutura\Helpers\Cript::enc($dadosProva->getId())]) ?>"
-                       class="btn btn-primary">Adicionar Várias Questões</a>
-                </div>
+<!--                <div class="col-md-4">-->
+<!--                    <a href="$this->url('navegacao', ['controller' => $controller, 'action' => 'adicionar-varias-questoes-aleatorias', 'id' => Estrutura\Helpers\Cript::enc($dadosProva->getId())]) ?>"-->
+<!--                       class="btn btn-primary">Adicionar Várias Questões</a>-->
+<!--                </div>-->
             </div>
         </div>
 
