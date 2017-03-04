@@ -9,7 +9,7 @@
             </div>
             <div class="panel-body" style="background-color: white;">
                 <?php
-                $form->setAttribute('action', $this->url('navegacao', array('controller' => 'questao-questao', 'action' => 'gravar-alternativas')));
+                $form->setAttribute('action', $this->url('navegacao', array('controller' => 'questao-questao', 'action' => 'gravar-alternativas-via-prova')));
                 $form->setAttribute('class', 'form-horizontal');
                 $form->setAttribute('data-role', 'form');
                 $form->setAttribute('method', 'post');
@@ -23,6 +23,7 @@
 
                 $form->get('id_questao')->setValue($dadosQuestao->getId());
                 echo $this->formHidden($form->get('id_questao'));
+                echo "<input type='hidden' id='id_prova' name='id_prova' class='form-control'value='$id_prova'>";
 
                 echo $this->formHidden($form->get('id_alternativa_questao_1'));
                 echo $this->formHidden($form->get('id_alternativa_questao_2'));
@@ -31,12 +32,12 @@
                 echo $this->formHidden($form->get('id_alternativa_questao_5'));
 
                 $form->get('id_classificacao_semestre')->setValue($dadosQuestao->getIdClassificacaoSemestre());
-                #$form->get('id_tipo_questao')->setValue($dadosQuestao->getIdTipoQuestao());
+                $form->get('id_tipo_questao')->setValue($dadosQuestao->getIdTipoQuestao());
                 $form->get('id_fonte_questao')->setValue($dadosQuestao->getIdFonteQuestao());
                 $form->get('id_materia')->setValue($ob_assunto_materia->getIdMateria());
                 $form->get('id_assunto_materia')->setValue($dadosQuestao->getIdAssuntoMateria());
                 $form->get('id_nivel_dificuldade')->setValue($dadosQuestao->getIdNivelDificuldade());
-                #$form->get('id_temporizacao')->setValue($dadosQuestao->getIdTemporizacao());
+                $form->get('id_temporizacao')->setValue($dadosQuestao->getIdTemporizacao());
                 $form->get('nm_titulo_questao')->setValue($dadosQuestao->getNmTituloQuestao());
                 $form->get('tx_enunciado')->setValue($dadosQuestao->getTxEnunciado());
 
@@ -60,30 +61,37 @@
                         </div>
                         <div class="panel-body" style="background-color: white;">
                             <div class="form-group">
-                                <div class="col-md-6">-
-                                    <?= $this->formRow($form->get('id_fonte_questao')) ?>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                                <div class="col-md-6">-
-                                    <?= $this->formRow($form->get('id_nivel_dificuldade')) ?>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <div class="col-md-4">-
                                     <?= $this->formRow($form->get('id_classificacao_semestre')) ?>
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="col-md-4">-
-                                    <?= $this->formRow($form->get('id_materia')) ?>
+                                    <?= $this->formRow($form->get('id_tipo_questao')) ?>
                                     <div class="help-block with-errors"></div>
                                 </div>
                                 <div class="col-md-4">-
+                                    <?= $this->formRow($form->get('id_fonte_questao')) ?>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-3">-
+                                    <?= $this->formRow($form->get('id_materia')) ?>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="col-md-3">-
                                     <?= $this->formRow($form->get('id_assunto_materia')) ?>
                                     <div class="help-block with-errors"></div>
                                 </div>
-
+                                <div class="col-md-3">-
+                                    <?= $this->formRow($form->get('id_nivel_dificuldade')) ?>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="col-md-3">-
+                                    <?= $this->formRow($form->get('id_temporizacao')) ?>
+                                    <div class="help-block with-errors"></div>
+                                </div>
                             </div>
 
                             <div class="form-group">
@@ -246,8 +254,7 @@
                     <div class="form-group">
                         <div class="col-md-10">
                             <button type="submit" class="btn btn-primary">Salvar</button>
-                            <a href="<?= $this->url('navegacao', ['controller' => $controller]) ?>"
-                               class="btn btn-default">Voltar</a>
+                            <a href="<?= $this->url('navegacao', ['controller' => 'prova-prova', 'action'=>'cadastro-questao', 'id'=>Estrutura\Helpers\Cript::enc($id_prova)]) ?>" class="btn btn-default">Voltar</a>
                         </div>
                     </div>
                     <?= $this->form()->closeTag(); ?>
@@ -255,71 +262,9 @@
             </div>
         </div>
     </div>
-    <div class="carregando"><p><img src="/assets/img/carregando1.gif"><p></div>
     <script type="text/javascript" language="javascript" class="init">
         $(document).ready(function () {
-            $('.carregando').hide();
-            $('#id_classificacao_semestre').change(function () {
-                if ($(this).val()) {
-                    $('#id_materia').hide();
-                    $('.carregando').show();
-                    $.ajax({
-                        type: 'POST',
-                        dataType: 'json',
-                        url: '/questao-questao/carregar-combo-materias-ajax',
-                        async: true,
-                        data: {
-                            id_classificacao_semestre: $(this).val(),
-                        },
-                        success: function (response) {
-                            if (response.sucesso == true) {
-                                var options = '<option value=""> Selecione...</option>';
-                                $.each(response.ar_materias, function (i, item) {
-                                    options += '<option value="' + response.ar_materias[i].id + '">' + response.ar_materias[i].descricao + '</option>';
-                                });
-                                $('#id_materia').html(options).show();
-                                $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
-                                $('.carregando').hide();
-                            } else {
-                                $('#id_materia').html('<option value="">-- Erro ao carregar matérias --</option>');
 
-                            }
-                        }
-                    });
-                } else {
-                    $('#id_materia').html('<option value="">-- Escolha uma Classificação --</option>');
-                    $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
-                }
-            });
 
-            $('#id_materia').change(function () {
-                if ($(this).val()) {
-                    $('#id_assunto_materia').hide();
-                    $('.carregando').show();
-                    $.ajax({
-                        type: 'POST',
-                        dataType: 'json',
-                        url: '/questao-questao/carregar-combo-assunto-materia-ajax',
-                        async: true,
-                        data: {
-                            id_materia: $(this).val(),
-                        },
-                        success: function (response) {
-                            if (response.sucesso == true) {
-                                var options = '<option value=""> Selecione...</option>';
-                                $.each(response.ar_assunto_materia, function (i, item) {
-                                    options += '<option value="' + response.ar_assunto_materia[i].id + '">' + response.ar_assunto_materia[i].descricao + '</option>';
-                                });
-                                $('#id_assunto_materia').html(options).show();
-                                $('.carregando').hide();
-                            } else {
-                                $('#id_assunto_materia').html('<option value="">-- Erro ao carregar Assuntos --</option>');
-                            }
-                        }
-                    });
-                } else {
-                    $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
-                }
-            });
         });
     </script>

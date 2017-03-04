@@ -182,7 +182,7 @@ class QuestaoController extends AbstractQuestaoController
     public function gravarAlternativasAction()
     {
         try {
-
+            
             $controller = $this->params('controller');
             $id = $this->getRequest()->getPost()->get('id');
             $id_questao = $this->getRequest()->getPost()->get('id_questao');
