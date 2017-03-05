@@ -550,7 +550,7 @@ CREATE TABLE `nivel_dificuldade` (
 
 LOCK TABLES `nivel_dificuldade` WRITE;
 /*!40000 ALTER TABLE `nivel_dificuldade` DISABLE KEYS */;
-INSERT INTO `nivel_dificuldade` VALUES (2,'Fácil'),(3,'Muito fácil'),(4,'Intermediário'),(5,'Difícil'),(6,'Muito dificil'),(7,'Nível Ninja');
+INSERT INTO `nivel_dificuldade` VALUES (1,'Não informado'),(2,'Fácil'),(3,'Muito fácil'),(4,'Intermediário'),(5,'Difícil'),(6,'Muito dificil'),(7,'Nível Ninja');
 /*!40000 ALTER TABLE `nivel_dificuldade` ENABLE KEYS */;
 UNLOCK TABLES;
 

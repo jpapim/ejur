@@ -15,7 +15,8 @@ class VariasQuestoesAleatoriasForm extends AbstractForm{
         $objForm->hidden("id")->required(false)->label("Id");  
         $objForm->hidden("id_usuario")->required(false)->label("Id Usuario");
 
-        $objForm->combo("id_tipo_questao", '\TipoQuestao\Service\TipoQuestaoService','id','nm_tipo_questao')->required(true)->label("Tipo");
+        #$objForm->combo("id_tipo_questao", '\TipoQuestao\Service\TipoQuestaoService','id','nm_tipo_questao')->required(true)->label("Tipo");
+        $objForm->hidden("id_tipo_questao")->required(false)->label("Id");
         $objForm->combo("id_fonte_questao", '\Fonte\Service\FonteService','id','nm_fonte_questao')->required(true)->label("Selecionar a fonte");
         $objForm->select("id_materia", array(''=>'Selecione um Semestre...'))->required(true)->label("Matéria");
         $objForm->select("id_assunto_materia", array(''=>'Selecione uma Matéria...'))->required(true)->label("Assunto");
