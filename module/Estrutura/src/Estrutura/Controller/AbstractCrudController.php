@@ -148,7 +148,7 @@ abstract class AbstractCrudController extends AbstractEstruturaController
             return $this->redirect()->toRoute('navegacao', ['controller' => $controller]);
         } catch (\Exception $e) {
             if( strstr($e->getMessage(), '1451') ) { #ERRO de SQL (Mysql) para nao excluir registro que possua filhos
-                $this->addErrorMessage('A matéria não foi excluída porque existe assunto vinculado a ela. Para excluir a matéria primeiro excluia o assunto vinculado.');
+                $this->addErrorMessage('A matéria não foi excluída porque existe assunto vinculado a ela. Para excluir a matéria primeiro excluia o assunto vinculado. ');
             }else {
                 $this->addErrorMessage($e->getMessage());
             }
