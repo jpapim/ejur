@@ -144,11 +144,11 @@ abstract class AbstractCrudController extends AbstractEstruturaController
             }
 
             $service->excluir();
-            $this->addSuccessMessage('Registro excluido com sucesso');
+            $this->addSuccessMessage('Registro excluído com sucesso');
             return $this->redirect()->toRoute('navegacao', ['controller' => $controller]);
         } catch (\Exception $e) {
             if( strstr($e->getMessage(), '1451') ) { #ERRO de SQL (Mysql) para nao excluir registro que possua filhos
-                $this->addErrorMessage('Não foi possível excluir. Verifique!');
+                $this->addErrorMessage('Componente vinculado a matérias. Não é permitido excluir !');
             }else {
                 $this->addErrorMessage($e->getMessage());
             }
