@@ -403,9 +403,10 @@ class QuestaoController extends AbstractQuestaoController
         #Faz o Tratamento do Array para enviar para View
         $arAssuntoMateriaCombo = array();
         foreach ($arAssuntoMaterias as $key => $item) {
-            #xd($item);
-            $arAssuntoMateriaCombo[$key]['id'] = $item['id_assunto_materia'];
-            $arAssuntoMateriaCombo[$key]['descricao'] = $item['nm_assunto_materia'];
+            if(isset($item['id_assunto_materia']) && isset($item['nm_assunto_materia']) && $item['id_assunto_materia'] && $item['nm_assunto_materia']) {
+                $arAssuntoMateriaCombo[$key]['id'] = $item['id_assunto_materia'];
+                $arAssuntoMateriaCombo[$key]['descricao'] = $item['nm_assunto_materia'];
+            }
         }
 
         if (count($arAssuntoMateriaCombo) > 0) {
