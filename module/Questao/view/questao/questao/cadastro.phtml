@@ -43,7 +43,45 @@
             $form->get('id_fonte_questao')->setValue(1);
             echo $this->formHidden($form->get('id_fonte_questao'));
 
-            ?>
+           
+                
+
+                $assunto_materiaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+                $ob_assunto_materia = $assunto_materiaService->buscar($id_assunto_materia);
+
+                #$form->get('id_questao')->setValue($dadosQuestao->getId());
+                #echo $this->formHidden($form->get('id_questao'));
+
+                echo $this->formHidden($form->get('id_alternativa_questao_1'));
+                echo $this->formHidden($form->get('id_alternativa_questao_2'));
+                echo $this->formHidden($form->get('id_alternativa_questao_3'));
+                echo $this->formHidden($form->get('id_alternativa_questao_4'));
+                echo $this->formHidden($form->get('id_alternativa_questao_5'));
+
+                #$form->get('id_classificacao_semestre')->setValue($dadosQuestao->getIdClassificacaoSemestre());
+                #$form->get('id_tipo_questao')->setValue($dadosQuestao->getIdTipoQuestao());
+                #$form->get('id_fonte_questao')->setValue($dadosQuestao->getIdFonteQuestao());
+                #$form->get('id_materia')->setValue($ob_assunto_materia->getIdMateria());
+                #$form->get('id_assunto_materia')->setValue($dadosQuestao->getIdAssuntoMateria());
+                #$form->get('id_nivel_dificuldade')->setValue($dadosQuestao->getIdNivelDificuldade());
+                #$form->get('id_temporizacao')->setValue($dadosQuestao->getIdTemporizacao());
+                #$form->get('nm_titulo_questao')->setValue($dadosQuestao->getNmTituloQuestao());
+                #$form->get('tx_enunciado')->setValue($dadosQuestao->getTxEnunciado());
+
+                if(count($dadosAlternativasQuestao) > 0) {
+                    $i = 0;
+                    foreach ($dadosAlternativasQuestao as $key => $item) {
+                        ++$i;
+                        $form->get('id_alternativa_questao_'.$i)->setValue($item['id_alternativa_questao']);
+                        $form->get('tx_alternativa_questao_'.$i)->setValue($item['tx_alternativa_questao']);
+                        $form->get('cs_correta_'.$i)->setValue($item['cs_correta']);
+                        $form->get('tx_justificativa_'.$i)->setValue($item['tx_justificativa']);
+                    }
+                }
+                ?>
+            
+            
+            
             <div class="form-group">
                 <div class="col-md-6">-
                     <?= $this->formRow($form->get('id_fonte_questao')) ?>
@@ -84,11 +122,150 @@
                 </div>
             </div>
             <div class="form-group">
+                
+                  <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="light panel-title">Alternativa - 1</h3>
+                                    </div>
+                                    <div class="panel-body" style="background-color: white;">
+                                        <!-- Objetivo -->
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_alternativa_questao_1')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('cs_correta_1')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_justificativa_1')) ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="light panel-title">Alternativa - 2</h3>
+                                    </div>
+                                    <div class="panel-body" style="background-color: white;">
+                                        <!-- Objetivo -->
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_alternativa_questao_2')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('cs_correta_2')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_justificativa_2')) ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+                          
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="light panel-title">Alternativa - 3</h3>
+                                    </div>
+                                    <div class="panel-body" style="background-color: white;">
+                                        <!-- Objetivo -->
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_alternativa_questao_3')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('cs_correta_3')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_justificativa_3')) ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            
+
+                            
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="light panel-title">Alternativa - 4</h3>
+                                    </div>
+                                    <div class="panel-body" style="background-color: white;">
+                                        <!-- Objetivo -->
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_alternativa_questao_4')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('cs_correta_4')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_justificativa_4')) ?>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            
+           
+                                <div class="panel panel-info">
+                                    <div class="panel-heading">
+                                        <h3 class="light panel-title">Alternativa - 5</h3>
+                                    </div>
+                                    <div class="panel-body" style="background-color: white;">
+                                        <!-- Objetivo -->
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_alternativa_questao_5')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('cs_correta_5')) ?>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <?= $this->formRow($form->get('tx_justificativa_5')) ?>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+                
                 <div class="col-md-10">
                     <br/>
                     <a href="<?= $this->url('navegacao', ['controller' => $controller]) ?>"
                        class="btn btn-default">Voltar</a>
-                    <button type="submit" class="btn btn-primary">Alternativas da Questão</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </div>
 
