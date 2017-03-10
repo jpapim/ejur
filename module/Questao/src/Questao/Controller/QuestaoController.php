@@ -64,6 +64,7 @@ class QuestaoController extends AbstractQuestaoController
 //                'filter' => "questao.tx_caminho_imagem_questao LIKE ?",
 //            ],
             '4' => NULL,
+            '5' => NULL,
         ];
         $paginator = $this->service->getQuestaoPaginator($filter, $camposFilter);
 
