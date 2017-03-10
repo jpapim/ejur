@@ -28,6 +28,7 @@
 	];
 
 	config.removeButtons = 'Save,NewPage,Preview,Print,Source';
+   
        
 
 };
