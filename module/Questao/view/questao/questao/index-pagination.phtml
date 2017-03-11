@@ -5,26 +5,19 @@
         <table class="table table-striped" id="tablesorterQuestao">
             <thead>
             <tr>
-<!--                <th class="text-center">Fonte</th>-->
-<!--                <th class="text-center">Semestre</th>-->
-                    <th class="text-center">Título</th>
-                    <th class="text-center">Enunciado</th>
-<!--                <th class="text-center">Tempo</th>-->
-<!--                <th class="text-center">Tipo</th>-->
-                    <th class="text-center">Nível de Dificuldade</th>
-                    <th class="text-center">Matéria</th>
+
+                <th class="text-center">Título</th>
+                <th class="text-center">Enunciado</th>
+                <th class="text-center">Nível de Dificuldade</th>
+                <th class="text-center">Matéria</th>
                 <th class="text-center">Assunto</th>
                 <th class="text-center">Ações</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
-<!--                <th class="text-center">Fonte</th>-->
-<!--                <th class="text-center">Semestre</th>-->
                 <th class="text-center">Título</th>
                 <th class="text-center">Enunciado</th>
-<!--                <th class="text-center">Tempo</th>-->
-<!--                <th class="text-center">Tipo</th>-->
                 <th class="text-center">Nível de Dificuldade</th>
                 <th class="text-center">Enunciado</th>
                 <th class="text-center">Assunto</th>
@@ -57,7 +50,8 @@
                             <?php
                             if (!is_null($campoFilter)) {
                                 ?>
-                                <input type="search" placeholder="" class="tablesorter-filter" data-column="<?= $key ?>" value="<?= isset($filter[$key]) ? $filter[$key] : '' ?>">
+                                <input type="search" placeholder="" class="tablesorter-filter" data-column="<?= $key ?>"
+                                       value="<?= isset($filter[$key]) ? $filter[$key] : '' ?>">
                                 <?php
                             } else {
                                 ?>
@@ -77,7 +71,8 @@
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_titulo_questao']) ?></td>
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['tx_enunciado']) ?></td>
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_nivel_dificuldade']) ?></td>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_materia']) ?></td>
+                        <!--na linha abaixo o nm_materia deve ficar sem a estrutura nomeMaiúsculo para corrigir os algarimos romanos-->
+                        <td class="text-center"><?= $questao['nm_materia'] ?></td>
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($questao['nm_assunto_materia']) ?></td>
 
                         <td class="text-center">
@@ -104,13 +99,17 @@
         </table>
         <div class="row">
             <div class="col-md-12">
-                <a href="<?= $this->url('navegacao', ['controller' => 'principal-principal']) ?>" class="btn btn-primary" title="Retorna para a Página Principal">Home</a>
-                <a class="btn btn-default" href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro')) ?>" title="Adiciona uma nova Questão">Novo tipo de Questão</a>
+                <a href="<?= $this->url('navegacao', ['controller' => 'principal-principal']) ?>"
+                   class="btn btn-primary" title="Retorna para a Página Principal">Home</a>
+                <a class="btn btn-default"
+                   href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro')) ?>"
+                   title="Adiciona uma nova Questão">Novo tipo de Questão</a>
             </div>
         </div>
     </div>
 </div>
-<script src="/assets/compact-js/moment.js,validator.min.js,jquery.mask.min.js,jquery.ui.widget.js,jquery.tablesorter.js,jquery.tablesorter.widgets.js,jquery.tablesorter.pager.js" type="text/javascript"></script>
+<script src="/assets/compact-js/moment.js,validator.min.js,jquery.mask.min.js,jquery.ui.widget.js,jquery.tablesorter.js,jquery.tablesorter.widgets.js,jquery.tablesorter.pager.js"
+        type="text/javascript"></script>
 <!--<script src="/assets/js/moment.js" type="text/javascript"></script>-->
 <!--<script src="/assets/js/validator.min.js" type="text/javascript"></script>-->
 <!--<script src="/assets/js/jquery.mask.min.js" type="text/javascript"></script>-->
@@ -118,7 +117,7 @@
 <!--<script src="/assets/js/jquery.tablesorter.js" type="text/javascript"></script>-->
 <!--<script src="/assets/js/jquery.tablesorter.widgets.js" type="text/javascript"></script>-->
 <!--<script src="/assets/js/jquery.tablesorter.pager.js" type="text/javascript"></script>-->
-<script type="text/javascript" language="javascript" >
+<script type="text/javascript" language="javascript">
     $(function () {
 
         // NOTE: $.tablesorter.theme.bootstrap is ALREADY INCLUDED in the jquery.tablesorter.widgets.js
