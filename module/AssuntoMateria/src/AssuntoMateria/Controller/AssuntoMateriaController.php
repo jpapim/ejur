@@ -18,7 +18,8 @@ class AssuntoMateriaController extends AbstractCrudController
      */
     protected $form;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::init();
     }
 
@@ -44,7 +45,13 @@ class AssuntoMateriaController extends AbstractCrudController
             '0' => [
                 'filter' => "assunto_materia.nm_assunto_materia LIKE ?",
             ],
-            '1' => NULL,
+            '1' => [
+                'filter' => "materia.nm_materia LIKE ?",
+            ],
+            '2' => [
+                'filter' => "classificacao_semestre.nm_classificacao_semestre LIKE ?",
+            ],
+            '3' => NULL,
         ];
 
 
@@ -74,7 +81,8 @@ class AssuntoMateriaController extends AbstractCrudController
         return $viewModel->setTerminal(TRUE);
     }
 
-    public function gravarAction(){
+    public function gravarAction()
+    {
         try {
             $request = $this->getRequest();
 
@@ -143,7 +151,6 @@ class AssuntoMateriaController extends AbstractCrudController
     {
         return parent::excluir($this->service, $this->form);
     }
-    
-    
-    
+
+
 }
