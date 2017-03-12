@@ -9,7 +9,7 @@
             </div>
             <div class="panel-body" style="background-color: white;">
                 <?php
-                $form->setAttribute('action', $this->url('navegacao', array('controller' => 'questao-questao', 'action' => 'gravar-alternativas')));
+                $form->setAttribute('action', $this->url('navegacao', array('controller' => 'questao-questao', 'action' => 'gravar')));
                 $form->setAttribute('class', 'form-horizontal');
                 $form->setAttribute('data-role', 'form');
                 $form->setAttribute('method', 'post');
@@ -44,10 +44,14 @@
                     $i = 0;
                     foreach ($dadosAlternativasQuestao as $key => $item) {
                         ++$i;
+                        $tx_alternativa_questao = isset($item['tx_alternativa_questao']) && $item['tx_alternativa_questao'] ? $item['tx_alternativa_questao'] : '';
+                        $cs_correta = isset($item['cs_correta']) && $item['cs_correta'] ? $item['cs_correta'] : '';
+                        $tx_justificativa = isset($item['tx_justificativa']) && $item['tx_justificativa'] ? $item['tx_justificativa'] : '';
+
                         $form->get('id_alternativa_questao_'.$i)->setValue($item['id_alternativa_questao']);
-                        $form->get('tx_alternativa_questao_'.$i)->setValue($item['tx_alternativa_questao']);
-                        $form->get('cs_correta_'.$i)->setValue($item['cs_correta']);
-                        $form->get('tx_justificativa_'.$i)->setValue($item['tx_justificativa']);
+                        $form->get('tx_alternativa_questao_'.$i)->setValue($tx_alternativa_questao);
+                        $form->get('cs_correta_'.$i)->setValue($cs_correta);
+                        $form->get('tx_justificativa_'.$i)->setValue($tx_justificativa);
                     }
                 }
                 ?>

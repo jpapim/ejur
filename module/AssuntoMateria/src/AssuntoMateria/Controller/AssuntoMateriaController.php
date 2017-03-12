@@ -75,10 +75,63 @@ class AssuntoMateriaController extends AbstractCrudController
     }
 
     public function gravarAction(){
-        $controller = $this->params('controller');
-        $this->addSuccessMessage('Registro Alterado com sucesso');
-        $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
-        return parent::gravar($this->service, $this->form);
+        try {
+            $request = $this->getRequest();
+
+            $controller = $this->params('controller');
+            $service = $this->service;
+            $form = $this->form;
+
+            if (!$request->isPost()) {
+                throw new \Exception('Dados Inválidos');
+            }
+
+            $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
+
+            $files = $request->getFiles();
+            $upload = $this->uploadFile($files);
+
+            $post = array_merge($post, $upload);
+
+            if (isset($post['id']) && $post['id']) {
+                $post['id'] = \Estrutura\Helpers\Cript::dec($post['id']);
+            }
+
+            #xd($post);
+            $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+            $assuntoMateriaService->setIdMateria(trim($this->getRequest()->getPost()->get('id_materia')));
+            $assuntoMateriaService->setNmAssuntoMateria(trim($this->getRequest()->getPost()->get('nm_assunto_materia')));
+
+            #xd($assuntoMateriaService->filtrarObjeto()->count());
+            if ($assuntoMateriaService->filtrarObjeto()->count()) {
+                $this->addErrorMessage('O Assunto informado já foi cadastrado para esta disciplina.');
+                $this->setPost($post);
+                $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
+                return FALSE;
+            }
+
+            $form->setData($post);
+
+            if (!$form->isValid()) {
+                $this->addValidateMessages($form);
+                $this->setPost($post);
+                $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
+                return false;
+            }
+
+            $service->exchangeArray($form->getData());
+            $this->addSuccessMessage('Assunto cadastrado com sucesso!');
+            $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
+            return $service->salvar();
+
+        } catch (\Exception $e) {
+
+            $this->setPost($post);
+            $this->addErrorMessage($e->getMessage());
+            $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
+            return false;
+        }
+
     }
 
     public function cadastroAction()

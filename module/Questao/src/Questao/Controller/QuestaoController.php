@@ -64,6 +64,7 @@ class QuestaoController extends AbstractQuestaoController
 //                'filter' => "questao.tx_caminho_imagem_questao LIKE ?",
 //            ],
             '4' => NULL,
+            '5' => NULL,
         ];
         $paginator = $this->service->getQuestaoPaginator($filter, $camposFilter);
 
@@ -128,30 +129,31 @@ class QuestaoController extends AbstractQuestaoController
             #$resultQuestao = parent::gravar(
              #   $this->getServiceLocator()->get('\Questao\Service\QuestaoService'), new \Questao\Form\QuestaoForm()
             #);
-            $this->getRequest()->getPost()->set('id', $id);
+           # $this->getRequest()->getPost()->set('id', $id);
             if ($resultQuestao) {
                 $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $this->getRequest()->getPost()->toArray());
 
-                $files = $this->getRequest()->getFiles();
-                $upload = $this->uploadFile($files);
+               # $files = $this->getRequest()->getFiles();
+                #$upload = $this->uploadFile($files);
 
-                $post = array_merge($post, $upload);
+                #$post = array_merge($post, $upload);
 
-                if (isset($post['id']) && $post['id']) {
-                    $post['id'] = Cript::dec($post['id']);
-                }
+                #if (isset($post['id']) && $post['id']) {
+                 #   $post['id'] = Cript::dec($post['id']);
+                #}
 
-                $alternativaService = new \AlternativaQuestao\Service\AlternativaQuestaoService();
-                $alternativaService->setIdQuestao($id_questao);
-                $alternativaService->excluir();
+                #$alternativaService = new \AlternativaQuestao\Service\AlternativaQuestaoService();
+                #$alternativaService->setIdQuestao($id_questao);
+                #$alternativaService->excluir();
                 for ($i = 1; $i <= 5; $i++) {
                     $arFormatado['id_alternativa_questao'] = isset($post['id_alternativa_questao_' . $i]) && $post['id_alternativa_questao_' . $i] ? $post['id_alternativa_questao_' . $i] : "";
                     $arFormatado['tx_alternativa_questao'] = isset($post['tx_alternativa_questao_' . $i]) && $post['tx_alternativa_questao_' . $i] ? $post['tx_alternativa_questao_' . $i] : "";
+                    $arFormatado['id_questao'] = isset($post['tx_alternativa_questao_' . $i]) && $post['tx_alternativa_questao_' . $i] ? $post['tx_alternativa_questao_' . $i] : "";
                     $arFormatado['cs_correta'] = isset($post['cs_correta_' . $i]) && $post['cs_correta_' . $i] ? $post['cs_correta_' . $i] : "";
                     $arFormatado['tx_justificativa'] = isset($post['tx_justificativa_' . $i]) && $post['tx_justificativa_' . $i] ? $post['tx_justificativa_' . $i] : "";
-
+                    $this->getRequest()->getPost()->set('id_questao', $resultQuestao);
                     $this->getRequest()->getPost()->set('id_alternativa_questao', $arFormatado['id_alternativa_questao']);
-                    $this->getRequest()->getPost()->set('id_questao', $id_questao);
+                   
                     $this->getRequest()->getPost()->set('tx_alternativa_questao', $arFormatado['tx_alternativa_questao']);
                     $this->getRequest()->getPost()->set('cs_correta', $arFormatado['cs_correta']);
                     $this->getRequest()->getPost()->set('tx_justificativa', $arFormatado['tx_justificativa']);
@@ -516,9 +518,10 @@ class QuestaoController extends AbstractQuestaoController
         #Faz o Tratamento do Array para enviar para View
         $arAssuntoMateriaCombo = array();
         foreach ($arAssuntoMaterias as $key => $item) {
-            #xd($item);
-            $arAssuntoMateriaCombo[$key]['id'] = $item['id_assunto_materia'];
-            $arAssuntoMateriaCombo[$key]['descricao'] = $item['nm_assunto_materia'];
+            if(isset($item['id_assunto_materia']) && isset($item['nm_assunto_materia']) && $item['id_assunto_materia'] && $item['nm_assunto_materia']) {
+                $arAssuntoMateriaCombo[$key]['id'] = $item['id_assunto_materia'];
+                $arAssuntoMateriaCombo[$key]['descricao'] = $item['nm_assunto_materia'];
+            }
         }
 
         if (count($arAssuntoMateriaCombo) > 0) {
