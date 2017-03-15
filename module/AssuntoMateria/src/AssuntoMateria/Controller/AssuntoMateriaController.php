@@ -85,6 +85,14 @@ class AssuntoMateriaController extends AbstractCrudController
             if (!$request->isPost()) {
                 throw new \Exception('Dados Inválidos');
             }
+           $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+        $assuntoMateriaService->setNmAssuntoMateria(trim($this->getRequest()->getPost()->get('nm_assunto_materia')));
+        if ($assuntoMateriaService->filtrarObjeto()->count()) {
+            $this->setPost($post);
+            $this->addErrorMessage('Assunto já cadastrado.');
+            $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
+            return FALSE;
+        }
 
             $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
 
@@ -98,7 +106,7 @@ class AssuntoMateriaController extends AbstractCrudController
             }
 
             #xd($post);
-            $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+            #$assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
             $assuntoMateriaService->setIdMateria(trim($this->getRequest()->getPost()->get('id_materia')));
             $assuntoMateriaService->setNmAssuntoMateria(trim($this->getRequest()->getPost()->get('nm_assunto_materia')));
 
