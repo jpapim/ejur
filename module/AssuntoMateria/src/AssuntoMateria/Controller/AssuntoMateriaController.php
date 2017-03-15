@@ -44,7 +44,14 @@ class AssuntoMateriaController extends AbstractCrudController
             '0' => [
                 'filter' => "assunto_materia.nm_assunto_materia LIKE ?",
             ],
-            '1' => NULL,
+            '1' => [
+                'filter' => "materia.nm_materia LIKE ?",
+            ],
+            '2' => [
+                'filter' => "materia_semestre.id_classificacao_semestre LIKE ?",
+            ],
+            
+            
         ];
 
 
