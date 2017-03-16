@@ -9,11 +9,11 @@
             </div>
             <div class="panel-body" style="background-color: white;">
                 <?php
-                $form->setAttribute('action', $this->url('navegacao', array('controller' => 'questao-questao', 'action' => 'gravar')));
+                $form->setAttribute('action', $this->url('navegacao', array('controller' => 'questao-questao', 'action' => 'atualizar-dados')));
                 $form->setAttribute('class', 'form-horizontal');
                 $form->setAttribute('data-role', 'form');
                 $form->setAttribute('method', 'post');
-                $form->prepare();
+                 $form->prepare();
                 echo $this->form()->openTag($form);
                 $form->get('id')->setValue(Estrutura\Helpers\Cript::enc($form->get('id')->getValue()));
                 echo $this->formHidden($form->get('id'));
@@ -52,6 +52,9 @@
                         $form->get('tx_alternativa_questao_'.$i)->setValue($tx_alternativa_questao);
                         $form->get('cs_correta_'.$i)->setValue($cs_correta);
                         $form->get('tx_justificativa_'.$i)->setValue($tx_justificativa);
+                        
+                echo $this->formHidden($form->get('id_alternativa_questao_'.$i));
+                
                     }
                 }
                 ?>
@@ -103,6 +106,9 @@
                                     <div class="help-block with-errors"></div>
                                 </div>
                             </div>
+                            
+                            
+                            
 
                             <div class="col-xs-12 col-sm-12">
                                 <div class="panel panel-info">
@@ -245,7 +251,60 @@
                                 </div>
                             </div>
                         </div>
+<script type="text/javascript">
+          
+                             CKEDITOR.replace('tx_enunciado',
+ {
+     filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+     filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+     filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+     filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+ });
+ 
+                              CKEDITOR.replace('tx_alternativa_questao_1',
+ {  filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+     filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+     filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+     filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+ });
+                             CKEDITOR.replace('tx_alternativa_questao_2',
+ {
+       filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+     filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+     filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+     filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+ });
+                             CKEDITOR.replace('tx_alternativa_questao_3',
+ {
+      filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+     filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+     filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+     filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+ });
+                             CKEDITOR.replace('tx_alternativa_questao_4',
+ {
+       filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+     filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+     filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+     filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+ });
+                             CKEDITOR.replace('tx_alternativa_questao_5',
+ {
+       filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+     filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+     filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+     filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+ });
+ 
+    $( '#tx_enunciado' ).ckeditor();
+            $( '#tx_alternativa_questao_1' ).ckeditor();
+            $( '#tx_alternativa_questao_2' ).ckeditor();
+            $( '#tx_alternativa_questao_3' ).ckeditor();
+            $( '#tx_alternativa_questao_4' ).ckeditor();
+            $( '#tx_alternativa_questao_5' ).ckeditor();
+                
 
+    </script>
                     </div>
                     <div class="form-group">
                         <div class="col-md-10">
