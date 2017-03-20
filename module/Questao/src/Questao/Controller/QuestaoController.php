@@ -148,7 +148,7 @@ class QuestaoController extends AbstractQuestaoController
                 for ($i = 1; $i <= 5; $i++) {
                     $arFormatado['id_alternativa_questao'] = isset($post['id_alternativa_questao_' . $i]) && $post['id_alternativa_questao_' . $i] ? $post['id_alternativa_questao_' . $i] : "";
                     $arFormatado['tx_alternativa_questao'] = isset($post['tx_alternativa_questao_' . $i]) && $post['tx_alternativa_questao_' . $i] ? $post['tx_alternativa_questao_' . $i] : "";
-                    $arFormatado['id_questao'] = isset($post['tx_alternativa_questao_' . $i]) && $post['tx_alternativa_questao_' . $i] ? $post['tx_alternativa_questao_' . $i] : "";
+                   # $arFormatado['id_questao'] = isset($post['tx_alternativa_questao_' . $i]) && $post['tx_alternativa_questao_' . $i] ? $post['tx_alternativa_questao_' . $i] : "";
                     $arFormatado['cs_correta'] = isset($post['cs_correta_' . $i]) && $post['cs_correta_' . $i] ? $post['cs_correta_' . $i] : "";
                     $arFormatado['tx_justificativa'] = isset($post['tx_justificativa_' . $i]) && $post['tx_justificativa_' . $i] ? $post['tx_justificativa_' . $i] : "";
                     $this->getRequest()->getPost()->set('id_questao', $resultQuestao);
@@ -226,40 +226,71 @@ class QuestaoController extends AbstractQuestaoController
         return parent::excluir($this->service, $this->form);
     }
 
-    public function atualizarDadosAction()
+    public function atualizarAction()
     {
-        try {
-            //recuperar o id do Periodo Letivo
-            $id = Cript::dec($this->params('id'));
-            $post = $this->getPost();
+       try {
 
-            #xd($service->buscar($id)->toArray());
-            $service = new \Questao\Service\QuestaoService();
-            $arrayPreenchidoQuestao = $service->buscar($id)->toArray();
-            $form = new \Questao\Form\AlterarQuestaoForm($arrayPreenchidoQuestao);
 
-            if ($id) {
-                $form->setData($service->buscar($id)->toArray());
+            $controller = $this->params('controller');
+            $post = $this->getRequest()->getPost()->toArray();
+            $id = Cript::dec($post['id']);
+            #xd($post);
+           $post['id'] = $id;
+          
+            #$arr = $this->service->buscar($id)->toArray();
+
+            #x($post);
+
+        
+         $objQuestao = new \Questao\Service\QuestaoService();
+            #$arr = $objQuestao->buscar($id)->toArray();
+            #xd($arr);
+            $objQuestao->setId($post['id_questao']);
+            $objQuestao->setIdClassificacaoSemestre($post['id_classificacao_semestre']);
+            $objQuestao->setIdNivelDificuldade($post['id_nivel_dificuldade']);
+            $objQuestao->setIdFonteQuestao($post['id_fonte_questao']);
+            $objQuestao->setIdAssuntoMateria($post['id_assunto_materia']);
+            $objQuestao->setNmTituloQuestao($post['nm_titulo_questao']);
+            $objQuestao->setTxEnunciado($post['tx_eneunciado']);
+            
+           $objQuestao->setIdUsuarioAlteracao( $this->getServiceLocator()->get('Auth\Table\MyAuth')->read()->id_usuario);
+            $objQuestao->salvar();
+
+            
+             $objAlternativaQuestao = new \AlternativaQuestao\Service\AlternativaQuestaoService();
+            for ($a = 1; $a <= 5; $a++) {
+                
+             
+                 $objAlternativaQuestao->setId($post['id_alternativa_questao_'.$a]);
+                 $objAlternativaQuestao->setTxAlternativaQuestao($post['tx_alternativa_questao_'.$a]);
+                 $objAlternativaQuestao->setCsCorreta($post['cs_correta_'.$a]);
+                 $objAlternativaQuestao->setTxJustificativa($post['tx_justificativa_'.$a]);
+                 $objAlternativaQuestao->setIdQuestao($post['id_questao']);
+                 $objAlternativaQuestao->setIdUsuarioAlteracao( $this->getServiceLocator()->get('Auth\Table\MyAuth')->read()->id_usuario);
+                  $objAlternativaQuestao->salvar();   
             }
+           # $objQuestaoProva= new \QuestaoProva\Service\QuestaoProvaService();
+            #$objQuestaoProva->setId($post['id_questao']);
+             #  $objQuestaoProva->excluir();
+               
+               
+            #$objQuestao->setId($post['id_questao']);
+             #  $objQuestao->excluir();
+            #xd($arr);
 
-            if (!empty($post)) {
+           
 
-                $form->setData($post);
-            }
+                $this->addSuccessMessage('Parabéns! Catequista cadastrado com sucesso.');
+                $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
 
-            $dadosView = [
-                'service' => $service,
-                'form' => $form,
-                'controller' => $this->params('controller'),
-                'atributos' => []
-            ];
+                #return $my_service->salvar();;
 
-            return new ViewModel($dadosView);
-
-            return new ViewModel($dadosView);
         } catch (\Exception $e) {
+
+            $this->setPost($post);
             $this->addErrorMessage($e->getMessage());
-            return false;
+            $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
+            return FALSE;
         }
     }
 
