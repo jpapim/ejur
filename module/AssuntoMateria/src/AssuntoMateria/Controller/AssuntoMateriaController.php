@@ -18,7 +18,8 @@ class AssuntoMateriaController extends AbstractCrudController
      */
     protected $form;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::init();
     }
 
@@ -48,10 +49,9 @@ class AssuntoMateriaController extends AbstractCrudController
                 'filter' => "materia.nm_materia LIKE ?",
             ],
             '2' => [
-                'filter' => "materia_semestre.id_classificacao_semestre LIKE ?",
+                'filter' => "classificacao_semestre.nm_classificacao_semestre LIKE ?",
             ],
-            
-            
+            '3' => NULL
         ];
 
 
@@ -81,7 +81,8 @@ class AssuntoMateriaController extends AbstractCrudController
         return $viewModel->setTerminal(TRUE);
     }
 
-    public function gravarAction(){
+    public function gravarAction()
+    {
         try {
             $request = $this->getRequest();
 
@@ -92,16 +93,17 @@ class AssuntoMateriaController extends AbstractCrudController
             if (!$request->isPost()) {
                 throw new \Exception('Dados Inválidos');
             }
-           $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
-        $assuntoMateriaService->setNmAssuntoMateria(trim($this->getRequest()->getPost()->get('nm_assunto_materia')));
-        if ($assuntoMateriaService->filtrarObjeto()->count()) {
-            $this->setPost($post);
-            $this->addErrorMessage('Assunto já cadastrado.');
-            $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
-            return FALSE;
-        }
 
             $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
+
+            $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+            $assuntoMateriaService->setNmAssuntoMateria(trim($this->getRequest()->getPost()->get('nm_assunto_materia')));
+            if ($assuntoMateriaService->filtrarObjeto()->count()) {
+                $this->setPost($post);
+                $this->addErrorMessage('Assunto já cadastrado.');
+                $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
+                return FALSE;
+            }
 
             $files = $request->getFiles();
             $upload = $this->uploadFile($files);
@@ -158,7 +160,6 @@ class AssuntoMateriaController extends AbstractCrudController
     {
         return parent::excluir($this->service, $this->form);
     }
-    
-    
-    
+
+
 }
