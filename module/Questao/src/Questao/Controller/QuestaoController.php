@@ -98,6 +98,11 @@ class QuestaoController extends AbstractQuestaoController
         $id_questao = Cript::dec($this->getRequest()->getPost()->get('id'));
 
         $pos = $this->getRequest()->getPost()->toArray();
+          
+        if (isset($id_questao) && $id_questao) {
+            $this->atualizarAction();
+            return FALSE;
+        }
         
          $this->getRequest()->getPost()->set('id_usuario_cadastro', $this->getServiceLocator()->get('Auth\Table\MyAuth')->read()->id_usuario);
          $this->getRequest()->getPost()->set('id_usuario_alteracao', $this->getServiceLocator()->get('Auth\Table\MyAuth')->read()->id_usuario);
@@ -251,7 +256,7 @@ class QuestaoController extends AbstractQuestaoController
             $objQuestao->setIdFonteQuestao($post['id_fonte_questao']);
             $objQuestao->setIdAssuntoMateria($post['id_assunto_materia']);
             $objQuestao->setNmTituloQuestao($post['nm_titulo_questao']);
-            $objQuestao->setTxEnunciado($post['tx_eneunciado']);
+            $objQuestao->setTxEnunciado($post['tx_enunciado']);
             
            $objQuestao->setIdUsuarioAlteracao( $this->getServiceLocator()->get('Auth\Table\MyAuth')->read()->id_usuario);
             $objQuestao->salvar();
