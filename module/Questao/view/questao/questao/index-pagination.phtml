@@ -78,10 +78,7 @@
 
                         <td class="text-center">
 
-                                <span class="btn-group" style="width: 80px;">
-                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'atualizar-dados', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao']))), 'Editar Questão')?>
-                                    <br>
-                                    <br>
+                                <span class="btn-group" style="width: 100px;">
                                     <?= \Estrutura\Service\HtmlHelper::botaoAcao(
                                         $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro-alternativas', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao']))),
                                         'Editar Alternativas da Questão',
@@ -89,9 +86,6 @@
                                         'glyphicon glyphicon-pencil',
                                         'btn-alterar btn-xs btn-alterar-customizado'
                                     ) ?>
-                                    <br>
-                                    <br>
-
                                     <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($questao['id_questao'])))) ?>
                                 </span>
                         </td>
