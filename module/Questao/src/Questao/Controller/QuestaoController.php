@@ -275,7 +275,7 @@ class QuestaoController extends AbstractQuestaoController
 
            
 
-                $this->addSuccessMessage('Parabéns! Catequista cadastrado com sucesso.');
+                $this->addSuccessMessage('Questão atualizada com sucesso.');
                 $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
 
                 #return $my_service->salvar();;
