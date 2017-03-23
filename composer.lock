@@ -1,10 +1,11 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9399e584e62daaca7f03c88d0ecd55af",
+    "hash": "58a1036ac20c87891f58eaf84c4bca5f",
+    "content-hash": "c77b44781075ef47dc77706ffa771049",
     "packages": [
         {
             "name": "dino/dompdf-module",
@@ -12,17 +13,34 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/raykolbe/DOMPDFModule.git",
-                "reference": "ebb367877e25a39e597b529abd25f5390422253b"
+                "reference": "38ccd51f24e5fb98431296b9ce7cd3ab61213e12"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/raykolbe/DOMPDFModule/zipball/ebb367877e25a39e597b529abd25f5390422253b",
-                "reference": "ebb367877e25a39e597b529abd25f5390422253b",
+                "url": "https://api.github.com/repos/raykolbe/DOMPDFModule/zipball/38ccd51f24e5fb98431296b9ce7cd3ab61213e12",
+                "reference": "38ccd51f24e5fb98431296b9ce7cd3ab61213e12",
                 "shasum": ""
             },
             "require": {
-                "dompdf/dompdf": "0.6.*",
-                "php": ">=5.3.0"
+                "dompdf/dompdf": "^0.6.0",
+                "php": ">=5.3.29",
+                "zendframework/zend-console": "^2.1.6",
+                "zendframework/zend-http": "^2.1.6",
+                "zendframework/zend-i18n": "^2.1.6",
+                "zendframework/zend-loader": "^2.1.6",
+                "zendframework/zend-log": "^2.1.6",
+                "zendframework/zend-modulemanager": "^2.1.6",
+                "zendframework/zend-mvc": "^2.1.6 <2.7",
+                "zendframework/zend-serializer": "^2.1.6",
+                "zendframework/zend-servicemanager": "^2.1.6",
+                "zendframework/zend-view": "^2.1.6"
+            },
+            "require-dev": {
+                "codeclimate/php-test-reporter": "^0.3.2",
+                "fabpot/php-cs-fixer": "^1.12",
+                "phpmd/phpmd": "^2.4",
+                "phpunit/phpunit": "^4.8.27",
+                "squizlabs/php_codesniffer": "^2.7"
             },
             "type": "library",
             "autoload": {
@@ -36,8 +54,8 @@
             ],
             "authors": [
                 {
-                    "name": "Raymond Kolbe",
-                    "email": "raymond.kolbe@maine.edu"
+                    "name": "Raymond J. Kolbe",
+                    "email": "rkolbe@gmail.com"
                 }
             ],
             "description": "A Zend Framework 2 module for incorporating DOMPDF support.",
@@ -47,20 +65,20 @@
                 "pdf",
                 "zf2"
             ],
-            "time": "2014-04-18 00:18:45"
+            "time": "2016-11-02 02:09:44"
         },
         {
             "name": "dompdf/dompdf",
-            "version": "v0.6.1",
+            "version": "v0.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dompdf/dompdf.git",
-                "reference": "cf7d8a0a27270418850cc7d7ea532159e5eeb3eb"
+                "reference": "cc06008f75262510ee135b8cbb14e333a309f651"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/cf7d8a0a27270418850cc7d7ea532159e5eeb3eb",
-                "reference": "cf7d8a0a27270418850cc7d7ea532159e5eeb3eb",
+                "url": "https://api.github.com/repos/dompdf/dompdf/zipball/cc06008f75262510ee135b8cbb14e333a309f651",
+                "reference": "cc06008f75262510ee135b8cbb14e333a309f651",
                 "shasum": ""
             },
             "require": {
@@ -88,7 +106,7 @@
             ],
             "description": "DOMPDF is a CSS 2.1 compliant HTML to PDF converter",
             "homepage": "https://github.com/dompdf/dompdf",
-            "time": "2014-03-11 01:59:52"
+            "time": "2015-12-07 04:07:13"
         },
         {
             "name": "jotjunior/boletophp-zf2",
@@ -96,12 +114,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/JotJunior/PHP-Boleto-ZF2.git",
-                "reference": "c69371ef5d5021a6daabf4fb2e1ecd25cbee4bce"
+                "reference": "35a1c1431d7daf507b31b84acab64ea686591df7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/JotJunior/PHP-Boleto-ZF2/zipball/c69371ef5d5021a6daabf4fb2e1ecd25cbee4bce",
-                "reference": "c69371ef5d5021a6daabf4fb2e1ecd25cbee4bce",
+                "url": "https://api.github.com/repos/JotJunior/PHP-Boleto-ZF2/zipball/35a1c1431d7daf507b31b84acab64ea686591df7",
+                "reference": "35a1c1431d7daf507b31b84acab64ea686591df7",
                 "shasum": ""
             },
             "require": {
@@ -122,6 +140,10 @@
                 {
                     "name": "João G. Zanon Jr.",
                     "email": "jot@jot.com.br"
+                },
+                {
+                    "name": "Matheus Ferreira Silva",
+                    "email": "santana.matheusferreira@gmail.com"
                 }
             ],
             "description": "Adaptação do BoletoPHP para Zend Framework 2",
@@ -131,7 +153,7 @@
                 "php",
                 "zf2"
             ],
-            "time": "2014-11-18 11:41:34"
+            "time": "2016-11-22 17:08:18"
         },
         {
             "name": "phenx/php-font-lib",
@@ -169,16 +191,16 @@
         },
         {
             "name": "zendframework/zendframework",
-            "version": "2.3.4",
+            "version": "2.3.9",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zendframework/zf2.git",
-                "reference": "c878e047ab1c5dcfb201974bdff607be54ccb54b"
+                "url": "https://github.com/zendframework/zendframework.git",
+                "reference": "32858f883fffb5eef9f610b538ed026f6033b6de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zf2/zipball/c878e047ab1c5dcfb201974bdff607be54ccb54b",
-                "reference": "c878e047ab1c5dcfb201974bdff607be54ccb54b",
+                "url": "https://api.github.com/repos/zendframework/zendframework/zipball/32858f883fffb5eef9f610b538ed026f6033b6de",
+                "reference": "32858f883fffb5eef9f610b538ed026f6033b6de",
                 "shasum": ""
             },
             "require": {
@@ -283,28 +305,28 @@
                 "framework",
                 "zf2"
             ],
-            "time": "2015-01-14 16:44:17"
+            "time": "2015-05-11 16:03:51"
         },
         {
             "name": "zendframework/zendxml",
-            "version": "1.0.0",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/ZendXml.git",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f"
+                "reference": "7b64507bc35d841c9c5802d67f6f87ef8e1a58c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
-                "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+                "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/7b64507bc35d841c9c5802d67f6f87ef8e1a58c9",
+                "reference": "7b64507bc35d841c9c5802d67f6f87ef8e1a58c9",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3 || ^7.0"
             },
             "require-dev": {
-                "fabpot/php-cs-fixer": "*@dev",
-                "phpunit/phpunit": "~3.7"
+                "phpunit/phpunit": "^3.7 || ^4.0",
+                "squizlabs/php_codesniffer": "^1.5"
             },
             "type": "library",
             "extra": {
@@ -314,7 +336,7 @@
             },
             "autoload": {
                 "psr-0": {
-                    "ZendXml": "library/"
+                    "ZendXml\\": "library/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -328,7 +350,7 @@
                 "xml",
                 "zf2"
             ],
-            "time": "2014-03-05 22:25:44"
+            "time": "2016-02-04 21:02:08"
         }
     ],
     "packages-dev": [],
