@@ -1,20 +1,18 @@
 Release 1.4.0
   * Novo: Adicionando um Campo para Informar se o Evento esta ativo ou não, para que seja feito o controle se ele deverá sumir ou não da listagem.
 
-Release 1.3.0
-  * Novo: Adicionando na tela de login um controle que informa em qual Branch e revisão está o código sendo executado no momento
+Release (15/03/2017 as 15:43)
+—- RESOLVIDO
+* [Resolvido: Alysson] No cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria" Não deve permitir cadastrar um mesmo assunto para a mesta matéria.
+* [Realizado: Alysson] Remover assunto matérias duplicados no cadastro de assunto_materia e relacionar apenas um assunto matéria as questoes duplicadas.
+* [Realizado: Alysson] Colocar o assunto Matéria como campo obrigatório no cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria"
+* [Realizado: Alysson] Novas: Quando a justificativa nao eh preenchida no cadastro das alternativas esta exibindo um warning.
+** [Realizado: Alysson] - Cadastrar a Priscila Raquel para realizar testes no sistema CATEQUESE e disponobilizar acesso por email.
+** [Realizado: Alysson] Retirar o timer da Mensagem de erro. Ela devera ser exibida ate que o usuario pressione o X para remover.
+* [Realizado: Eduardo] No cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria" as buscas especificas nas colunas da listagem não estão sendo apresentados. A unica que esta funcionando é a busca por assunto.
+* [Realizado: Eduardo] Novas: Criar uma divisao por Materia para exibiçao das questoes.
+* [Realizado: Raimundo] Item 3: Adicionar o texto rico no campo ENUNCIADO DA QUESTAO do cadastro de questões.
+* [Realizado: Raimundo] Adicionar o texto rico no campo ENUNCIADO DS ALTERNATIVAS do cadastro de questões.
+* [Realizado: Raimundo] Novas: Implementar o CADASTRO de questoes e alternativas em uma unica tela.
+* [Realizado: Rogério] Item Extra - Aguardando o nome da equipe da escola jurídica. (Nome Oficial do Sistema: SIEP-EJUS)
 
-Release 1.2.2
-  * Fix: Atualizando arquivo de configuração para habilitar os modulos de compressão de Classes e de Assets
-
-Release 1.2.1
-  * Fix: Corrigindo a Criação da TAG para incluir o arquivo do CHANGELOG
-  
-Release 1.2.0
-  * Novo: [Cadastro de Atletas] Adicionando Paginação na Listagem de Atletas utilizando o componente do Zend_Paginator
-
-Release 1.1.1
-  * Fix: Correção no cadastro de atletas.
-
-Release 1.0.0
-  * Novo: Inicialização do projeto contendo script de banco de dados.
