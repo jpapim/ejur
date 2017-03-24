@@ -9,4 +9,3 @@ config/autoload/global.php
 nbproject/*
 data/cache/*
 public/assets/cache/*
-vendor/*
