@@ -216,9 +216,33 @@ class QuestaoController extends AbstractQuestaoController
     }
     }
 
-    public function excluirAction()
+   public function excluirAction($option = null)
     {
-        return parent::excluir($this->service, $this->form);
+      
+        $id = Cript::dec($this->params('id'));
+        if (!empty($option)) {
+            $id = Cript::dec($option);
+        }
+        if (isset($id) && $id) {
+            $obQuestao = new \Questao\Service\QuestaoService();
+            $arrQuestao = $obQuestao->getQuestaoToArray($id);
+# x($arrQuestao['id_questao']);
+
+            ##############Excluindo dados da tabela filha###############
+           $objAlternativaQuestao = new \AlternativaQuestao\Service\AlternativaQuestaoService();
+            $objAlternativaQuestao->setIdQuestao($arrQuestao['id_questao']);
+            $objAlternativaQuestao->excluir();
+
+            
+
+            $retornoExcluir = parent::excluir($this->service, $this->form);
+
+            
+        }
+
+        return $retornoExcluir;
+
+
     }
 
     public function atualizarAction()
