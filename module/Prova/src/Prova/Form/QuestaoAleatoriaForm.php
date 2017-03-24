@@ -22,7 +22,7 @@ class QuestaoAleatoriaForm extends AbstractForm{
         $objForm->select("id_assunto_materia", array(''=>'Selecione uma Matéria...'))->required(false)->label("Assunto");
         $objForm->combo("id_nivel_dificuldade", '\NivelDificuldade\Service\NivelDificuldadeService','id','nm_nivel_dificuldade')->required(false)->label("Nível de Dificuldade");
         $objForm->combo("id_classificacao_semestre", '\Classificacao\Service\ClassificacaoService','id','nm_classificacao_semestre')->required(false)->label("Semestre");
-        $objForm->integer("nr_questoes")->required(false)->label("Quantidade de Questões");
+        $objForm->integer("nr_questoes")->required(true)->label("Quantidade de Questões");
 
         $this->formObject = $objForm;
     }
