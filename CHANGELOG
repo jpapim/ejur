@@ -3,16 +3,28 @@ Release 1.4.0
 
 Release (15/03/2017 as 15:43)
 —- RESOLVIDO
-* [Resolvido: Alysson] No cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria" Não deve permitir cadastrar um mesmo assunto para a mesta matéria.
-* [Realizado: Alysson] Remover assunto matérias duplicados no cadastro de assunto_materia e relacionar apenas um assunto matéria as questoes duplicadas.
-* [Realizado: Alysson] Colocar o assunto Matéria como campo obrigatório no cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria"
-* [Realizado: Alysson] Novas: Quando a justificativa nao eh preenchida no cadastro das alternativas esta exibindo um warning.
+*  [Resolvido: Alysson] No cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria" Não deve permitir cadastrar um mesmo assunto para a mesta matéria.
+*  [Realizado: Alysson] Remover assunto matérias duplicados no cadastro de assunto_materia e relacionar apenas um assunto matéria as questoes duplicadas.
+*  [Realizado: Alysson] Colocar o assunto Matéria como campo obrigatório no cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria"
+*  [Realizado: Alysson] Novas: Quando a justificativa nao eh preenchida no cadastro das alternativas esta exibindo um warning.
 ** [Realizado: Alysson] - Cadastrar a Priscila Raquel para realizar testes no sistema CATEQUESE e disponobilizar acesso por email.
 ** [Realizado: Alysson] Retirar o timer da Mensagem de erro. Ela devera ser exibida ate que o usuario pressione o X para remover.
-* [Realizado: Eduardo] No cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria" as buscas especificas nas colunas da listagem não estão sendo apresentados. A unica que esta funcionando é a busca por assunto.
-* [Realizado: Eduardo] Novas: Criar uma divisao por Materia para exibiçao das questoes.
-* [Realizado: Raimundo] Item 3: Adicionar o texto rico no campo ENUNCIADO DA QUESTAO do cadastro de questões.
-* [Realizado: Raimundo] Adicionar o texto rico no campo ENUNCIADO DS ALTERNATIVAS do cadastro de questões.
-* [Realizado: Raimundo] Novas: Implementar o CADASTRO de questoes e alternativas em uma unica tela.
-* [Realizado: Rogério] Item Extra - Aguardando o nome da equipe da escola jurídica. (Nome Oficial do Sistema: SIEP-EJUS)
+*  [Realizado: Eduardo] No cadastro acessivel em "Menu » Basicos » Cad. Assunto matéria" as buscas especificas nas colunas da listagem não estão sendo apresentados. A unica que esta funcionando é a busca por assunto.
+*  [Realizado: Eduardo] Novas: Criar uma divisao por Materia para exibiçao das questoes.
+*  [Realizado: Raimundo] Item 3: Adicionar o texto rico no campo ENUNCIADO DA QUESTAO do cadastro de questões.
+*  [Realizado: Raimundo] Adicionar o texto rico no campo ENUNCIADO DS ALTERNATIVAS do cadastro de questões.
+*  [Realizado: Raimundo] Novas: Implementar o CADASTRO de questoes e alternativas em uma unica tela.
+*  [Realizado: Rogério] Item Extra - Aguardando o nome da equipe da escola jurídica. (Nome Oficial do Sistema: SIEP-EJUS)
 
+- 24/03/2017
+** [Realizado: Jose Matheus] No gerar prova aleatório as provas estão gerando com muitas questões, creio que todas as questões lançadas da disciplina até o momento, mesmo pedindo para gerar  10 questões o sistema gera 24, 26 questões
+** [Realizado: Raimundo] Corrigir o bug que gravava as alternativas sem vinculo com qualquer questao do sistema.
+** [Realizado: Raimundo] Criar uma rotina de banco de dados que relacione as alternativas que nao estavam relacionadas a uma questao especifica.
+*  [Realizado: Raimundo] Implementar na alteração de questoes e alternativas em uma unica tela o Texto Rico.
+*  [Realizado: Raimundo] Implementar a ALTERAÇÃO de questoes e alternativas em uma unica tela.
+*  [Realizado: Yves] Item 2: Adicionar uma mensagem explicando o porque a exclusao nao esta sendo permitida.
+*  [Realizado: Yves] Item 7: Adicionar uma mensagem explicando o porque a exclusao nao esta sendo permitida.
+*  [Realizado: Yves] No cadastro de questões, quando tentamos alterar uma questão o ASSUNTO MATÉRIA esta com o rótulo apenas de Matéria.
+*  [Realizado: Yves] Retirar da listagem de Provas o botao para alterar as questoes. Esse botao nao e mais necessario porque fazemos tudo em uma unica tela.
+*  [Realizado: Alysson] Atualizar o permissionamento no ambiente de homologação para que não haja problema de "Permissão negada".
+*  [Realizado: Yves] No EJUR, alem de tirar o timer da mensagem, e colocar o X para o usuario fechar ela se quiser.
