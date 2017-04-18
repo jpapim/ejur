@@ -88,12 +88,16 @@
             
             
             <div class="form-group">
-                <div class="col-md-6">-
+                <div class="col-md-4">-
                     <?= $this->formRow($form->get('id_fonte_questao')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
-                <div class="col-md-6">-
+                <div class="col-md-4">-
                     <?= $this->formRow($form->get('id_nivel_dificuldade')) ?>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-md-4">-
+                    <?= $this->formRow($form->get('id_temporizacao')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
