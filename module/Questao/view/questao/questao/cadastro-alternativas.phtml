@@ -36,12 +36,12 @@
                 echo $this->formHidden($form->get('id_alternativa_questao_5'));
 
                 $form->get('id_classificacao_semestre')->setValue($dadosQuestao->getIdClassificacaoSemestre());
-                #$form->get('id_tipo_questao')->setValue($dadosQuestao->getIdTipoQuestao());
+
                 $form->get('id_fonte_questao')->setValue($dadosQuestao->getIdFonteQuestao());
                 $form->get('id_materia')->setValue($ob_assunto_materia->getIdMateria());
                 $form->get('id_assunto_materia')->setValue($dadosQuestao->getIdAssuntoMateria());
                 $form->get('id_nivel_dificuldade')->setValue($dadosQuestao->getIdNivelDificuldade());
-                #$form->get('id_temporizacao')->setValue($dadosQuestao->getIdTemporizacao());
+
                 $form->get('nm_titulo_questao')->setValue($dadosQuestao->getNmTituloQuestao());
                 $form->get('tx_enunciado')->setValue($dadosQuestao->getTxEnunciado());
 

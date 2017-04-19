@@ -223,7 +223,6 @@ class QuestaoController extends AbstractQuestaoController
         if (isset($id) && $id) {
             $obQuestao = new \Questao\Service\QuestaoService();
             $arrQuestao = $obQuestao->getQuestaoToArray($id);
-# x($arrQuestao['id_questao']);
 
             ##############Excluindo dados da tabela filha###############
             $objAlternativaQuestao = new \AlternativaQuestao\Service\AlternativaQuestaoService();
@@ -249,17 +248,9 @@ class QuestaoController extends AbstractQuestaoController
             $controller = $this->params('controller');
             $post = $this->getRequest()->getPost()->toArray();
             $id = Cript::dec($post['id']);
-            #xd($post);
             $post['id'] = $id;
-
-            #$arr = $this->service->buscar($id)->toArray();
-
-            #x($post);
-
-
             $objQuestao = new \Questao\Service\QuestaoService();
-            #$arr = $objQuestao->buscar($id)->toArray();
-            #xd($arr);
+
             $objQuestao->setId($post['id_questao']);
             $objQuestao->setIdClassificacaoSemestre($post['id_classificacao_semestre']);
             $objQuestao->setIdNivelDificuldade($post['id_nivel_dificuldade']);
@@ -275,7 +266,6 @@ class QuestaoController extends AbstractQuestaoController
             $objAlternativaQuestao = new \AlternativaQuestao\Service\AlternativaQuestaoService();
             for ($a = 1; $a <= 5; $a++) {
 
-
                 $objAlternativaQuestao->setId($post['id_alternativa_questao_' . $a]);
                 $objAlternativaQuestao->setTxAlternativaQuestao($post['tx_alternativa_questao_' . $a]);
                 $objAlternativaQuestao->setCsCorreta($post['cs_correta_' . $a]);
@@ -284,20 +274,9 @@ class QuestaoController extends AbstractQuestaoController
                 $objAlternativaQuestao->setIdUsuarioAlteracao($this->getServiceLocator()->get('Auth\Table\MyAuth')->read()->id_usuario);
                 $objAlternativaQuestao->salvar();
             }
-            # $objQuestaoProva= new \QuestaoProva\Service\QuestaoProvaService();
-            #$objQuestaoProva->setId($post['id_questao']);
-            #  $objQuestaoProva->excluir();
-
-
-            #$objQuestao->setId($post['id_questao']);
-            #  $objQuestao->excluir();
-            #xd($arr);
-
 
             $this->addSuccessMessage('Questão atualizada com sucesso.');
             $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
-
-            #return $my_service->salvar();;
 
         } catch (\Exception $e) {
 

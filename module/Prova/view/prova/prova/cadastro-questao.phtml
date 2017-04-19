@@ -88,12 +88,22 @@
                                 $arAlternativaQuestao = $alternativaquestaoService->fetchAllById(['id_questao' => $item['id_questao']]);
                                 $j = 'a';
                                 foreach ($arAlternativaQuestao as $key => $alternativa) {
+
+                                    $tx_alternativa_questao = isset($alternativa['tx_alternativa_questao']) && $alternativa['tx_alternativa_questao'] ? $alternativa['tx_alternativa_questao'] : "";
+                                    $tx_alternativa_questao = strip_tags($tx_alternativa_questao); #Remove qualquer tag HTML
+
+
+                                    $tx_justificativa = isset($alternativa['tx_justificativa']) && $alternativa['tx_justificativa'] ? $alternativa['tx_justificativa'] : "";
+                                    $tx_justificativa = strip_tags($tx_justificativa);#Remove qualquer tag HTML
+
                                     if ($alternativa['cs_correta'] == 'C') {
-                                        echo "<h4 style='background-color: #4cae4c'>" . $j++ . ") - (_x_) " . $alternativa['tx_alternativa_questao'] . "</h4>";
-                                        echo "<h5 style='background-color: #4cae4c'>Justificativa: " . $alternativa['tx_justificativa'] . "</h5>";
+
+                                        echo "<h4 style='background-color: #4cae4c'>" . $j++ . ") - (_x_) " . $tx_alternativa_questao . "</h4>";
+                                        echo "<h5 style='background-color: #4cae4c'>Justificativa: " . $tx_justificativa . "</h5>";
                                     } else {
-                                        echo "<h4>" . $j++ . ") - (___) " . $alternativa['tx_alternativa_questao'] . "</h4>";
-                                        echo "<h5>Justificativa: " . $alternativa['tx_justificativa'] . "</h5>";
+
+                                        echo "<h4>" . $j++ . ") - (___) " . $tx_alternativa_questao . "</h4>";
+                                        echo "<h5>Justificativa: " . $tx_justificativa . "</h5>";
                                     }
                                 }
                                 echo "<br/>";
