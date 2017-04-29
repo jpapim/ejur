@@ -155,11 +155,11 @@
                 foreach ($arQuestoesProva as $key => $item) {
                     $arQuestao = $questaoService->buscar($item['id_questao'])->toArray();
                     echo "<h4 class='questao'> QUESTÃO". " ".$i++. "</h4>";
-                    echo "<p>" . $arQuestao['tx_enunciado'] . "</p>";
+                    echo "<p>" . str_replace("/assets/kcfinder/upload/images/","../../../../../public/assets/kcfinder/upload/images/",$arQuestao['tx_enunciado']) . "</p>";
                     $arAlternativaQuestao = $alternativaquestaoService->fetchAllById(['id_questao' => $item['id_questao']]);
                     $j = 'a';
                     foreach ($arAlternativaQuestao as $key => $alternativa) {
-                        echo "<span>" . $j++ . ") " . $alternativa['tx_alternativa_questao'] . "</span><br/>";
+                        echo "<span>" . $j++ . ") " . str_replace("/assets/kcfinder/upload/images/","../../../../../public/assets/kcfinder/upload/images/",$alternativa['tx_alternativa_questao'] ). "</span><br/>";
                     }
                     echo "<br/>";
                 } ?>
