@@ -254,6 +254,7 @@ class QuestaoController extends AbstractQuestaoController
             $objQuestao->setId($post['id_questao']);
             $objQuestao->setIdClassificacaoSemestre($post['id_classificacao_semestre']);
             $objQuestao->setIdNivelDificuldade($post['id_nivel_dificuldade']);
+            $objQuestao->setIdTemporizacao($post['id_temporizacao']);
             $objQuestao->setIdFonteQuestao($post['id_fonte_questao']);
             $objQuestao->setIdAssuntoMateria($post['id_assunto_materia']);
             $objQuestao->setNmTituloQuestao($post['nm_titulo_questao']);
