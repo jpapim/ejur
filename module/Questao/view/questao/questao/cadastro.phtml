@@ -277,51 +277,67 @@
 <script type="text/javascript">
 
     CKEDITOR.replace('tx_enunciado',
-            {
-                filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-                filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-                filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-                filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images',
-            });
+        {
+            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images',
+        });
 
     CKEDITOR.replace('tx_alternativa_questao_1',
-            {
-                filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-                filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-                filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-                filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-            });
+        {
+            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+        });
     CKEDITOR.replace('tx_alternativa_questao_2',
-            {
-                filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-                filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-                filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-                filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-            });
+        {
+            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+        });
     CKEDITOR.replace('tx_alternativa_questao_3',
-            {
-                filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-                filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-                filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-                filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-            });
+        {
+            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+        });
     CKEDITOR.replace('tx_alternativa_questao_4',
-            {
-                filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-                filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-                filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-                filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-            });
+        {
+            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+        });
     CKEDITOR.replace('tx_alternativa_questao_5',
-            {
-                filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-                filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-                filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-                filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-            });
+        {
+            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+        });
 
-
-
+    /*
+    $(function ($) {
+        $("#cke_tx_enunciado").validate({
+            event: 'blur',
+            rules: {
+                title: {required: true},
+                content: {
+                    required: function (textarea) {
+                        alert('Vsf fdp!');
+                        CKEDITOR.instances[textarea.id].updateElement(); // update textarea
+                        var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); // strip tags
+                        return editorcontent.length === 0;
+                    }
+                }
+            }
+        });
+    });
+*/
     $('#tx_enunciado').ckeditor();
     $('#tx_alternativa_questao_1').ckeditor();
     $('#tx_alternativa_questao_2').ckeditor();
