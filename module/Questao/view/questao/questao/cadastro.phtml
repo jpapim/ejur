@@ -320,22 +320,6 @@
                 filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
             });
 
-    $(function($){
-  $("#cke_tx_enunciado").validate({
-    event: 'blur',
-    rules: {
-      title: {required: true},
-      content: {
-        required: function(textarea) {
-            alert('Vsf fdp!');
-          CKEDITOR.instances[textarea.id].updateElement(); // update textarea
-          var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); // strip tags
-          return editorcontent.length === 0;
-        }
-      }
-    }
-  });
-});
 
 
     $('#tx_enunciado').ckeditor();
