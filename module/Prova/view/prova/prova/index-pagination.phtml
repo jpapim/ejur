@@ -65,7 +65,7 @@
                     foreach ($paginator as $key => $prova) { #x($prova['id_prova']);
                         ?>                        
                         <tr>                            
-                            <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($prova['nm_prova']) ?></td>
+                            <td class="text-center"><?= $prova['nm_prova']?></td>
                             <td class="text-center"><?= \Estrutura\Helpers\Data::converterDataHoraBancoMySQL2DataBrazil($prova['dt_aplicacao_prova'])?></td>
                             <td class="text-center"><?= \Estrutura\Helpers\Data::converterDataHoraBancoMySQL2DataHoraBrazil($prova['dt_geracao_prova'])?></td>
                             <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($prova['ds_prova'])?></td>
