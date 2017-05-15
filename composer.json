@@ -12,6 +12,6 @@
         "zendframework/zendframework": "2.3.*",
         "dino/dompdf-module": "dev-master",
         "jotjunior/boletophp-zf2": "dev-master",
-        "tecnickcom/tcpdf": "dev-master"
+        "vladmeh/zf2-tcpdf": "dev-master"
     }
 }

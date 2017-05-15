@@ -14,7 +14,7 @@
             "reference": "c30c7fc00a6b0d863e9bb4c5d5dd015298b2dc82",
             "shasum": ""
         },
-        "time": "2014-02-01 15:22:28",
+        "time": "2014-02-01T15:22:28+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -64,7 +64,7 @@
             "zendframework/zend-servicemanager": "^2.1.6",
             "zendframework/zend-view": "^2.1.6"
         },
-        "time": "2014-04-18 00:18:45",
+        "time": "2014-04-18T00:18:45+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -109,7 +109,7 @@
             "dino/dompdf-module": "dev-master",
             "php": ">=5.4.0"
         },
-        "time": "2014-11-18 11:41:34",
+        "time": "2014-11-18T11:41:34+00:00",
         "type": "module",
         "installation-source": "dist",
         "autoload": {
@@ -157,7 +157,7 @@
             "phpunit/phpunit": "^3.7 || ^4.0",
             "squizlabs/php_codesniffer": "^1.5"
         },
-        "time": "2016-02-04 21:02:08",
+        "time": "2016-02-04T21:02:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -272,7 +272,7 @@
             "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
             "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
         },
-        "time": "2015-05-11 16:03:51",
+        "time": "2015-05-11T16:03:51+00:00",
         "bin": [
             "bin/classmap_generator.php",
             "bin/pluginmap_generator.php",
@@ -320,7 +320,7 @@
         "require": {
             "phenx/php-font-lib": "0.2.*"
         },
-        "time": "2015-12-07 04:07:13",
+        "time": "2015-12-07T04:07:13+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -363,9 +363,9 @@
         "require": {
             "php": ">=5.3.0"
         },
-        "time": "2017-04-26 08:14:48",
+        "time": "2017-04-26T08:14:48+00:00",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "classmap": [
                 "config",
