@@ -1,12 +1,9 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="/assets/ckeditor/ckedit../../ckeditor.js" type="text/javascript"></script>
 <script src="/assets/ckeditor/adapters/jquery.js" type="text/javascript"></script>
-
-
 <?php
 /** @var $form \Questao\Form\Questao */ //Alysson
 /** @var $lista \Questao\Service\Questao[] */ //Alysson
-
 //$id_controller =  $form->get('id_controller')->getValue(); //Alysson
 ?>
 <div class="page-head">
@@ -284,7 +281,7 @@
             filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
             filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
             filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images',
         });
 
     CKEDITOR.replace('tx_alternativa_questao_1',
@@ -323,6 +320,24 @@
             filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
         });
 
+    /*
+    $(function ($) {
+        $("#cke_tx_enunciado").validate({
+            event: 'blur',
+            rules: {
+                title: {required: true},
+                content: {
+                    required: function (textarea) {
+                        alert('Vsf fdp!');
+                        CKEDITOR.instances[textarea.id].updateElement(); // update textarea
+                        var editorcontent = textarea.value.replace(/<[^>]*>/gi, ''); // strip tags
+                        return editorcontent.length === 0;
+                    }
+                }
+            }
+        });
+    });
+*/
     $('#tx_enunciado').ckeditor();
     $('#tx_alternativa_questao_1').ckeditor();
     $('#tx_alternativa_questao_2').ckeditor();
@@ -410,4 +425,4 @@
     });
 
 </script>
-  
+
