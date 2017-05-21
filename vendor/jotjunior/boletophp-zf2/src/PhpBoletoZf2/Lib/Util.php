@@ -31,9 +31,9 @@ abstract class Util
      * @param string $numero
      * @return int
      */
-    public static function digitoVerificadorNossoNumero($numero)
+    public static function digitoVerificadorNossoNumero($numero, $base =9)
     {
-        $resto2 = self::modulo11($numero, 9, 1);
+        $resto2 = self::modulo11($numero, $base, 1);
         $digito = 11 - $resto2;
         if ($digito == 10) {
             $dv = "P";
@@ -42,6 +42,52 @@ abstract class Util
         } else {
             $dv = $digito;
         }
+        return $dv;
+    }
+
+    /**
+     * Calcula o dígito verificador do Nosso Número para boletos Bancoob
+     * com base em uma sequencia e uma constante
+     *
+     * @param string $sequencia:
+     *          String de 21 dígitos contendo:
+     *          - agencia cedente sem dígito verificador (4 dígitos)
+     *          - número do cliente(convenio) (10 dígitos)
+     *          - nosso número (7 dígitos)
+     * @param string $constante: constante pra validar
+     * 
+     * @return int $dv valor digito verificador 
+     */
+    public static function digitoVerificadorNossoNumeroBancoob($sequencia, $constanteStr) 
+    {
+        $cont      = 0;
+        $calculoDv = '';
+
+        for ($num = 0; $num<=strlen($sequencia); $num++) {
+            for ($posConst=0;$posConst<strlen($constanteStr);$posConst++) {
+                if ($cont==$posConst) {
+                    $constante = $constanteStr[$posConst];
+
+                    if ($cont==strlen($constanteStr)-1) {
+                        $cont=0;
+                    } else {                
+                        $cont++;
+                    }    
+                    
+                    break;
+                }
+            }
+
+            $calculoDv = $calculoDv + (substr($sequencia,$num,1) * $constante);
+        }
+
+        $resto = $calculoDv % 11;
+        $dv   = 11 - $resto;
+
+        if ($dv == 0) $dv = 0;
+        if ($dv == 1) $dv = 0;
+        if ($dv > 9) $dv = 0;
+
         return $dv;
     }
 
@@ -197,6 +243,12 @@ abstract class Util
         } elseif ($r == 1) {
             $resto = $soma % 11;
             return $resto;
+        } elseif ($r == 2) {
+        	$resto = $soma % 11;
+        	$res = 11-$resto;
+        	if (in_array($res,array(0,10,11)))
+        		$res = 1;
+        	return $res;
         }
     }
 

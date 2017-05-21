@@ -76,8 +76,8 @@ class BB extends AbstractBoletoFactory
                                 . $valorProcessado
                                 . $livreZeros
                                 . $convenioProcessado
-                                . $nossoNumeroProcessado
-                                . $this->getBanco()->getCarteira()
+                                . $nossoNumeroProcessado 
+                                . $this->getCedente()->getCarteira(),9,2
                 );
 
                 $strLinha = $this->getBanco()->getCodigoBanco()
@@ -88,7 +88,7 @@ class BB extends AbstractBoletoFactory
                         . $livreZeros
                         . $convenioProcessado
                         . $nossoNumeroProcessado
-                        . $this->getBanco()->getCarteira();
+                        . $this->getCedente()->getCarteira();
 
                 $nossoNumeroFormatado = $convenioProcessado . $nossoNumeroProcessado . '-' . Util::modulo11($convenioProcessado . $nossoNumeroProcessado);
 
@@ -105,9 +105,8 @@ class BB extends AbstractBoletoFactory
                                 . $livreZeros
                                 . $convenioProcessado
                                 . $nossoNumeroProcessado
-                                . $this->getBanco()->getCarteira()
+                                . $this->getCedente()->getCarteira(),9,2
                 );
-
                 $strLinha = $this->getBanco()->getCodigoBanco()
                         . $this->getBanco()->getMoeda()
                         . $DV
@@ -116,7 +115,7 @@ class BB extends AbstractBoletoFactory
                         . $livreZeros
                         . $convenioProcessado
                         . $nossoNumeroProcessado
-                        . $this->getBanco()->getCarteira();
+                        . $this->getCedente()->getCarteira();
 
                 $nossoNumeroFormatado = $convenioProcessado . $nossoNumeroProcessado;
 
@@ -135,7 +134,7 @@ class BB extends AbstractBoletoFactory
                                         . $nossoNumeroProcessado
                                         . $this->getCedente()->getAgencia()
                                         . $this->getCedente()->getContaCorrente()
-                                        . $this->getCedente()->getCarteira()
+                                        . $this->getCedente()->getCarteira(),9,2
                         );
 
                         $strLinha = $this->getBanco()->getCodigoBanco()
@@ -161,7 +160,7 @@ class BB extends AbstractBoletoFactory
                                         . $valorProcessado
                                         . $convenioProcessado
                                         . $nossoNumeroProcessado
-                                        . $numeroServico
+                                        . $numeroServico,9,2
                         );
 
                         $strLinha = $this->getBanco()->getCodigoBanco()

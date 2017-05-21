@@ -12,8 +12,8 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @author Raymond J. Kolbe <raymond.kolbe@maine.edu>
- * @copyright Copyright (c) 2012 University of Maine
+ * @author Raymond J. Kolbe <rkolbe@gmail.com>
+ * @copyright Copyright (c) 2012 University of Maine, 2016 Raymond J. Kolbe
  * @license	http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
@@ -28,7 +28,7 @@ class DOMPDFFactory implements FactoryInterface
     /**
      * An array of keys that map DOMPDF define keys to DOMPDFModule config's
      * keys.
-     * 
+     *
      * @var array
      */
     private static $configCompatMapping = array(
@@ -62,40 +62,36 @@ class DOMPDFFactory implements FactoryInterface
     
     /**
      * Creates an instance of DOMPDF.
-     * 
-     * @param  ServiceLocatorInterface $serviceLocator 
-     * @return PdfRenderer
+     *
+     * @param  ServiceLocatorInterface $serviceLocator
+     * @return DOMPDF
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
+        defined('DOMPDF_DIR') || define("DOMPDF_DIR", __DIR__ . '/../../../../../dompdf/dompdf');
+        defined('DOMPDF_INC_DIR') || define("DOMPDF_INC_DIR", DOMPDF_DIR . "/include");
+        defined('DOMPDF_LIB_DIR') || define("DOMPDF_LIB_DIR", DOMPDF_DIR . "/lib");
+        defined('DOMPDF_AUTOLOAD_PREPEND') || define("DOMPDF_AUTOLOAD_PREPEND", false);
+        defined('DOMPDF_ADMIN_USERNAME') || define("DOMPDF_ADMIN_USERNAME", false);
+        defined('DOMPDF_ADMIN_PASSWORD') || define("DOMPDF_ADMIN_PASSWORD", false);
+
         $config = $serviceLocator->get('config');
-        $config = $config['dompdf_module'];
-        
-        if (defined('DOMPDF_DIR') === false) {
-            define("DOMPDF_DIR", __DIR__ . '/../../../../../dompdf/dompdf');
-        }
-        
-        if (defined('DOMPDF_INC_DIR') === false) {
-            define("DOMPDF_INC_DIR", DOMPDF_DIR . "/include");
-        }
-        
-        if (defined('DOMPDF_LIB_DIR') === false) {
-            define("DOMPDF_LIB_DIR", DOMPDF_DIR . "/lib");
-        }
+        $this->applyCompatGlobals($config['dompdf_module']);
 
-        if (defined('DOMPDF_AUTOLOAD_PREPEND') === false) {
-            define("DOMPDF_AUTOLOAD_PREPEND", false);
-        }
-
-        if (defined('DOMPDF_ADMIN_USERNAME') === false) {
-            define("DOMPDF_ADMIN_USERNAME", false);
-        }
-
-        if (defined('DOMPDF_ADMIN_PASSWORD') === false) {
-            define("DOMPDF_ADMIN_PASSWORD", false);
-        }
-
+        require_once DOMPDF_LIB_DIR . '/html5lib/Parser.php';
+        require_once DOMPDF_INC_DIR . '/functions.inc.php';
+        require_once __DIR__ . '/../../../config/module.compat.php';
         
+        return new DOMPDF();
+    }
+
+    /**
+     * Declares global constants supported by DOMPDF lib.
+     *
+     * @param array $config
+     */
+    private function applyCompatGlobals(array $config)
+    {
         foreach ($config as $key => $value) {
             if (! array_key_exists($key, static::$configCompatMapping)) {
                 continue;
@@ -104,15 +100,8 @@ class DOMPDFFactory implements FactoryInterface
             if (defined(static::$configCompatMapping[$key])) {
                 continue;
             }
-            
+
             define(static::$configCompatMapping[$key], $value);
         }
-		
-        require_once DOMPDF_LIB_DIR . '/html5lib/Parser.php';
-        require_once DOMPDF_INC_DIR . '/functions.inc.php';
-        require_once __DIR__ . '/../../../config/module.compat.php';
-        
-        return new DOMPDF();
     }
 }
-

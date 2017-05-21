@@ -6,8 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Zend\\' => array($vendorDir . '/zendframework/zendframework/library'),
     'ZendXml\\' => array($vendorDir . '/zendframework/zendxml/library'),
+    'TCPDFModule' => array($vendorDir . '/vladmeh/zf2-tcpdf/src'),
+    'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'PhpBoletoZf2' => array($vendorDir . '/jotjunior/boletophp-zf2/src'),
     'DOMPDFModule' => array($vendorDir . '/dino/dompdf-module/src'),
 );
