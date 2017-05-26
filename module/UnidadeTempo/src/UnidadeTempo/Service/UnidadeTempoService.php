@@ -151,7 +151,7 @@ class UnidadeTempoService extends Entity {
             }
         }
 
-        $select->where($where)->order(['nm_unidade_tempo DESC']);
+        $select->where($where)->order(['id_unidade_tempo DESC']);
 
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }

@@ -37,19 +37,18 @@ class NivelDificuldadeController extends AbstractCrudController
     public function indexPaginationAction()
     {
         //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
-        
+
         $filter = $this->getFilterPage();
 
         $camposFilter = [
             '0' => [
                 'filter' => "nivel_dificuldade.nm_nivel_dificuldade LIKE ?",
-            ],            
-            
-            '2' => NULL,
-                
+            ],
+            '1' => NULL,
+
         ];
-        
-        
+
+
         $paginator = $this->service->getNivelDificuldadePaginator($filter, $camposFilter);
 
         $paginator->setItemCountPerPage($paginator->getTotalItemCount());

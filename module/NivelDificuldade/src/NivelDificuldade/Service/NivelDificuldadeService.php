@@ -168,7 +168,7 @@ class NivelDificuldadeService extends Entity {
             }
         }
 
-        $select->where($where)->order(['nm_nivel_dificuldade DESC']);
+        $select->where($where)->order(['id_nivel_dificuldade DESC']);
 
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }

@@ -143,7 +143,7 @@ class AssuntoMateriaService extends Entity {
             }
         }
 
-        $select->where($where)->order(['nm_assunto_materia DESC']);
+        $select->where($where)->order(['id_assunto_materia DESC']);
 
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }

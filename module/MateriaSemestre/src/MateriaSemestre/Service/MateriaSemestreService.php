@@ -58,8 +58,6 @@ class MateriaSemestreService extends Entity {
 
     /**
      * Busca apenas as Materias que já estão relacionados a alguma questão
-     *
-     * @return null|\Zend\Db\ResultSet\ResultSetInterface
      */
     public function filtrarMateriaPorSemestreEBancoQuestao($id_classificacao_semestre) {
         $select = new \Zend\Db\Sql\Select('materia');
@@ -120,12 +118,6 @@ class MateriaSemestreService extends Entity {
             ->setPageRange((int) $itensPaginacao);
     }
 
-    /**
-     *
-     * @param type $dtInicio
-     * @param type $dtFim
-     * @return type
-     */
 
     public function getMateriaSemestrePaginator($filter = NULL, $camposFilter = NULL) {
 

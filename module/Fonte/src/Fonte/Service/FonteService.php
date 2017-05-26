@@ -169,7 +169,7 @@ class FonteService extends Entity {
             }
         }
 
-        $select->where($where)->order(['nm_fonte_questao DESC']);
+        $select->where($where)->order(['id_fonte_questao DESC']);
 
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }

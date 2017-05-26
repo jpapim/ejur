@@ -151,7 +151,7 @@ class TemporizacaoService extends Entity {
             }
         }
 
-        $select->where($where)->order(['nm_temporizacao DESC']);
+        $select->where($where)->order(['id_temporizacao DESC']);
 
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
