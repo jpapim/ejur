@@ -3,8 +3,9 @@
 namespace Materia\Controller;
 
 use Estrutura\Controller\AbstractCrudController;
+use Zend\Db\Adapter\Exception\ErrorException;
 use Zend\View\Model\ViewModel;
-
+use Estrutura\Helpers\Cript;
 
 class MateriaController extends AbstractCrudController
 {
@@ -89,5 +90,15 @@ class MateriaController extends AbstractCrudController
     public function excluirAction()
     {
         return parent::excluir($this->service, $this->form);
+    }
+
+    public function excluirLogAction(){
+
+        $id_materia = Cript::dec($this->params('id'));
+        $cs_ativo  = 1;
+
+        x($id_materia);
+        xd($cs_ativo);
+
     }
 }

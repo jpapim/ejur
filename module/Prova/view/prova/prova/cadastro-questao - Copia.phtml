@@ -45,12 +45,15 @@
                        class="btn btn-primary">Adicionar Questão Aleatória</a>
                 </div>
 
-
+<!--                <div class="col-md-4">-->
+<!--                    <a href="$this->url('navegacao', ['controller' => $controller, 'action' => 'adicionar-varias-questoes-aleatorias', 'id' => Estrutura\Helpers\Cript::enc($dadosProva->getId())]) ?>"-->
+<!--                       class="btn btn-primary">Adicionar Várias Questões</a>-->
+<!--                </div>-->
             </div>
         </div>
 
         <!-- Monta a prova para exibicao       -->
-        <div style="text-align: justify; font-size: 14px" class="row form-group">
+        <div style="text-align: center" class="row form-group">
             <div class="well col-md-12">
                 <?php
                 $nrQuestoes = count($arQuestoesProva);
@@ -69,7 +72,7 @@
                     $ocultarBotoes = false;
                     echo "<h2> Questões da Prova </h2>";
                     ?>
-                    <div class="row form-group">
+                    <div style="text-align: left" class="row form-group">
                         <div class="col-md-12">
                             <?php
                             $questaoService = new \Questao\Service\QuestaoService();
@@ -77,13 +80,11 @@
                             $i = 1;
                             foreach ($arQuestoesProva as $key => $item) {
                                 $arQuestao = $questaoService->buscar($item['id_questao'])->toArray();
-                                echo"<hr style='color: #032a51'>";
                                 echo "<div id='quest_{$item['id_questao']}'>";
                                 echo "<span> <button id='btnremoverquest_{$item['id_questao']}' name='btnremoverquest' value='{$item['id_questao']}' class='btn btn-default'> {$i} - Remover </button></span>";
                                 echo "<span> <a href='" . $this->url('rota_questao_via_prova', ['controller' => 'questao-questao', 'action'=> 'cadastro-via-prova', 'id' => Estrutura\Helpers\Cript::enc($item['id_questao']), 'id_prova' => Estrutura\Helpers\Cript::enc($dadosProva->getId())]) . "' class='btn btn-default'> {$i} - Corrigir</a></span>";
-                                echo"<br><br>";
-                                echo "<p>" . $i++ . " - " . $arQuestao['nm_titulo_questao'] . " [Identificador: {$item['id_questao']}]" . "</p>";
-                                echo "<p>" . $arQuestao['tx_enunciado'] . "</p>";
+                                echo "<h3>" . $i++ . " - " . $arQuestao['nm_titulo_questao'] . " [Identificador: {$item['id_questao']}]" . "</h3>";
+                                echo "<h4>" . $arQuestao['tx_enunciado'] . "</h4>";
                                 $arAlternativaQuestao = $alternativaquestaoService->fetchAllById(['id_questao' => $item['id_questao']]);
                                 $j = 'a';
                                 foreach ($arAlternativaQuestao as $key => $alternativa) {
@@ -97,17 +98,15 @@
 
                                     if ($alternativa['cs_correta'] == 'C') {
 
-                                        echo "<span style='background-color: #84E958'>" . $j++ . ") " . $tx_alternativa_questao . "</span>";
-                                        echo"<br>";
-                                        echo "<span style='background-color: #84E958'>&nbsp&nbsp&nbsp&nbsp<b>Justificativa:</b> " . $tx_justificativa . "</span>";
-                                        echo"<br>";
+                                        echo "<h4 style='background-color: #4cae4c'>" . $j++ . ") - (_x_) " . $tx_alternativa_questao . "</h4>";
+                                        echo "<h5 style='background-color: #4cae4c'>Justificativa: " . $tx_justificativa . "</h5>";
                                     } else {
 
-                                        echo "<span>" . $j++ . ") " . $tx_alternativa_questao . "</span>";
-                                        echo"<br>";
-//                                        echo "<p>Justificativa: " . $tx_justificativa . "</p>";
+                                        echo "<h4>" . $j++ . ") - (___) " . $tx_alternativa_questao . "</h4>";
+                                        echo "<h5>Justificativa: " . $tx_justificativa . "</h5>";
                                     }
                                 }
+                                echo "<br/>";
                                 echo "</div>";
                             } ?>
                         </div>
@@ -168,12 +167,3 @@
 
     });
 </script>
-<style>
-    hr {
-        /*border-top: 1px dashed #032a51;*/
-        border-bottom: 1.5px solid #032a51;
-        color: #fff;
-        background-color: #fff;
-        height: 1px;
-    }
-</style>

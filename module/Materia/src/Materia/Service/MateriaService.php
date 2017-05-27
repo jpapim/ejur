@@ -90,11 +90,11 @@ class MateriaService extends Entity {
 
         # var_dump($paginatorAdapter);
         #die;
-        // resultado da pagina��o
+        // resultado da paginacao
         return (new Paginator($paginatorAdapter))
             // pagina a ser buscada
             ->setCurrentPageNumber((int) $pagina)
-            // quantidade de itens na p�gina
+            // quantidade de itens na pagina
             ->setItemCountPerPage((int) $itensPagina)
             ->setPageRange((int) $itensPaginacao);
     }
@@ -113,26 +113,18 @@ class MateriaService extends Entity {
         $select = $sql->select('materia')->columns([
             'id_materia',
             'nm_materia',
-
-
-
-
+            'cs_ativo',
         ]);
-
-        $where = [
+        // Condição para filtro da exclusão lógica '0'ativo e '1'inativo
+        $where = ['materia.cs_ativo = 0'
         ];
 
         if (!empty($filter)) {
-
             foreach ($filter as $key => $value) {
-
                 if ($value) {
-
                     if (isset($camposFilter[$key]['mascara'])) {
-
                         eval("\$value = " . $camposFilter[$key]['mascara'] . ";");
                     }
-
                     $where[$camposFilter[$key]['filter']] = '%' . $value . '%';
                 }
             }
