@@ -77,13 +77,15 @@
                             $i = 1;
                             foreach ($arQuestoesProva as $key => $item) {
                                 $arQuestao = $questaoService->buscar($item['id_questao'])->toArray();
-                                echo"<hr style='color: #032a51'>";
+                                echo"<hr>";
                                 echo "<div id='quest_{$item['id_questao']}'>";
                                 echo "<span> <button id='btnremoverquest_{$item['id_questao']}' name='btnremoverquest' value='{$item['id_questao']}' class='btn btn-default'> {$i} - Remover </button></span>";
                                 echo "<span> <a href='" . $this->url('rota_questao_via_prova', ['controller' => 'questao-questao', 'action'=> 'cadastro-via-prova', 'id' => Estrutura\Helpers\Cript::enc($item['id_questao']), 'id_prova' => Estrutura\Helpers\Cript::enc($dadosProva->getId())]) . "' class='btn btn-default'> {$i} - Corrigir</a></span>";
                                 echo"<br><br>";
                                 echo "<p>" . $i++ . " - " . $arQuestao['nm_titulo_questao'] . " [Identificador: {$item['id_questao']}]" . "</p>";
-                                echo "<p>" . $arQuestao['tx_enunciado'] . "</p>";
+                                echo "<span>" . $arQuestao['tx_enunciado'] . "</span>";
+                                echo"<br>";
+                                echo"<br>";
                                 $arAlternativaQuestao = $alternativaquestaoService->fetchAllById(['id_questao' => $item['id_questao']]);
                                 $j = 'a';
                                 foreach ($arAlternativaQuestao as $key => $alternativa) {

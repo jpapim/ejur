@@ -27,7 +27,7 @@
 		// { name: 'about', groups: [ 'about' ] }
 	];
 
-	config.removeButtons = 'HorizontalRule,SpecialChar,Strike,Table,Save,NewPage,Preview,Print,Source,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Find,Smiley,PageBreak,Iframe,ShowBlocks,About,Superscript,Subscript,CreateDiv,Link,Unlink,Anchor,Flash,SelectAll,Select,Textarea,TextField,Radio,Checkbox,HiddenField,ImageButton,Button,Form,Replace,Language';
+          config.removeButtons = 'HorizontalRule,SpecialChar,Strike,Table,Save,NewPage,Preview,Print,Source,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Find,Smiley,PageBreak,Iframe,ShowBlocks,About,Superscript,Subscript,CreateDiv,Link,Unlink,Anchor,Flash,SelectAll,Select,Textarea,TextField,Radio,Checkbox,HiddenField,ImageButton,Button,Form,Replace,Language,CopyFormatting';
 
       };
         

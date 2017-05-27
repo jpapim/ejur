@@ -94,11 +94,31 @@ class MateriaController extends AbstractCrudController
 
     public function excluirLogAction(){
 
-        $id_materia = Cript::dec($this->params('id'));
-        $cs_ativo  = 1;
+        $auth = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
+        $controller = $this->params('controller');
+        $id_materia = $this->params('id');
 
-        x($id_materia);
-        xd($cs_ativo);
+        if (isset($id_materia) && $id_materia) {
+            $id_materia = \Estrutura\Helpers\Cript::dec($id_materia);
+        } else {
+            $this->addErrorMessage('ID não informado');
+            return $this->redirect()->toRoute('navegacao', ['controller' => $controller, 'action' => 'index']);
+        }
+
+        $materiaService = new \Materia\Service\MateriaService();
+        $materiaEntity = $materiaService->buscar($id_materia);
+
+        if (1 == $auth->id_perfil) { //Se o usuario logado for Administrador
+            $materiaEntity->setCsAtivo(1);
+            $materiaEntity->salvar();
+        }
+        $this->addSuccessMessage('Matéria excluida com sucesso.');
+        return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
 
     }
+
+
+
+
+
 }
