@@ -8,7 +8,7 @@
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
         
-        CKEDITOR.editorConfig = function( config ) {
+      CKEDITOR.editorConfig = function( config ) {
 	config.toolbarGroups = [
 		{ name: 'document', groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'clipboard', groups: [ 'clipboard', 'undo' ] },
@@ -27,13 +27,8 @@
 		{ name: 'about', groups: [ 'about' ] }
 	];
 
-	config.removeButtons = 'Save,NewPage,Preview,Print,Source';
-   
-       
-
+	config.removeButtons = 'Save,NewPage,Preview,Print,Source,Templates,Cut,Copy,Paste,PasteText,PasteFromWord,Redo,Undo,Find,Smiley,PageBreak,Iframe,ShowBlocks,About,Superscript,Subscript,CreateDiv,Link,Unlink,Anchor,Flash,SelectAll,Select,Textarea,TextField,Radio,Checkbox,HiddenField,ImageButton,Button,Form,Replace,Language';
 };
-        
-        
         
         
         
