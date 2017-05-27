@@ -104,21 +104,15 @@ class MateriaController extends AbstractCrudController
             $this->addErrorMessage('ID não informado');
             return $this->redirect()->toRoute('navegacao', ['controller' => $controller, 'action' => 'index']);
         }
-
         $materiaService = new \Materia\Service\MateriaService();
         $materiaEntity = $materiaService->buscar($id_materia);
 
         if (1 == $auth->id_perfil) { //Se o usuario logado for Administrador
-            $materiaEntity->setCsAtivo(1);
+            $materiaEntity->setCsAtivo(0); // Valor '0' desabilita o campo cs_ativo
             $materiaEntity->salvar();
         }
         $this->addSuccessMessage('Matéria excluida com sucesso.');
         return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
-
     }
-
-
-
-
 
 }

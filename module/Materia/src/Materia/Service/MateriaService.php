@@ -21,7 +21,7 @@ class MateriaService extends Entity {
         #die($id);
         $select = $sql->select('materia')
             ->where([
-                'materia.id_materia = ?' => $id,
+                'materia.id_materia = ?' => $id,'materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -35,6 +35,7 @@ class MateriaService extends Entity {
             ->columns(array('nm_materia',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
                 "materia.id_materia LIKE ?" => '%'.$nm_materia.'%',
+                'materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
@@ -115,8 +116,9 @@ class MateriaService extends Entity {
             'nm_materia',
             'cs_ativo',
         ]);
-        // Condição para filtro da exclusão lógica '0'ativo e '1'inativo
-        $where = ['materia.cs_ativo = 0'
+
+        $where = [
+            'materia.cs_ativo = 1',// Condição para filtro da exclusão lógica '0'ativo e '1'inativo
         ];
 
         if (!empty($filter)) {
