@@ -43,10 +43,13 @@ class MateriaSemestreController extends AbstractCrudController
         $filter = $this->getFilterPage();
 
         $camposFilter = [
-            #'0' => [
-            #    'filter' => "materia_semestre.nm_assunto_materia LIKE ?",
-            #],
-            #'1' => NULL,
+            '0' => [
+                'filter' => "classificacao_semestre.nm_classificacao_semestre LIKE ?",
+            ],
+            '1' => [
+                'filter' => "materia.nm_materia LIKE ?",
+            ],
+            '2' => NULL,
         ];
 
 
@@ -125,6 +128,13 @@ class MateriaSemestreController extends AbstractCrudController
             '0' => [
                 //'filter' => "periodoletivodetalhe.nm_sacramento LIKE ?",
             ],
+            '1' => [
+                //'filter' => "periodoletivodetalhe.nm_sacramento LIKE ?",
+            ],
+            '2' => [
+                //'filter' => "periodoletivodetalhe.nm_sacramento LIKE ?",
+            ],
+            '3' =>NULL,
 
         ];
 

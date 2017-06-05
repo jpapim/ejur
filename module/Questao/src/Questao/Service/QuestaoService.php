@@ -21,6 +21,7 @@ class QuestaoService extends Entity{
         $select = $sql->select('questao')
             ->where([
                 'questao.id_questao = ?' => $id,
+                'questao.cs_ativo = 1',
             ]);
         #print_r($sql->prepareStatementForSqlObject($select)->execute());exit;
 
@@ -35,6 +36,7 @@ class QuestaoService extends Entity{
             ->columns(array('tx_enunciado',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
                 "questao.id_questao LIKE ?" => '%'.$tx_enunciado.'%',
+                'questao.cs_ativo = 1',
             ]);
 
         #xd($select->getSqlString($this->getAdapter()->getPlatform()));
@@ -52,6 +54,7 @@ class QuestaoService extends Entity{
             ->columns(array('id_questao') )
             ->where([
                 'questao.tx_enunciado = ?' => $filter->filter($tx_enunciado),
+                'questao.cs_ativo = 1',
             ]);
 
         #xd($select->getSqlString($this->getAdapter()->getPlatform()));
@@ -101,13 +104,6 @@ class QuestaoService extends Entity{
             ->setPageRange((int) $itensPaginacao);
     }
 
-    /**
-     *
-     * @param type $dtInicio
-     * @param type $dtFim
-     * @return type
-     */
-
     public function getQuestaoPaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
@@ -118,8 +114,6 @@ class QuestaoService extends Entity{
             'tx_enunciado',
             'tx_caminho_imagem_questao'
         ])
-
-
             ->join('nivel_dificuldade', 'nivel_dificuldade.id_nivel_dificuldade = questao.id_nivel_dificuldade', [
                 'nm_nivel_dificuldade'
             ])
@@ -141,7 +135,7 @@ class QuestaoService extends Entity{
          ;
 
 
-        $where = [
+        $where = ['questao.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {

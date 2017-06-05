@@ -173,18 +173,27 @@ public function gravarAction(){
         return $view->setTerminal(true);
     }
 
-    /**
-     * Return AutoComplete stuff
-     */
-   
+    public function excluirLogAction(){
 
-    /**
-     * @return ViewModel
-     */
+        $auth = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
+        $controller = $this->params('controller');
+        $id_nivelDificuldade = $this->params('id');
 
-    public function xxxAction()
-    {
+        if (isset($id_nivelDificuldade) && $id_nivelDificuldade) {
+            $id_nivelDificuldade = \Estrutura\Helpers\Cript::dec($id_nivelDificuldade);
+        } else {
+            $this->addErrorMessage('ID não informado');
+            return $this->redirect()->toRoute('navegacao', ['controller' => $controller, 'action' => 'index']);
+        }
+        $nivelDificuldadeService = new \NivelDificuldade\Service\NivelDificuldadeService();
+        $nivelDificuldadeEntity = $nivelDificuldadeService->buscar($id_nivelDificuldade);
 
+        if (1 == $auth->id_perfil) { //Se o usuario logado for Administrador
+            $nivelDificuldadeEntity->setCsAtivo(0); // Valor '0' desabilita o campo cs_ativo
+            $nivelDificuldadeEntity->salvar();
+        }
+        $this->addSuccessMessage('Nível de Dificuldade excluido com sucesso.');
+        return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
     }
 
 }

@@ -22,6 +22,7 @@ class MateriaSemestreService extends Entity {
         $select = $sql->select('assunto_materia')
             ->where([
                 'assunto_materia.id_assunto_materia = ?' => $id,
+
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -68,7 +69,7 @@ class MateriaSemestreService extends Entity {
         ->join('questao', 'questao.id_assunto_materia = assunto_materia.id_assunto_materia');
 
         $select->where([
-            'questao.id_classificacao_semestre = ?' => $id_classificacao_semestre,
+            'questao.id_classificacao_semestre = ?' => $id_classificacao_semestre,'materia.cs_ativo = 1',
         ]);
         $select->order(['materia.nm_materia ASC']);
         $select->quantifier('DISTINCT');
@@ -136,7 +137,7 @@ class MateriaSemestreService extends Entity {
 
         $select->quantifier('DISTINCT');
 
-        $where = [
+        $where = ['materia.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {
@@ -176,7 +177,7 @@ class MateriaSemestreService extends Entity {
         ]);
 
         $where = [
-            'materia_semestre.id_classificacao_semestre'=>$id_classificacao_semestre,
+            'materia_semestre.id_classificacao_semestre'=>$id_classificacao_semestre,'materia.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {

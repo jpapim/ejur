@@ -561,4 +561,27 @@ class QuestaoController extends AbstractQuestaoController
 
     }
 
+    public function excluirLogAction(){
+
+        $auth = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
+        $controller = $this->params('controller');
+        $id_questao = $this->params('id');
+
+        if (isset($id_questao) && $id_questao) {
+            $id_questao = \Estrutura\Helpers\Cript::dec($id_questao);
+        } else {
+            $this->addErrorMessage('ID não informado');
+            return $this->redirect()->toRoute('navegacao', ['controller' => $controller, 'action' => 'index']);
+        }
+        $questaoService = new \Questao\Service\QuestaoService();
+        $questaoEntity = $questaoService->buscar($id_questao);
+
+        if (1 == $auth->id_perfil) { //Se o usuario logado for Administrador
+            $questaoEntity->setCsAtivo(0); // Valor '0' desabilita o campo cs_ativo
+            $questaoEntity->salvar();
+        }
+        $this->addSuccessMessage('Questão excluida com sucesso.');
+        return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
+    }
+
 }

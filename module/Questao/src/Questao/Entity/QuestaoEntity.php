@@ -18,12 +18,15 @@ class QuestaoEntity extends AbstractEstruturaService{
     protected $nm_titulo_questao;
     protected $tx_enunciado;
     protected $tx_caminho_imagem_questao;
+    protected $cs_ativo;
 
     protected $bo_utilizavel;
     protected $bo_ativo;
     protected $dt_cadastro;
     protected $dt_alteracao;
     protected $dt_ultima_utilizacao;
+
+
 
 
 }

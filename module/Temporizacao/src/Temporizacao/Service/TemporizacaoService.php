@@ -20,6 +20,7 @@ class TemporizacaoService extends Entity {
         $select = $sql->select('temporizacao')
             ->where([
                 'temporizacao.id_temporizacao = ?' => $id,
+                'temporizacao.cs_ativo=1',
             ]);
         #print_r($sql->prepareStatementForSqlObject($select)->execute());exit;
 
@@ -34,6 +35,7 @@ class TemporizacaoService extends Entity {
             ->columns(array('nm_temporizacao', 'id_cidade') ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
                 "temporizacao.nm_temporizacao LIKE ?" => '%'.$nm_temporizacao.'%',
+                'temporizacao.cs_ativo=1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
@@ -50,6 +52,7 @@ class TemporizacaoService extends Entity {
             ->columns(array('id_temporizacao') )
             ->where([
                 'temporizacao.nm_temporizacao = ?' => $filter->filter($nm_temporizacao),
+                'temporizacao.cs_ativo=1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -132,7 +135,7 @@ class TemporizacaoService extends Entity {
                 ]); */              
                
 
-        $where = [
+        $where = ['temporizacao.cs_ativo=1',
         ];
 
         if (!empty($filter)) {

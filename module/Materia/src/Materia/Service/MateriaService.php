@@ -12,8 +12,6 @@ use Zend\Paginator\Paginator;
 
 class MateriaService extends Entity {
 
-
-
     public function getTiposToArray($id) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
@@ -21,7 +19,8 @@ class MateriaService extends Entity {
         #die($id);
         $select = $sql->select('materia')
             ->where([
-                'materia.id_materia = ?' => $id,'materia.cs_ativo = 1',
+                'materia.id_materia = ?' => $id,
+                'materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -52,6 +51,7 @@ class MateriaService extends Entity {
             ->columns(array('id_materia') )
             ->where([
                 'materia.nm_materia = ?' => $filter->filter($nm_materia),
+                'materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -100,13 +100,6 @@ class MateriaService extends Entity {
             ->setPageRange((int) $itensPaginacao);
     }
 
-    /**
-     *
-     * @param type $dtInicio
-     * @param type $dtFim
-     * @return type
-     */
-
     public function getMateriaPaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
@@ -148,11 +141,23 @@ class MateriaService extends Entity {
 
         $select->where([
             'questao.id_classificacao_semestre = ?' => $id_classificacao_semestre,
+            'materia.cs_ativo = 1',
         ]);
         $select->order(['materia.nm_materia ASC']);
         $select->quantifier('DISTINCT');
         return $this->getTable()->getTableGateway()->selectWith($select);
     }
 
-
+//    public function filtroLogAtivo($nm_materia) {
+//        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+//    #xd($sql);
+//        $select = $sql->select('materia')
+//            ->columns(array('nm_materia',))
+//            ->where([
+//                'materia.cs_ativo = 1',
+//            ]);
+//
+//        return $sql->prepareStatementForSqlObject($select)->execute();
+//
+//    }
 }

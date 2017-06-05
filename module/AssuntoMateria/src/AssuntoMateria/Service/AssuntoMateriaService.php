@@ -22,6 +22,7 @@ class AssuntoMateriaService extends Entity {
         $select = $sql->select('assunto_materia')
             ->where([
                 'assunto_materia.id_assunto_materia = ?' => $id,
+                'assunto_materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -35,6 +36,7 @@ class AssuntoMateriaService extends Entity {
             ->columns(array('nm_assunto_materia',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
                 "assunto_materia.id_assunto_materia LIKE ?" => '%'.$nm_assunto_materia.'%',
+                'assunto_materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
@@ -51,6 +53,7 @@ class AssuntoMateriaService extends Entity {
             ->columns(array('id_assunto_materia') )
             ->where([
                 'assunto_materia.id_assunto_materia = ?' => $filter->filter($nm_assunto_materia),
+                'assunto_materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -99,13 +102,6 @@ class AssuntoMateriaService extends Entity {
             ->setPageRange((int) $itensPaginacao);
     }
 
-    /**
-     *
-     * @param type $dtInicio
-     * @param type $dtFim
-     * @return type
-     */
-
     public function getAssuntoMateriaPaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
@@ -122,9 +118,9 @@ class AssuntoMateriaService extends Entity {
             ->join('classificacao_semestre', 'materia_semestre.id_classificacao_semestre = classificacao_semestre.id_classificacao_semestre', [
             'nm_classificacao_semestre'
         ]);
-        
 
-        $where = [
+
+        $where = ['assunto_materia.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {

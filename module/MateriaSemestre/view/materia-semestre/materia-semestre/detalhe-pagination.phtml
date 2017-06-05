@@ -69,11 +69,6 @@
                         <td class="text-center"><?= \Estrutura\Helpers\String::nomeTudoMaiusculo($materia_semestre['nm_materia']) ?></td>
                         <td class="text-center">
                                 <span class="btn-group materiaSemestre-acoes-group" style="width: 100px;">
-<!--                                 ?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url(-->
-<!--                                         'materia_semestre', array('controller' => 'materia_semestre-materiasemestre', -->
-<!--                                     'action' => 'excluir-relacao-materia-semestre', 'id_materia_semestre' => -->
-<!--                                         Estrutura\Helpers\Cript::enc($materia_semestre['id_materia_semestre']), -->
-<!--                                     'id_classificacao_semestre' => Estrutura\Helpers\Cript::enc($materia_semestre['id_classificacao_semestre']) ))) ?-->
 
                                   <?= \Estrutura\Service\HtmlHelper::botaoExcluirConfirm(Estrutura\Helpers\Cript::enc($materia_semestre['id_materia_semestre'])) ?>
                                 </span>
@@ -91,7 +86,7 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="<?= $this->url('navegacao', ['controller' => 'principal-principal']) ?>"
-                   class="btn btn-primary" title="Retorna para a Página Principal">Home</a>
+                   class="btn btn-primary" title="Retorna para a Página Principal">Início</a>
                 <a class="btn btn-default"
                    href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'index')) ?>"
                    title="Lista de Turmas">Lista de Turmas</a>
@@ -113,7 +108,7 @@
                 <h3 class="modal-title" style="color: #FF0000">ATENÇÃO!!!</h3>
             </div>
             <div class="modal-body alert-danger">
-                <span> A materia por semestre selecionada, está prestes a ser excluída!!!</span>
+                <span> A materia selecionada, está prestes a ser excluída do semestre!!!</span>
                 <br/>
                 <span> Deseja confirmar a exclusão?</span>
             </div>
@@ -197,7 +192,7 @@
 
             $('#modal-materiaSemestre-excluir').modal('hide');
             var id = $("#modal-prova-excluir-id").val();
-            window.location.href = '/materia_semestre-materiasemestre/excluir/' + id;
+            window.location.href = '/materia_semestre-materiasemestre/excluirLog/' + id;
         });
 
     });
