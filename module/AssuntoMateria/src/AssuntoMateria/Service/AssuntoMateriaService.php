@@ -154,5 +154,9 @@ class AssuntoMateriaService extends Entity {
         );
     }
 
-
+    public function filtraAssuntoAtivo()
+    {
+        $assuntoAtivo = $this->select(['cs_ativo'=> '1']);
+        return $assuntoAtivo;
+    }
 }

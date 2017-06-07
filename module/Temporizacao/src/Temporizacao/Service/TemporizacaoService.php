@@ -159,7 +159,11 @@ class TemporizacaoService extends Entity {
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 
-
+    public function filtraTemporizacaoAtivo()
+    {
+        $temporizacaoAtivo = $this->select(['cs_ativo'=> '1']);
+        return $temporizacaoAtivo;
+    }
 
 
 }
