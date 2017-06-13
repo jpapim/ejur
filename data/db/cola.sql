@@ -5,6 +5,20 @@ mysqldump -u root -B bdejur -p > C:\xampp\htdocs\ejur\data\db\script_inicial.sql
 mysql -u root -p < C:\xampp\htdocs\ejur\data\db\script_inicial.sql
 
 
+
+
+
+###EXPORTAR WINDOWS
+mysqldump -u root -B bdejur -p > D:\xampp\htdocs\siep_ejus\data\db\script_inicial.sql
+
+###IMPORTAR WINDOWS
+mysql -u root -p < D:\xampp\htdocs\siep_ejus\data\db\script_inicial.sql
+
+
+
+
+
+
 ###EXPORTAR LINUX
 mysqldump -u root -B bdejur -p > /var/www/html/juridico.acthosti.com.br/data/db/script_inicial.sql
 

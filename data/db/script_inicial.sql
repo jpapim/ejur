@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.1.9-MariaDB, for Win32 (AMD64)
+-- MySQL dump 10.16  Distrib 10.1.21-MariaDB, for Win32 (AMD64)
 --
--- Host: localhost    Database: bdejur
+-- Host: localhost    Database: localhost
 -- ------------------------------------------------------
--- Server version	10.1.9-MariaDB
+-- Server version	10.1.21-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -489,6 +489,7 @@ DROP TABLE IF EXISTS `materia`;
 CREATE TABLE `materia` (
   `id_materia` smallint(6) NOT NULL AUTO_INCREMENT,
   `nm_materia` varchar(100) DEFAULT NULL,
+  `cs_ativo` char(1) DEFAULT '1',
   PRIMARY KEY (`id_materia`)
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -499,7 +500,7 @@ CREATE TABLE `materia` (
 
 LOCK TABLES `materia` WRITE;
 /*!40000 ALTER TABLE `materia` DISABLE KEYS */;
-INSERT INTO `materia` VALUES (1,''),(2,'Direito Processual Civil I'),(3,'Direito Penal I'),(4,'Direito Processual Penal I'),(5,'Direito Penal II'),(6,'Direito Processual Penal II'),(7,'Direito Civil I'),(8,'Direito Civil II'),(9,'Direito Civil III'),(10,'Direito Civil IV'),(11,'Direito Civil V'),(12,'Direito Administrativo I'),(13,'Direito Administrativo II'),(14,'Direito Tributário I'),(15,'Direito do Consumidor'),(16,'Direito Constitucional I'),(17,'Direito Constitucional II'),(18,'Direito do Trabalho I'),(19,'Direito Processual do Trabalho');
+INSERT INTO `materia` VALUES (1,'','1'),(2,'Direito Processual Civil I','1'),(3,'Direito Penal I','1'),(4,'Direito Processual Penal I','1'),(5,'Direito Penal II','1'),(6,'Direito Processual Penal II','1'),(7,'Direito Civil I','1'),(8,'Direito Civil II','1'),(9,'Direito Civil III','1'),(10,'Direito Civil IV','1'),(11,'Direito Civil V','1'),(12,'Direito Administrativo I','1'),(13,'Direito Administrativo II','1'),(14,'Direito Tributário I','1'),(15,'Direito do Consumidor','1'),(16,'Direito Constitucional I','1'),(17,'Direito Constitucional II','1'),(18,'Direito do Trabalho I','1'),(19,'Direito Processual do Trabalho','1');
 /*!40000 ALTER TABLE `materia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1045,4 +1046,4 @@ USE `bdejur`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-18 22:18:04
+-- Dump completed on 2017-06-06 20:15:09
