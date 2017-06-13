@@ -225,4 +225,26 @@ class MateriaSemestreController extends AbstractCrudController
         return parent::excluir($this->service, $this->form);
     }
 
+    public function excluirLogAction(){
+
+        $auth = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
+        $controller = $this->params('controller');
+        $id_materiaSemestre = $this->params('id');
+
+        if (isset($id_materiaSemestre) && $id_materiaSemestre) {
+            $id_materiaSemestre = \Estrutura\Helpers\Cript::dec($id_materiaSemestre);
+        } else {
+            $this->addErrorMessage('ID não informado');
+            return $this->redirect()->toRoute('navegacao', ['controller' => $controller, 'action' => 'index']);
+        }
+        $materiaSemestreService = new \Materia\Service\MateriaService();
+        $materiaSemestreEntity = $materiaSemestreService->buscar($id_materiaSemestre);
+
+        if (1 == $auth->id_perfil) { //Se o usuario logado for Administrador
+            $materiaSemestreEntity->setCsAtivo(0); // Valor '0' desabilita o campo cs_ativo
+            $materiaSemestreEntity->salvar();
+        }
+        $this->addSuccessMessage('Matéria excluida com sucesso.');
+        return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
+    }
 }
