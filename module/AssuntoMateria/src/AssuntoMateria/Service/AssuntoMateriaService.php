@@ -120,7 +120,7 @@ class AssuntoMateriaService extends Entity {
         ]);
 
 
-        $where = ['assunto_materia.cs_ativo = 1',
+        $where = ['assunto_materia.cs_ativo = 1','materia.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {
@@ -154,5 +154,9 @@ class AssuntoMateriaService extends Entity {
         );
     }
 
-
+    public function filtraAssuntoAtivo()
+    {
+        $assuntoAtivo = $this->select(['cs_ativo'=> '1']);
+        return $assuntoAtivo;
+    }
 }

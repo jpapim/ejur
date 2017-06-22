@@ -148,16 +148,9 @@ class MateriaService extends Entity {
         return $this->getTable()->getTableGateway()->selectWith($select);
     }
 
-//    public function filtroLogAtivo($nm_materia) {
-//        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
-//    #xd($sql);
-//        $select = $sql->select('materia')
-//            ->columns(array('nm_materia',))
-//            ->where([
-//                'materia.cs_ativo = 1',
-//            ]);
-//
-//        return $sql->prepareStatementForSqlObject($select)->execute();
-//
-//    }
+    public function filtraMateriaAtiva()
+    {
+        $materiaAtiva = $this->select(['cs_ativo'=> '1']);
+        return $materiaAtiva;
+    }
 }
