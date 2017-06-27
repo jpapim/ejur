@@ -505,6 +505,12 @@ class QuestaoController extends AbstractQuestaoController
         $materiaSemestreService = new \MateriaSemestre\Service\MateriaSemestreService();
         $arMaterias = $materiaSemestreService->fetchAllById(['id_classificacao_semestre' => $id_classificacao_semestre]);
 
+        #Recupera os materias cadastradas por semestre
+//        $materiaSemestreService = new \MateriaSemestre\Service\MateriaSemestreService();
+//        $materiaSemestreService->setId($id_classificacao_semestre);
+//        $materiaSemestreService->setCsAtivo(1);
+//        $arMaterias = $materiaSemestreService->buscar()->toArray();
+
         #Faz o Tratamento do Array para enviar para View
         $arMateriasCombo = array();
         $materiaService = new \Materia\Service\MateriaService();
