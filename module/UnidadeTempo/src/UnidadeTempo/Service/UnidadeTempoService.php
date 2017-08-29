@@ -38,7 +38,7 @@ class UnidadeTempoService extends Entity
             ->columns(array('nm_unidade_tempo', 'id_cidade'))#Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
                 "unidade_tempo.nm_unidade_tempo LIKE ?" => '%' . $nm_unidade_tempo . '%',
-                'unidade_tempo.cs_ativo = 1',
+                #'unidade_tempo.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
@@ -56,7 +56,7 @@ class UnidadeTempoService extends Entity
             ->columns(array('id_unidade_tempo'))
             ->where([
                 'unidade_tempo.nm_unidade_tempo = ?' => $filter->filter($nm_unidade_tempo),
-                'unidade_tempo.cs_ativo = 1',
+                #'unidade_tempo.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -141,7 +141,7 @@ class UnidadeTempoService extends Entity
         ]); */
 
 
-        $where = ['unidade_tempo.cs_ativo = 1',
+        $where = [#'unidade_tempo.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {
