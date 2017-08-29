@@ -22,7 +22,7 @@ class ClassificacaoService extends Entity
         $select = $sql->select('classificacao_semestre')
             ->where([
                 'classificacao_semestre.id_classificacao_semestre = ?' => $id,
-                'classificacao_semestre.cs_ativo = 1',
+                #'classificacao_semestre.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -37,7 +37,7 @@ class ClassificacaoService extends Entity
             ->columns(array('nm_classificacao_semestre', 'id_cidade'))#Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
                 "classificacao_semestre.nm_classificacao_semestre LIKE ?" => '%' . $nm_classificacao_semestre . '%',
-                'classificacao_semestre.cs_ativo = 1',
+                #'classificacao_semestre.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
@@ -55,7 +55,7 @@ class ClassificacaoService extends Entity
             ->columns(array('id_classificacao_semestre'))
             ->where([
                 'classificacao_semestre.nm_classificacao_semestre = ?' => $filter->filter($nm_classificacao_semestre),
-                'classificacao_semestre.cs_ativo = 1',
+                #'classificacao_semestre.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -151,7 +151,7 @@ class ClassificacaoService extends Entity
         ]); */
 
 
-        $where = [ 'classificacao_semestre.cs_ativo = 1',
+        $where = [ #'classificacao_semestre.cs_ativo = 1',
 
         ];
 
