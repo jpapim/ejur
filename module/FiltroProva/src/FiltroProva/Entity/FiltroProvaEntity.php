@@ -14,6 +14,6 @@ class FiltroProvaEntity extends AbstractEstruturaService{
     protected $id_nivel_dificuldade;
     protected $id_classificacao_semestre;
     protected $nr_questoes;
-    protected $cs_ativo;
+    #protected $cs_ativo;
 
 }
