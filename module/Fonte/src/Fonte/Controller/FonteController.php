@@ -143,7 +143,7 @@ class FonteController extends AbstractCrudController
 public function gravarAction(){
         #Alysson
         $controller = $this->params('controller');
-        $this->addSuccessMessage('Cadastro Realizado com sucesso');
+        $this->addSuccessMessage('Cadastro realizado com sucesso');
         $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
         return parent::gravar($this->service, $this->form);
     }
