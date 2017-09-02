@@ -22,7 +22,7 @@ class AssuntoMateriaService extends Entity {
         $select = $sql->select('assunto_materia')
             ->where([
                 'assunto_materia.id_assunto_materia = ?' => $id,
-                #'assunto_materia.cs_ativo = 1',
+                'assunto_materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -36,7 +36,7 @@ class AssuntoMateriaService extends Entity {
             ->columns(array('nm_assunto_materia',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
                 "assunto_materia.id_assunto_materia LIKE ?" => '%'.$nm_assunto_materia.'%',
-                #'assunto_materia.cs_ativo = 1',
+                'assunto_materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
@@ -53,7 +53,7 @@ class AssuntoMateriaService extends Entity {
             ->columns(array('id_assunto_materia') )
             ->where([
                 'assunto_materia.id_assunto_materia = ?' => $filter->filter($nm_assunto_materia),
-                #'assunto_materia.cs_ativo = 1',
+                'assunto_materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -120,7 +120,7 @@ class AssuntoMateriaService extends Entity {
         ]);
 
 
-        $where = [#'assunto_materia.cs_ativo = 1','materia.cs_ativo = 1',
+        $where = ['assunto_materia.cs_ativo = 1','materia.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {
