@@ -142,7 +142,7 @@ class NivelDificuldadeController extends AbstractCrudController
 public function gravarAction(){
         #Alysson
         $controller = $this->params('controller');
-        $this->addSuccessMessage('Processo realizado com sucesso');
+        $this->addSuccessMessage('Processo foi realizado com sucesso');
         $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
         return parent::gravar($this->service, $this->form);
     }
