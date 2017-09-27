@@ -46,6 +46,7 @@ return array(
         'Prova',
         'QuestoesProva',
         'FiltroProva',
+        'SubTemaMateria',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

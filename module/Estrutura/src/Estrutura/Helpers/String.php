@@ -184,4 +184,56 @@ class String {
         return strtolower($string);
     }
 
+    /** Retira qualquer tag HTML do texto passado como parametro
+     * @param $texto
+     * @return string
+     */
+    public static function removerTagHTML4String($texto)
+    {
+        return strip_tags(trim($texto));
+    }
+
+    /** Retira qualquer tag HTML do texto passado como parametro
+     * @param $texto
+     * @return string
+     */
+    public static function removerTagStyle4HTMLString($texto)
+    {
+        #remover a tag P do HTML presente no Texto
+        $output = preg_replace('/(<[^>]+) style=".*?"/i', '$1', $texto);
+        return $output;
+    }
+
+    /** Retira qualquer tag HTML do texto passado como parametro
+     * @param $texto
+     * @return string
+     */
+    public static function removerTagP4HTMLString($texto)
+    {
+        #remover a tag P do HTML presente no Texto
+        $output = preg_replace("/<\\/?p(\\s+.*?>|>)/", "", $texto);
+        return $output;
+    }
+
+    /** Retira qualquer tag HTML do texto passado como parametro
+     * @param $texto
+     * @return string
+     */
+    public static function removerTagA4HTMLString($texto)
+    {
+        #remover a tag P do HTML presente no Texto
+        $output = preg_replace("/<\\/?a(\\s+.*?>|>)/", "", $texto);
+        return $output;
+    }
+
+    /** Retira qualquer tag HTML do texto passado como parametro
+     * @param $texto
+     * @return string
+     */
+    public static function removerTagSpan4HTMLString($texto)
+    {
+        #remover a tag P do HTML presente no Texto
+        $output = preg_replace("/<\\/?span(\\s+.*?>|>)/", "", $texto);
+        return $output;
+    }
 }
