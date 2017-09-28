@@ -26,7 +26,10 @@ class QuestaoForm extends AbstractForm
         $objForm->hidden("id_tipo_questao")->required(false)->label("Id");
 
         $objForm->select("id_materia", array('' => 'Selecione um Semestre...'))->required(false)->label("Matéria");
-        $objForm->select("id_assunto_materia", array('' => 'Selecione uma Matéria...'))->required(false)->label("Assunto");
+        #########
+        // Somente a Label foi modificado de Assunto para Tema
+        $objForm->select("id_assunto_materia", array('' => 'Selecione uma Matéria...'))->required(false)->label("Tema");
+        #########
 
         $objForm->text("nm_titulo_questao")->required(true)->label("Título da Questão");
         $objForm->textareaHtml("tx_enunciado")->required(false)->label("Enunciado da Questão");

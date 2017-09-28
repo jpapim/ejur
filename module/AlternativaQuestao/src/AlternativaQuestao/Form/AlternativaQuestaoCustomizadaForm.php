@@ -21,7 +21,10 @@ class AlternativaQuestaoCustomizadaForm extends AbstractForm{
         $objForm->combo("id_temporizacao", '\Temporizacao\Service\TemporizacaoService','id','nm_temporizacao','filtraTemporizacaoAtivo')->required(true)->label("Temporizador (meses)");
         $objForm->combo("id_tipo_questao", '\TipoQuestao\Service\TipoQuestaoService','id','nm_tipo_questao')->required(true)->label("Tipo");
         $objForm->combo("id_materia", '\Materia\Service\MateriaService','id','nm_materia','filtraMateriaAtiva')->required(true)->label("Materia");
-        $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService','id','nm_assunto_materia','filtraAssuntoAtivo')->required(true)->label("Assunto");
+        #########
+        // Somente a Label foi modificado de Assunto para Tema
+        $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService','id','nm_assunto_materia','filtraAssuntoAtivo')->required(true)->label("Tema");
+        #########
         $objForm->text("nm_titulo_questao")->required(false)->label("Titulo da Questao");
         $objForm->textareaHtml("tx_enunciado")->required(true)->label("Enunciado da Questao");
         $objForm->text("tx_caminho_imagem_questao")->required(false)->label("Caminho da Imagem");
