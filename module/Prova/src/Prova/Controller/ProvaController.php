@@ -641,7 +641,7 @@ class ProvaController extends AbstractCrudController
 
         #Recupera os materias cadastradas por semestre
         $materiaSemestreService = new \MateriaSemestre\Service\MateriaSemestreService();
-        $arMaterias = $materiaSemestreService->fetchAllById(['id_classificacao_semestre' => $id_classificacao_semestre]);
+        $arMaterias = $materiaSemestreService->carregarMateriaPorSemestreParaCombo($id_classificacao_semestre);
 
         #Faz o Tratamento do Array para enviar para View
         $arMateriasCombo = array();
@@ -677,7 +677,7 @@ class ProvaController extends AbstractCrudController
 
         #Recupera os materias cadastradas por semestre
         $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
-        $arAssuntoMaterias = $assuntoMateriaService->fetchAllById(['id_materia' => $id_materia]);
+        $arAssuntoMaterias = $assuntoMateriaService->carregarAssuntoPorMateriaParaCombo($id_materia);
 
         #Faz o Tratamento do Array para enviar para View
         $arAssuntoMateriaCombo = array();
@@ -805,7 +805,30 @@ class ProvaController extends AbstractCrudController
 
         #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
         $questaoService = new \Questao\Service\QuestaoService();
-        $dados = ['bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
+        $dados = ['bo_utilizavel'=> 'N', 'bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
+        $where = ['id_questao'=>$id_questao];
+        $questaoService->getTable()->salvar($dados, $where);
+
+        $valuesJson = new JsonModel(array('sucesso' => true, 'id_prova' => $id_prova, 'id_questao' => $id_questao));
+
+        return $valuesJson;
+
+    }
+
+    public function liberarTemporizadorQuestaoProvaAjaxAction()
+    {
+        $request = $this->getRequest();
+
+        if (!$request->isPost()) {
+            throw new \Exception('Dados Inválidos');
+        }
+        $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
+        $id_questao = $post['id_questao'];
+        $id_prova = $post['id_prova'];
+
+        #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
+        $questaoService = new \Questao\Service\QuestaoService();
+        $dados = ['bo_utilizavel'=> 'S', 'bo_bloqueada_temporizador' => false, 'dt_alteracao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
         $where = ['id_questao'=>$id_questao];
         $questaoService->getTable()->salvar($dados, $where);
 
@@ -844,7 +867,7 @@ class ProvaController extends AbstractCrudController
             $questaoService = new \Questao\Service\QuestaoService();
             foreach ($questosProvaEntity as $questaoProva){
                 #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
-                $dados = ['bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
+                $dados = ['bo_utilizavel'=> 'N', 'bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
                 $where = ['id_questao'=>$questaoProva->getIdQuestao()];
                 $questaoService->getTable()->salvar($dados, $where);
             }
