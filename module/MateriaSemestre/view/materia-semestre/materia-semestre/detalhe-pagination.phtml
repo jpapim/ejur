@@ -64,9 +64,9 @@
                 foreach ($paginator as $key => $materia_semestre) { #xd($materia_semestre);
                     ?>
                     <tr>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeTudoMaiusculo($materia_semestre['id_materia_semestre']) ?></td>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeTudoMaiusculo($materia_semestre['nm_classificacao_semestre']) ?></td>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeTudoMaiusculo($materia_semestre['nm_materia']) ?></td>
+                        <td class="text-center"><?= $materia_semestre['id_materia_semestre'] ?></td>
+                        <td class="text-center"><?= $materia_semestre['nm_classificacao_semestre'] ?></td>
+                        <td class="text-center"><?= $materia_semestre['nm_materia'] ?></td>
                         <td class="text-center">
                                 <span class="btn-group materiaSemestre-acoes-group" style="width: 100px;">
 
