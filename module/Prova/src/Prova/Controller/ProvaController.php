@@ -805,7 +805,7 @@ class ProvaController extends AbstractCrudController
 
         #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
         $questaoService = new \Questao\Service\QuestaoService();
-        $dados = ['bo_utilizavel'=> 'N', 'bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
+        $dados = ['bo_utilizavel'=> 'N', 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
         $where = ['id_questao'=>$id_questao];
         $questaoService->getTable()->salvar($dados, $where);
 
@@ -828,7 +828,7 @@ class ProvaController extends AbstractCrudController
 
         #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
         $questaoService = new \Questao\Service\QuestaoService();
-        $dados = ['bo_utilizavel'=> 'S', 'bo_bloqueada_temporizador' => false, 'dt_alteracao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
+        $dados = ['bo_utilizavel'=> 'S', 'dt_alteracao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
         $where = ['id_questao'=>$id_questao];
         $questaoService->getTable()->salvar($dados, $where);
 
@@ -867,7 +867,7 @@ class ProvaController extends AbstractCrudController
             $questaoService = new \Questao\Service\QuestaoService();
             foreach ($questosProvaEntity as $questaoProva){
                 #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
-                $dados = ['bo_utilizavel'=> 'N', 'bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
+                $dados = ['bo_utilizavel'=> 'N', 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
                 $where = ['id_questao'=>$questaoProva->getIdQuestao()];
                 $questaoService->getTable()->salvar($dados, $where);
             }
