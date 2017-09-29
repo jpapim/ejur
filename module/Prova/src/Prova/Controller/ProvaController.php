@@ -794,4 +794,26 @@ class ProvaController extends AbstractCrudController
         return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
     }
 
+
+    public function aplicarTemporizadorQuestaoProvaAjaxAction()
+    {
+        $request = $this->getRequest();
+
+        if (!$request->isPost()) {
+            throw new \Exception('Dados Inválidos');
+        }
+        $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
+        $id_questao = $post['id_questao'];
+        $id_prova = $post['id_prova'];
+
+        #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
+        $questaoService = new \Questao\Service\QuestaoService();
+        $questaoService->getTable()->salvar(['bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()],['id_questao'=>$id_questao]);
+
+        $valuesJson = new JsonModel(array('sucesso' => true, 'id_prova' => $id_prova, 'id_questao' => $id_questao));
+
+        return $valuesJson;
+
+    }
+
 }
