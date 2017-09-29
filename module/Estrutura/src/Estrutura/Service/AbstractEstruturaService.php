@@ -8,6 +8,7 @@ use Zend\Db\Sql\Where;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Stdlib\Hydrator\ArraySerializable;
 use Estrutura\Helpers\String;
+use Zend\Db\Sql\Select;
 
 class AbstractEstruturaService {
 
@@ -189,6 +190,21 @@ class AbstractEstruturaService {
         $resultSet = $this->selectWith($select);
         $resultSet->buffer();
         return $resultSet;
+    }
+
+    /**
+     *
+     * RETORNA UMA COLECAO
+     * @param Select|null $select
+     * @return mixed
+     */
+    public function fetchAllWithFilterAndOrdination($tableName, $arWhere = [], $arColunasOrdenacao = []) {
+        $select = new Select($tableName);
+        $select->where($arWhere);
+        $select->order($arColunasOrdenacao);
+
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
+        return $this->getTable()->getTableGateway()->selectWith($select);
     }
 
     /**

@@ -10,11 +10,12 @@ use Zend\Stdlib\Hydrator\Reflection;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
-class MateriaSemestreService extends Entity {
+class MateriaSemestreService extends Entity
+{
 
 
-
-    public function getTiposToArray($id) {
+    public function getTiposToArray($id)
+    {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
@@ -28,20 +29,22 @@ class MateriaSemestreService extends Entity {
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
-    public function getFiltrarTiposPorNomeToArray($nm_assunto_materia) {
+    public function getFiltrarTiposPorNomeToArray($nm_assunto_materia)
+    {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
         $select = $sql->select('assunto_materia')
-            ->columns(array('nm_assunto_materia',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
+            ->columns(array('nm_assunto_materia',))#Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
-                "assunto_materia.id_assunto_materia LIKE ?" => '%'.$nm_assunto_materia.'%',
+                "assunto_materia.id_assunto_materia LIKE ?" => '%' . $nm_assunto_materia . '%',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
     }
 
-    public function getIdTipoPorNomeToArray($nm_assunto_materia) {
+    public function getIdTipoPorNomeToArray($nm_assunto_materia)
+    {
 
         $arNomeAssunto = explode('(', $nm_assunto_materia);
         $nm_assunto_materia = $arNomeAssunto[0];
@@ -49,7 +52,7 @@ class MateriaSemestreService extends Entity {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
         $filter = new \Zend\Filter\StringTrim();
         $select = $sql->select('assunto_materia')
-            ->columns(array('id_assunto_materia') )
+            ->columns(array('id_assunto_materia'))
             ->where([
                 'assunto_materia.id_assunto_materia = ?' => $filter->filter($nm_assunto_materia),
             ]);
@@ -60,23 +63,25 @@ class MateriaSemestreService extends Entity {
     /**
      * Busca apenas as Materias que já estão relacionados a alguma questão
      */
-    public function filtrarMateriaPorSemestreEBancoQuestao($id_classificacao_semestre) {
+    public function filtrarMateriaPorSemestreEBancoQuestao($id_classificacao_semestre)
+    {
         $select = new \Zend\Db\Sql\Select('materia');
         $select->columns([
             'id_materia',
             'nm_materia'
         ])->join('assunto_materia', 'assunto_materia.id_materia = materia.id_materia')
-        ->join('questao', 'questao.id_assunto_materia = assunto_materia.id_assunto_materia');
+            ->join('questao', 'questao.id_assunto_materia = assunto_materia.id_assunto_materia');
 
         $select->where([
-            'questao.id_classificacao_semestre = ?' => $id_classificacao_semestre,'materia.cs_ativo = 1',
+            'questao.id_classificacao_semestre = ?' => $id_classificacao_semestre, 'materia.cs_ativo = 1',
         ]);
         $select->order(['materia.nm_materia ASC']);
         $select->quantifier('DISTINCT');
         return $this->getTable()->getTableGateway()->selectWith($select);
     }
 
-    public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_assunto_materia DESC', $like = null, $itensPaginacao = 5) {
+    public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_assunto_materia DESC', $like = null, $itensPaginacao = 5)
+    {
         //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
         // preparar um select para tabela contato com uma ordem
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
@@ -113,14 +118,15 @@ class MateriaSemestreService extends Entity {
         // resultado da paginação
         return (new Paginator($paginatorAdapter))
             // pagina a ser buscada
-            ->setCurrentPageNumber((int) $pagina)
+            ->setCurrentPageNumber((int)$pagina)
             // quantidade de itens na p�gina
-            ->setItemCountPerPage((int) $itensPagina)
-            ->setPageRange((int) $itensPaginacao);
+            ->setItemCountPerPage((int)$itensPagina)
+            ->setPageRange((int)$itensPaginacao);
     }
 
 
-    public function getMateriaSemestrePaginator($filter = NULL, $camposFilter = NULL) {
+    public function getMateriaSemestrePaginator($filter = NULL, $camposFilter = NULL)
+    {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
@@ -128,12 +134,11 @@ class MateriaSemestreService extends Entity {
             'id_materia_semestre',
             'id_classificacao_semestre',
             'id_materia',])
-                
-        ->join('materia', 'materia.id_materia = materia_semestre.id_materia', ['nm_materia'])//NF
-                
-        ->join('classificacao_semestre', 'materia_semestre.id_classificacao_semestre = classificacao_semestre.id_classificacao_semestre', [
-            'nm_classificacao_semestre'
-        ]);
+            ->join('materia', 'materia.id_materia = materia_semestre.id_materia', ['nm_materia'])//NF
+
+            ->join('classificacao_semestre', 'materia_semestre.id_classificacao_semestre = classificacao_semestre.id_classificacao_semestre', [
+                'nm_classificacao_semestre'
+            ]);
 
         $select->quantifier('DISTINCT');
 
@@ -177,7 +182,7 @@ class MateriaSemestreService extends Entity {
         ]);
 
         $where = [
-            'materia_semestre.id_classificacao_semestre'=>$id_classificacao_semestre,'materia.cs_ativo = 1',
+            'materia_semestre.id_classificacao_semestre' => $id_classificacao_semestre, 'materia.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {
@@ -201,4 +206,27 @@ class MateriaSemestreService extends Entity {
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 
+    public function carregarMateriaPorSemestreParaCombo($id_classificacao_semestre)
+    {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+
+        $select = $sql->select('materia_semestre')->columns([
+            'id_materia_semestre',
+            'id_classificacao_semestre',
+            'id_materia',
+        ])->join('materia', 'materia.id_materia = materia_semestre.id_materia', [
+            'nm_materia'
+        ])->join('classificacao_semestre', 'materia_semestre.id_classificacao_semestre = classificacao_semestre.id_classificacao_semestre', [
+            'nm_classificacao_semestre'
+        ]);
+
+        $where = [
+            'materia_semestre.id_classificacao_semestre' => $id_classificacao_semestre, 'materia.cs_ativo = 1',
+        ];
+
+        $select->where($where)->order(['nm_materia ASC']);
+        
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
+        return $this->getTable()->getTableGateway()->selectWith($select)->toArray();
+    }
 }
