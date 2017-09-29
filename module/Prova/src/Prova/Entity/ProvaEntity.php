@@ -14,4 +14,5 @@ class ProvaEntity extends AbstractEstruturaService{
         protected $id_usuario;
         protected $nm_prova;
         protected $cs_ativo;
+        protected $bo_prova_definitiva;
 }

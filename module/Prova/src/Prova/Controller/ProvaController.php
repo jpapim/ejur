@@ -50,13 +50,10 @@ class ProvaController extends AbstractCrudController
                 'filter' => "prova.dt_aplicacao_prova LIKE ?",
             ],
             '2' => [
-                'filter' => "prova.dt_geracao_prova LIKE ?",
-            ],
-            '3' => [
                 'filter' => "prova.ds_prova LIKE ?",
             ],
 
-            '5' => NULL,
+            '3' => NULL,
 
         ];
 
@@ -808,12 +805,64 @@ class ProvaController extends AbstractCrudController
 
         #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
         $questaoService = new \Questao\Service\QuestaoService();
-        $questaoService->getTable()->salvar(['bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()],['id_questao'=>$id_questao]);
+        $dados = ['bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
+        $where = ['id_questao'=>$id_questao];
+        $questaoService->getTable()->salvar($dados, $where);
 
         $valuesJson = new JsonModel(array('sucesso' => true, 'id_prova' => $id_prova, 'id_questao' => $id_questao));
 
         return $valuesJson;
 
+    }
+
+    /**
+     * Reinicia a senha do Usuário;
+     * @return bool
+     */
+    public function marcarAvaliacaoComoAplicadaAction()
+    {
+        try {
+            $controller = $this->params('controller');
+            $id_prova = $this->params()->fromRoute('id');  // From RouteMatch
+            $service = $this->service; #ProvaService
+
+            if (isset($id_prova) && $id_prova) {
+                $post['id'] = Cript::dec($id_prova);
+            }
+
+
+            $questosProvaService = new \QuestoesProva\Service\QuestoesProvaService();
+            $questosProvaService->setIdProva($post['id']);
+            $questosProvaEntity = $questosProvaService->filtrarObjeto();
+
+            if (!$questosProvaEntity) {
+                $this->addErrorMessage('Erro ao Recuperar as questões');
+                $this->redirect()->toRoute('navegacao', ['controller' => $controller, 'action' => 'index', 'id' => Cript::enc( $post['id'] )]);
+                return FALSE;
+            }
+
+            $questaoService = new \Questao\Service\QuestaoService();
+            foreach ($questosProvaEntity as $questaoProva){
+                #Realiza o Bloquei da Questao para nao permitir que seja selecionada em futuras provas
+                $dados = ['bo_bloqueada_temporizador' => true, 'dt_ultima_utilizacao' => \Estrutura\Helpers\Data::getDataHoraAtual2Banco()];
+                $where = ['id_questao'=>$questaoProva->getIdQuestao()];
+                $questaoService->getTable()->salvar($dados, $where);
+            }
+
+            #Atualiza a avaliação e marca ela como definitiva
+            $service->getTable()->salvar(['bo_prova_definitiva'=> true], ['id_prova'=>$post['id'] ]);
+
+            $this->addSuccessMessage('A Avaliação foi marcada como aplicada e o temporizador foi aplicado nas questões da prova!');
+            $this->redirect()->toRoute('navegacao', array('controller' => $controller));
+            return true;
+
+        } catch (\Exception $e) {
+
+            $this->setPost($post);
+            $this->addErrorMessage($e->getMessage());
+            $this->redirect()->toRoute('navegacao', array('controller' => $controller));
+            return false;
+        }
     }
 
 }
