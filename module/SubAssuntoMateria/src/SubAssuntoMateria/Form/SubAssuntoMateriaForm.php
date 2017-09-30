@@ -6,22 +6,22 @@
  * Time: 09:35
  */
 
-namespace SubTemaMateria\Form;
+namespace SubAssuntoMateria\Form;
 
 use Estrutura\Form\AbstractForm;
 use Estrutura\Form\FormObject;
 use Zend\InputFilter\InputFilter;
 
-class SubTemaMateriaForm extends AbstractForm{
+class SubAssuntoMateriaForm extends AbstractForm{
 
     public function __construct($options=[]){
-        parent::__construct('subtemamateriaform');
+        parent::__construct('subassuntomateriaform');
 
         $this->inputFilter = new InputFilter();
-        $objForm = new FormObject('subtemamateriaform',$this,$this->inputFilter);
+        $objForm = new FormObject('subassuntomateriaform',$this,$this->inputFilter);
         $objForm->hidden("id")->required(false)->label("Id");
-        $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService', 'id', 'nm_assunto_materia')->required(true)->label("Assunto");
-        $objForm->text("nm_sub_tema_materia")->required(true)->label("SubTema");
+        $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService', 'id', 'nm_assunto_materia')->required(true)->label("Tema");
+        $objForm->text("nm_sub_assunto_materia")->required(true)->label("SubTema");
 
         $this->formObject = $objForm;    }
 

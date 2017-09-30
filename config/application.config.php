@@ -36,6 +36,7 @@ return array(
         'Materia',
         'TipoQuestao',
         'AssuntoMateria',
+        'SubAssuntoMateria',
         'PerfilControllerAction',
         'Infra',
         'MateriaSemestre',
@@ -46,7 +47,6 @@ return array(
         'Prova',
         'QuestoesProva',
         'FiltroProva',
-        'SubTemaMateria',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

@@ -1,5 +1,5 @@
 <?php
-namespace SubTemaMateria;
+namespace SubAssuntoMateria;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
@@ -46,9 +46,9 @@ class Module
     {
         return array(
             'factories' => array(
-                'SubTemaMateria\Service\SubTemaMateriaService' => function($sm) {
+                'SubAssuntoMateria\Service\SubAssuntoMateriaService' => function($sm) {
 
-                    return new \SubTemaMateria\Service\SubTemaMateriaMateria();
+                    return new \SubAssuntoMateria\Service\SubAssuntoMateriaMateria();
                 },
             )
         );

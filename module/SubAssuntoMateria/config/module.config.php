@@ -9,12 +9,12 @@
 return array(
     'router' => array(
         'routes' => array(
-            'sub_tema_materia-home' => array(
+            'sub_assunto_materia-home' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route'    => '/sub_tema_materia',
+                    'route'    => '/sub_assunto_materia',
                     'defaults' => array(
-                        'controller' => 'sub_tema_materia',
+                        'controller' => 'sub_assunto_materia',
                         'action'     => 'index',
                     ),
                 ),
@@ -42,8 +42,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'sub_tema_materia' => 'SubTemaMateria\Controller\SubTemaMateriaController',
-            'sub_tema_materia-subtemamateria' => 'SubTemaMateria\Controller\SubTemaMateriaController',
+            'sub_assunto_materia' => 'SubAssuntoMateria\Controller\SubAssuntoMateriaController',
+            'sub_assunto_materia-subassuntomateria' => 'SubAssuntoMateria\Controller\SubAssuntoMateriaController',
 
         ),
     ),

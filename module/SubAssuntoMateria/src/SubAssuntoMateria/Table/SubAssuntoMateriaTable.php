@@ -6,17 +6,17 @@
  * Time: 09:34
  */
 
-namespace SubTemaMateria\Table;
+namespace SubAssuntoMateria\Table;
 
 use Estrutura\Table\AbstractEstruturaTable;
 
-class SubTemaMateriaTable extends AbstractEstruturaTable{
+class SubAssuntoMateriaTable extends AbstractEstruturaTable{
 
-    public $table = 'id_sub_tema_materia';
+    public $table = 'id_sub_assunto_materia';
     public $campos = [
-        'id_sub_tema_materia'=>'id',
+        'id_sub_assunto_materia'=>'id',
         'id_assunto_materia'=> 'id_assunto_materia',
-        'nm_sub_tema_materia'=>'nm_sub_tema_materia',
+        'nm_sub_assunto_materia'=>'nm_sub_assunto_materia',
         'cs_ativo'=>'cs_ativo',
 
 

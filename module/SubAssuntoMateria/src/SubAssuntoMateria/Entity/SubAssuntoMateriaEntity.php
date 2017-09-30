@@ -6,14 +6,14 @@
  * Time: 09:35
  */
 
-namespace SubTemaMateria\Entity;
+namespace SubAssuntoMateria\Entity;
 
 use Estrutura\Service\AbstractEstruturaService;
 
-class SubTemaMateriaEntity extends AbstractEstruturaService{
+class SubAssuntoMateriaEntity extends AbstractEstruturaService{
 
     protected $id;
     protected $id_assunto_materia;
-    protected $nm_sub_tema_materia;
+    protected $nm_sub_assunto_materia;
     protected $cs_ativo;
 }

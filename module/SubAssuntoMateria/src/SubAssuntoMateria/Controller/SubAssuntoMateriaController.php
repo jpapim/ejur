@@ -6,13 +6,13 @@
  * Time: 09:35
  */
 
-namespace SubTemaMateria\Controller;
+namespace SubAssuntoMateria\Controller;
 
 use Estrutura\Controller\AbstractCrudController;
 use Zend\View\Model\ViewModel;
 
 
-class SubTemaMateriaController extends AbstractCrudController {
+class SubAssuntoMateriaController extends AbstractCrudController {
 
     /**
      * @var \Action\Service\Action
@@ -44,12 +44,15 @@ class SubTemaMateriaController extends AbstractCrudController {
         $filter = $this->getFilterPage();
         $camposFilter = [
             '0' => [
-                'filter' => "sub_tema_materia_materia.nm_sub_tema_materia LIKE ?",
+                'filter' => "assunto_materia.nm_assunto_materia LIKE ?",
             ],
-            '1' => NULL
+            '1' => [
+                'filter' => "sub_assunto_materia_materia.nm_sub_assunto_materia LIKE ?",
+            ],
+            '2' => NULL
         ];
 
-        $paginator = $this->service->getSubTemaMateriaPaginator($filter, $camposFilter);
+        $paginator = $this->service->getSubAssuntoMateriaPaginator($filter, $camposFilter);
         $paginator->setItemCountPerPage($paginator->getTotalItemCount());
         $countPerPage = $this->getCountPerPage(
             current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
@@ -85,11 +88,11 @@ class SubTemaMateriaController extends AbstractCrudController {
 
             $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
 
-            $subTemaMateriaService = new \SubTemaMateria\Service\SubTemaMateriaService();
-            $subTemaMateriaService->setNmSubTemaMateria(trim($this->getRequest()->getPost()->get('nm_sub_tema_materia')));
-            if ($subTemaMateriaService->filtrarObjeto()->count()) {
+            $subAssuntoMateriaService = new \SubAssuntoMateria\Service\SubAssuntoMateriaService();
+            $subAssuntoMateriaService->setNmSubAssuntoMateria(trim($this->getRequest()->getPost()->get('nm_sub_assunto_materia')));
+            if ($subAssuntoMateriaService->filtrarObjeto()->count()) {
                 $this->setPost($post);
-                $this->addErrorMessage('SubTema já cadastrado.');
+                $this->addErrorMessage('SubAssunto já cadastrado.');
                 $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
                 return FALSE;
             }
@@ -104,13 +107,13 @@ class SubTemaMateriaController extends AbstractCrudController {
             }
 
             #xd($post);
-            #$subTemaMateriaService = new \SubTemaMateria\Service\SubTemaMateriaService();
-            $subTemaMateriaService->setIdAssuntoMateria(trim($this->getRequest()->getPost()->get('id_assunto_materia')));
-            $subTemaMateriaService->setNmSubTemaMateria(trim($this->getRequest()->getPost()->get('nm_sub_tema_materia')));
+            #$subAssuntoMateriaService = new \SubAssuntoMateria\Service\SubAssuntoMateriaService();
+            $subAssuntoMateriaService->setIdAssuntoMateria(trim($this->getRequest()->getPost()->get('id_assunto_materia')));
+            $subAssuntoMateriaService->setNmSubAssuntoMateria(trim($this->getRequest()->getPost()->get('nm_sub_assunto_materia')));
 
-            #xd($subTemaMateriaService->filtrarObjeto()->count());
-            if ($subTemaMateriaService->filtrarObjeto()->count()) {
-                $this->addErrorMessage('O SubTema informado já foi cadastrado.');
+            #xd($subAssuntoMateriaService->filtrarObjeto()->count());
+            if ($subAssuntoMateriaService->filtrarObjeto()->count()) {
+                $this->addErrorMessage('O SubAssunto informado já foi cadastrado.');
                 $this->setPost($post);
                 $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
                 return FALSE;
@@ -126,7 +129,7 @@ class SubTemaMateriaController extends AbstractCrudController {
             }
 
             $service->exchangeArray($form->getData());
-            $this->addSuccessMessage('Subtema cadastrado com sucesso!');
+            $this->addSuccessMessage('Subassunto cadastrado com sucesso!');
             $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
             return $service->salvar();
 
@@ -154,22 +157,22 @@ class SubTemaMateriaController extends AbstractCrudController {
 
         $auth = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
         $controller = $this->params('controller');
-        $id_sub_tema_materia = $this->params('id');
+        $id_sub_assunto_materia = $this->params('id');
 
-        if (isset($id_sub_tema_materia) && $id_sub_tema_materia) {
-            $id_sub_tema_materia = \Estrutura\Helpers\Cript::dec($id_sub_tema_materia);
+        if (isset($id_sub_assunto_materia) && $id_sub_assunto_materia) {
+            $id_sub_assunto_materia = \Estrutura\Helpers\Cript::dec($id_sub_assunto_materia);
         } else {
             $this->addErrorMessage('ID não informado');
             return $this->redirect()->toRoute('navegacao', ['controller' => $controller, 'action' => 'index']);
         }
-        $subTemaMateriaService = new \SubTemaMateria\Service\SubTemaMateriaService();
-        $subTemaMateriaEntity = $subTemaMateriaService->buscar($id_sub_tema_materia);
+        $subAssuntoMateriaService = new \SubAssuntoMateria\Service\SubAssuntoMateriaService();
+        $subAssuntoMateriaEntity = $subAssuntoMateriaService->buscar($id_sub_assunto_materia);
 
         if (1 == $auth->id_perfil) { //Se o usuario logado for Administrador
-            $subTemaMateriaEntity->setCsAtivo(0); // Valor '0' desabilita o campo cs_ativo
-            $subTemaMateriaEntity->salvar();
+            $subAssuntoMateriaEntity->setCsAtivo(0); // Valor '0' desabilita o campo cs_ativo
+            $subAssuntoMateriaEntity->salvar();
         }
-        $this->addSuccessMessage('SubTema excluido com sucesso.');
+        $this->addSuccessMessage('SubAssunto excluido com sucesso.');
         return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
     }
 

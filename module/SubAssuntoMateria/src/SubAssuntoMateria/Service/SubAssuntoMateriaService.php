@@ -6,9 +6,9 @@
  * Time: 09:35
  */
 
-namespace SubTemaMateria\Service;
+namespace SubAssuntoMateria\Service;
 
-use \SubTemaMateria\Entity\SubTemaMateriaEntity as Entity;
+use \SubAssuntoMateria\Entity\SubAssuntoMateriaEntity as Entity;
 
 use Zend\Db\ResultSet\HydratingResultSet;
 use Zend\Stdlib\Hydrator\Reflection;
@@ -16,61 +16,61 @@ use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
 
-class SubTemaMateriaService extends Entity {
+class SubAssuntoMateriaService extends Entity {
 
     public function getTiposToArray($id) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
         #die($id);
-        $select = $sql->select('sub_tema_materia')
+        $select = $sql->select('sub_assunto_materia')
             ->where([
-                'sub_tema_materia.id_sub_tema_materia = ?' => $id,
-                'sub_tema_materia.cs_ativo = 1',
+                'sub_assunto_materia.id_sub_assunto_materia = ?' => $id,
+                'sub_assunto_materia.cs_ativo = 1',
             ]);
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
-    public function getFiltrarTiposPorNomeToArray($nm_sub_tema_materia) {
+    public function getFiltrarTiposPorNomeToArray($nm_sub_assunto_materia) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
-        $select = $sql->select('sub_tema_materia')
-            ->columns(array('nm_sub_tema_materia',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
+        $select = $sql->select('sub_assunto_materia')
+            ->columns(array('nm_sub_assunto_materia',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
-                "sub_tema_materia.id_sub_tema_materia LIKE ?" => '%'.$nm_sub_tema_materia.'%',
-                'sub_tema_materia.cs_ativo = 1',
+                "sub_assunto_materia.id_sub_assunto_materia LIKE ?" => '%'.$nm_sub_assunto_materia.'%',
+                'sub_assunto_materia.cs_ativo = 1',
             ]);
         return $sql->prepareStatementForSqlObject($select)->execute();
     }
 
-    public function getIdTipoPorNomeToArray($nm_sub_tema_materia) {
+    public function getIdTipoPorNomeToArray($nm_sub_assunto_materia) {
 
-        $arNomeSubTema = explode('(', $nm_sub_tema_materia);
-        $nm_sub_tema_materia = $arNomeSubTema[0];
+        $arNomeSubAssunto = explode('(', $nm_sub_assunto_materia);
+        $nm_sub_assunto_materia = $arNomeSubAssunto[0];
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
         $filter = new \Zend\Filter\StringTrim();
-        $select = $sql->select('sub_tema_materia')
-            ->columns(array('id_sub_tema_materia') )
+        $select = $sql->select('sub_assunto_materia')
+            ->columns(array('id_sub_assunto_materia') )
             ->where([
-                'sub_tema_materia.id_sub_tema_materia = ?' => $filter->filter($nm_sub_tema_materia),
-                'sub_tema_materia.cs_ativo = 1',
+                'sub_assunto_materia.id_sub_assunto_materia = ?' => $filter->filter($nm_sub_assunto_materia),
+                'sub_assunto_materia.cs_ativo = 1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
-    public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_sub_tema_materia DESC', $like = null, $itensPaginacao = 5) {
+    public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_sub_assunto_materia DESC', $like = null, $itensPaginacao = 5) {
         // preparar um select para tabela contato com uma ordem
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
-        $select = $sql->select('sub_tema_materia')->order($ordem);
+        $select = $sql->select('sub_assunto_materia')->order($ordem);
         if (isset($like)) {
             $select
                 ->where
-                ->like('nm_sub_tema_materia', "%{$like}%")
+                ->like('nm_sub_assunto_materia', "%{$like}%")
             ;
         }
         // criar um objeto com a estrutura desejada para armazenar valores
-        $resultSet = new HydratingResultSet(new Reflection(), new \SubTemaMateria\Entity\SubTemaMateriaMateria());
+        $resultSet = new HydratingResultSet(new Reflection(), new \SubAssuntoMateria\Entity\SubAssuntoMateriaMateria());
         // criar um objeto adapter paginator
         $paginatorAdapter = new DbSelect(
         // nosso objeto select
@@ -91,18 +91,18 @@ class SubTemaMateriaService extends Entity {
             ->setPageRange((int) $itensPaginacao);
     }
 
-    public function getSubTemaMateriaPaginator($filter = NULL, $camposFilter = NULL) {
+    public function getSubAssuntoMateriaPaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
-        $select = $sql->select('sub_tema_materia')->columns([
-            'id_sub_tema_materia',
-            'nm_sub_tema_materia',
+        $select = $sql->select('sub_assunto_materia')->columns([
+            'id_sub_assunto_materia',
+            'nm_sub_assunto_materia',
 
         ])
-            ->join('assunto_materia', 'assunto_materia.id_assunto_materia = sub_tema_materia.id_assunto_materia', [
+            ->join('assunto_materia', 'assunto_materia.id_assunto_materia = sub_assunto_materia.id_assunto_materia', [
                 'nm_assunto_materia'
             ]);
-        $where = ['sub_tema_materia.cs_ativo = 1',
+        $where = ['sub_assunto_materia.cs_ativo = 1',
         ];
         if (!empty($filter)) {
             foreach ($filter as $key => $value) {
@@ -114,14 +114,14 @@ class SubTemaMateriaService extends Entity {
                 }
             }
         }
-        $select->where($where)->order(['id_sub_tema_materia DESC']);
+        $select->where($where)->order(['id_sub_assunto_materia DESC']);
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 
-    public function filtraSubTemaAtivo()
+    public function filtraSubAssuntoAtivo()
     {
-        $subTemaAtivo = $this->select(['cs_ativo'=> '1']);
-        return $subTemaAtivo;
+        $subAssuntoAtivo = $this->select(['cs_ativo'=> '1']);
+        return $subAssuntoAtivo;
     }
 
 

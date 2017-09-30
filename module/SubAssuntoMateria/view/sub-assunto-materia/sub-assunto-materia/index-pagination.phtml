@@ -2,15 +2,17 @@
 
 <div class="col-md-12">
     <div class="table-responsive">
-        <table class="table table-striped" id="tablesorterSubtemaMateria">
+        <table class="table table-striped" id="tablesorterSubassuntoMateria">
             <thead>
             <tr>
+                <th class="text-center">Tema</th>
                 <th class="text-center">SubTema</th>
                 <th class="text-center">Ações</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
+                <th class="text-center">Tema</th>
                 <th class="text-center">SubTema</th>
                 <th class="text-center">Ações</th>
             </tr>
@@ -19,9 +21,9 @@
                     <?php
                     echo $this->paginationControl(
                         $paginator, 'Sliding', 'partials/pagination.phtml', [
-                        'urlPagination' => '/sub_tema_materia-subtemamateria/index-pagination',
+                        'urlPagination' => '/sub_assunto_materia-subassuntomateria/index-pagination',
                         'countPerPage' => $countPerPage,
-                        'divData' => '#subtemamateria-pagination',
+                        'divData' => '#subassuntomateria-pagination',
                     ]);
 
                     ?>
@@ -56,14 +58,15 @@
                     ?>
                 </tr>
                 <?php
-                foreach ($paginator as $key => $subTema) {
+                foreach ($paginator as $key => $subAssunto) {
                     ?>
                     <tr>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($subTema['nm_sub_tema_materia']) ?></td>
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($subAssunto['nm_assunto_materia']) ?></td>
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($subAssunto['nm_sub_assunto_materia']) ?></td>
                         <td class="text-center">
-                                <span class="btn-group subTemaMateria-acoes-group" style="width: 100px;">
-                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($subTema['id_sub_tema_materia'])))) ?>
-                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluirConfirm(Estrutura\Helpers\Cript::enc($subTema['id_sub_tema_materia'])) ?>
+                                <span class="btn-group subAssuntoMateria-acoes-group" style="width: 100px;">
+                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($subAssunto['id_sub_assunto_materia'])))) ?>
+                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluirConfirm(Estrutura\Helpers\Cript::enc($subAssunto['id_sub_assunto_materia'])) ?>
                                 </span>
                         </td>
                     </tr>
@@ -110,7 +113,7 @@
         };
 
         // call the tablesorter plugin and apply the uitheme widget
-        $("#tablesorterSubtemaMateria").tablesorter({
+        $("#tablesorterSubassuntoMateria").tablesorter({
             // this will apply the bootstrap theme if "uitheme" widget is included
             // the widgetOptions.uitheme is no longer required to be set
             theme: "bootstrap",
@@ -137,18 +140,18 @@
             }
         });
 
-        $('.subTemaMateria-acoes-group .btn-excluir').off('click').on('click', function () {
+        $('.subAssuntoMateria-acoes-group .btn-excluir').off('click').on('click', function () {
 
             var id = $(this).attr('rel');
-            $("#modal-subTemaMateria-excluir-id").val(id);
-            $('#modal-subTemaMateria-excluir').modal('show');
+            $("#modal-subAssuntoMateria-excluir-id").val(id);
+            $('#modal-subAssuntoMateria-excluir').modal('show');
         });
 
-        $('#btn-subTemaMateria-excluir-confirm').off('click').on('click', function () {
+        $('#btn-subAssuntoMateria-excluir-confirm').off('click').on('click', function () {
 
-            $('#modal-subTemaMateria-excluir').modal('hide');
-            var id = $("#modal-subTemaMateria-excluir-id").val();
-            window.location.href = '/sub_tema_materia-subtemamateria/excluirLog/' + id;
+            $('#modal-subAssuntoMateria-excluir').modal('hide');
+            var id = $("#modal-subAssuntoMateria-excluir-id").val();
+            window.location.href = '/sub_assunto_materia-subassuntomateria/excluirLog/' + id;
         });
     });
 </script>
