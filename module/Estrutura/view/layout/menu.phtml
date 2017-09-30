@@ -73,6 +73,13 @@
                     <li><a href="/permissao-permissao/cadastro">Gerenciador de Permissões</a></li>
                     <li><a href="/controller-controller">Cad. Controller</a></li>
                     <li><a href="/action-action">Cad. Action</a></li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="/infra-infra" title="Botão para limpar as pastas Cache automaticamente.">
+                            <span class="glyphicon glyphicon-ban-circle"></span> Limpar Cache
+                        </a>
+                    </li>
+
                 </ul>
             </li>
         <?php } ?>
@@ -102,15 +109,7 @@
             </ul>
         </li>
     </ul>
-    <?php if ($this->Auth()->id_perfil == TXT_CONST_PERFIL_ADMINISTRADOR) { ?>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="/infra-infra" title="Botão para limpar as pastas Cache automaticamente.">
-                    <span class="glyphicon glyphicon-ban-circle"></span> Limpar
-                </a>
-            </li>
-        </ul>
-    <?php } ?>
+
     <ul class="nav navbar-nav navbar-right">
         <li>
             <a href="/usuario-usuario">
