@@ -20,7 +20,7 @@ class SubAssuntoMateriaForm extends AbstractForm{
         $this->inputFilter = new InputFilter();
         $objForm = new FormObject('subassuntomateriaform',$this,$this->inputFilter);
         $objForm->hidden("id")->required(false)->label("Id");
-        $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService', 'id', 'nm_assunto_materia')->required(true)->label("Tema");
+        $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService', 'id', 'nm_assunto_materia','filtraAssuntoAtivo')->required(true)->label("Tema");
         $objForm->text("nm_sub_assunto_materia")->required(true)->label("SubTema");
 
         $this->formObject = $objForm;    }

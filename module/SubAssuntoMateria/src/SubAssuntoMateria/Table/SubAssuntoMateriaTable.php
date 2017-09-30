@@ -12,7 +12,7 @@ use Estrutura\Table\AbstractEstruturaTable;
 
 class SubAssuntoMateriaTable extends AbstractEstruturaTable{
 
-    public $table = 'id_sub_assunto_materia';
+    public $table = 'sub_assunto_materia';
     public $campos = [
         'id_sub_assunto_materia'=>'id',
         'id_assunto_materia'=> 'id_assunto_materia',

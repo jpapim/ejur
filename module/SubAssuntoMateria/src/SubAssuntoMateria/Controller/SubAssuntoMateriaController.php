@@ -113,7 +113,7 @@ class SubAssuntoMateriaController extends AbstractCrudController {
 
             #xd($subAssuntoMateriaService->filtrarObjeto()->count());
             if ($subAssuntoMateriaService->filtrarObjeto()->count()) {
-                $this->addErrorMessage('O SubAssunto informado já foi cadastrado.');
+                $this->addErrorMessage('O SubTema informado já foi cadastrado.');
                 $this->setPost($post);
                 $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'cadastro'));
                 return FALSE;
@@ -129,7 +129,7 @@ class SubAssuntoMateriaController extends AbstractCrudController {
             }
 
             $service->exchangeArray($form->getData());
-            $this->addSuccessMessage('Subassunto cadastrado com sucesso!');
+            $this->addSuccessMessage('Registro realizado com sucesso!');
             $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
             return $service->salvar();
 
@@ -172,7 +172,7 @@ class SubAssuntoMateriaController extends AbstractCrudController {
             $subAssuntoMateriaEntity->setCsAtivo(0); // Valor '0' desabilita o campo cs_ativo
             $subAssuntoMateriaEntity->salvar();
         }
-        $this->addSuccessMessage('SubAssunto excluido com sucesso.');
+        $this->addSuccessMessage('SubTema excluido com sucesso.');
         return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
     }
 
