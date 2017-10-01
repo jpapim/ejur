@@ -2,7 +2,7 @@
 
 <div class="col-md-12">
     <div class="table-responsive">
-        <table class="table table-striped" id="tablesorterSubassuntoMateria">
+        <table class="table table-striped" id="tablesorterSubAssuntoMateria">
             <thead>
             <tr>
                 <th class="text-center">Tema</th>
@@ -23,7 +23,7 @@
                         $paginator, 'Sliding', 'partials/pagination.phtml', [
                         'urlPagination' => '/sub_assunto_materia-subassuntomateria/index-pagination',
                         'countPerPage' => $countPerPage,
-                        'divData' => '#subassuntomateria-pagination',
+                        'divData' => '#subAssuntoMateria-pagination',
                     ]);
 
                     ?>
@@ -113,7 +113,7 @@
         };
 
         // call the tablesorter plugin and apply the uitheme widget
-        $("#tablesorterSubassuntoMateria").tablesorter({
+        $("#tablesorterSubAssuntoMateria").tablesorter({
             // this will apply the bootstrap theme if "uitheme" widget is included
             // the widgetOptions.uitheme is no longer required to be set
             theme: "bootstrap",

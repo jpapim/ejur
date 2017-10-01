@@ -97,7 +97,6 @@ class SubAssuntoMateriaService extends Entity {
         $select = $sql->select('sub_assunto_materia')->columns([
             'id_sub_assunto_materia',
             'nm_sub_assunto_materia',
-
         ])
             ->join('assunto_materia', 'assunto_materia.id_assunto_materia = sub_assunto_materia.id_assunto_materia', [
                 'nm_assunto_materia'

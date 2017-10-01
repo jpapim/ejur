@@ -24,6 +24,7 @@ class AlternativaQuestaoCustomizadaForm extends AbstractForm{
         #########
         // Somente a Label foi modificado de Assunto para Tema
         $objForm->combo("id_assunto_materia", '\AssuntoMateria\Service\AssuntoMateriaService','id','nm_assunto_materia','filtraAssuntoAtivo')->required(true)->label("Tema");
+        $objForm->combo("id_sub_assunto_materia", '\SubAssuntoMateria\Service\SubAssuntoMateriaService','id','nm_sub_assunto_materia','filtraSubAssuntoAtivo')->required(true)->label("SubTema");
         #########
         $objForm->text("nm_titulo_questao")->required(false)->label("Titulo da Questao");
         $objForm->textareaHtml("tx_enunciado")->required(true)->label("Enunciado da Questao");

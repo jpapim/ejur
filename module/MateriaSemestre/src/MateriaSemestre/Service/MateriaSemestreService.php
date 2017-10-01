@@ -119,7 +119,6 @@ class MateriaSemestreService extends Entity {
             ->setPageRange((int) $itensPaginacao);
     }
 
-
     public function getMateriaSemestrePaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
