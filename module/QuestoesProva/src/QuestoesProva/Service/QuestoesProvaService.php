@@ -61,6 +61,8 @@ class QuestoesProvaService extends Entity {
             $select->where(array('questao.id_tipo_questao = ?' => $post['id_tipo_questao']));
         }
 
+        $select->where(array('questao.bo_utilizavel = ?' => 'S'));
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 

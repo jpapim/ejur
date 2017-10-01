@@ -64,9 +64,9 @@
                 foreach ($paginator as $key => $materia_semestre) { #xd($materia_semestre);
                     ?>
                     <tr>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeTudoMaiusculo($materia_semestre['id_materia_semestre']) ?></td>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeTudoMaiusculo($materia_semestre['nm_classificacao_semestre']) ?></td>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeTudoMaiusculo($materia_semestre['nm_materia']) ?></td>
+                        <td class="text-center"><?= $materia_semestre['id_materia_semestre'] ?></td>
+                        <td class="text-center"><?= $materia_semestre['nm_classificacao_semestre'] ?></td>
+                        <td class="text-center"><?= $materia_semestre['nm_materia'] ?></td>
                         <td class="text-center">
                                 <span class="btn-group materiaSemestre-acoes-group" style="width: 100px;">
 
@@ -86,10 +86,8 @@
         <div class="row">
             <div class="col-md-12">
                 <a href="<?= $this->url('navegacao', ['controller' => 'principal-principal']) ?>"
-                   class="btn btn-primary" title="Retorna para a Página Principal">Início</a>
-                <a class="btn btn-default"
-                   href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'index')) ?>"
-                   title="Lista de Turmas">Lista de Turmas</a>
+                   class="btn btn-primary" title="Retorna para a Página Principal">Início
+               </a>
             </div>
         </div>
     </div>

@@ -300,7 +300,7 @@ class QuestaoController extends AbstractQuestaoController
             $alternativaService = new \AlternativaQuestao\Service\AlternativaQuestaoService();
             $alternativaForm = new \AlternativaQuestao\Form\AlternativaQuestaoCustomizadaForm();
 
-            $arrResultado = $alternativaService->fetchAllById(array('id_questao' => $id_questao));
+            $arrResultado = $alternativaService->fetchAllById(['id_questao' => $id_questao]);
 
             $dadosView = [
                 'service' => $alternativaService,
@@ -503,13 +503,8 @@ class QuestaoController extends AbstractQuestaoController
 
         #Recupera os materias cadastradas por semestre
         $materiaSemestreService = new \MateriaSemestre\Service\MateriaSemestreService();
-        $arMaterias = $materiaSemestreService->fetchAllById(['id_classificacao_semestre' => $id_classificacao_semestre]);
+        $arMaterias = $materiaSemestreService->carregarMateriaPorSemestreParaCombo($id_classificacao_semestre);
 
-        #Recupera os materias cadastradas por semestre
-//        $materiaSemestreService = new \MateriaSemestre\Service\MateriaSemestreService();
-//        $materiaSemestreService->setId($id_classificacao_semestre);
-//        $materiaSemestreService->setCsAtivo(1);
-//        $arMaterias = $materiaSemestreService->buscar()->toArray();
 
         #Faz o Tratamento do Array para enviar para View
         $arMateriasCombo = array();
@@ -545,7 +540,7 @@ class QuestaoController extends AbstractQuestaoController
 
         #Recupera os materias cadastradas por semestre
         $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
-        $arAssuntoMaterias = $assuntoMateriaService->fetchAllById(['id_materia' => $id_materia]);
+        $arAssuntoMaterias = $assuntoMateriaService->carregarAssuntoPorMateriaParaCombo($id_materia);
 
         #Faz o Tratamento do Array para enviar para View
         $arAssuntoMateriaCombo = array();
