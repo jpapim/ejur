@@ -21,26 +21,22 @@
             if($this->Auth()->id_perfil != TXT_CONST_PERFIL_ADMINISTRADOR) {
                 ?>
                 <div class="form-group">
-                    <div class="col-md-12">
+                    <div class="col-md-4">
                         <?= $this->formRow($form->get('pw_senha')) ?>
                         <div class="help-block with-errors"></div>
                     </div>
+                    <?php
+                    }
+                    ?>
+                    <div class="col-md-4">
+                        <?= $this->formRow($form->get('pw_nova_senha')) ?>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $this->formRow($form->get('pw_nova_senha_confirm')) ?>
+                        <div class="help-block with-errors"></div>
+                    </div>
                 </div>
-                <?php
-            }
-            ?>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <?= $this->formRow($form->get('pw_nova_senha')) ?>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-12">
-                    <?= $this->formRow($form->get('pw_nova_senha_confirm')) ?>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
 
             <div class="form-group">
                 <div class="col-md-4">
