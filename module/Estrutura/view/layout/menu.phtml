@@ -35,7 +35,8 @@
         <?php
         #Alysson - Exibe este item de menu apenas para administradores
         $usuario_logado = $this->Auth(); #Pega o Usuario Logado
-        if ($usuario_logado->id_perfil == TXT_CONST_PERFIL_ADMINISTRADOR) { ?>
+        if (($usuario_logado->id_perfil == TXT_CONST_PERFIL_ADMINISTRADOR) ||
+            ($usuario_logado->id_perfil == TXT_CONST_PERFIL_COORDENACAO)){ ?>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Relatórios
@@ -74,6 +75,8 @@
                     <li><a href="/controller-controller">Cad. Controller</a></li>
                     <li><a href="/action-action">Cad. Action</a></li>
                     <li class="divider"></li>
+                    <li><a href="/perfil-perfil">Gerenciar Perfis</a></li>
+                    <li class="divider"></li>
                     <li>
                         <a href="/infra-infra" title="Botão para limpar as pastas Cache automaticamente.">
                             <span class="glyphicon glyphicon-ban-circle"></span> Limpar Cache
@@ -83,28 +86,36 @@
                 </ul>
             </li>
         <?php } ?>
+        <?php
+        #Alysson - Exibe este item de menu apenas para administradores
+        $usuario_logado = $this->Auth(); #Pega o Usuario Logado
+        if (($usuario_logado->id_perfil == TXT_CONST_PERFIL_ADMINISTRADOR) ||
+            ($usuario_logado->id_perfil == TXT_CONST_PERFIL_COORDENACAO)){ ?>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                 Básicos
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="/usuario-usuario">Usuários</a></li>
-                <li><a href="/perfil-perfil">Perfis</a></li>
+                <li><a href="/usuario-usuario">Cad. Usuários</a></li>
+                <li class="divider"></li>
+                <li><a href="/materia-materia">Cad. Matérias</a></li>
+                <li><a href="/materia_semestre-materiasemestre">Cad. Matérias por Semestre</a></li>
                 <li class="divider"></li>
                 <li><a href="/assunto_materia-assuntomateria">Cad. Tema Matéria</a></li>
                 <li><a href="/sub_assunto_materia-subassuntomateria">Cad. SubTema Matéria</a></li>
+                <li class="divider"></li>
                 <li><a href="/classificacao-classificacao">Cad. Classificação Semestre</a></li>
                 <li><a href="/filtro_prova-filtroprova">Cad. Filtros da Prova</a></li>
                 <li><a href="/fonte-fonte">Cad. Fonte da Questão</a></li>
-                <li><a href="/materia-materia">Cad. Matérias</a></li>
-                <li><a href="/materia_semestre-materiasemestre">Cad. Matérias por Semestre</a></li>
                 <li><a href="/nivel_dificuldade-niveldificuldade">Cad. Níveis de Dificuldade</a></li>
                 <li><a href="/temporizacao-temporizacao">Cad. Temporização</a></li>
                 <li><a href="/tipo_questao-tipoquestao">Cad. Tipo Questão</a></li>
                 <li><a href="/unidade_tempo-unidadetempo">Cad. Unidades de Tempo</a></li>
             </ul>
         </li>
+        <?php } ?>
+        <?php } ?>
     </ul>
 
     <ul class="nav navbar-nav navbar-right">
@@ -119,6 +130,6 @@
             </a>
         </li>
     </ul>
-    <?php } ?>
+
     <?php } ?>
 </div>
