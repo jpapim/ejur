@@ -1,20 +1,20 @@
 
 <div class="page-head">
-    <h2>Lista de Temas</h2>
+    <h2>Lista de SubTemas</h2>
 </div>
 <div class="cl-mcont">
     <div class="row">
         <div class="col-md-12">
-            <a class="btn btn-default" href="<?=$this->url('navegacao',array('controller'=>$controller,'action'=>'cadastro'))?>" title="Adicionar Tema">Novo Tema</a>
+            <a class="btn btn-default" href="<?=$this->url('navegacao',array('controller'=>$controller,'action'=>'cadastro'))?>" title="Adicionar Subtema">Novo SubTema</a>
         </div>
     </div>
     <br />
-    <div class="row" id="assuntomateria-pagination"></div>
+    <div class="row" id="subAssuntoMateria-pagination"></div>
 </div>
 
-<!--Início do Modal para confirmar a exclusao da assuntoMateria-->
-<div class="modal fade" id="modal-assuntoMateria-excluir">
-    <input type="hidden" name="modal-assuntoMateria-excluir-id" id="modal-assuntoMateria-excluir-id" value="">
+<!--Início do Modal para confirmar a exclusao da subAssuntoMateria-->
+<div class="modal fade" id="modal-subAssuntoMateria-excluir">
+    <input type="hidden" name="modal-subAssuntoMateria-excluir-id" id="modal-subAssuntoMateria-excluir-id" value="">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,18 +25,18 @@
                 <h3 class="modal-title" style="color: #FF0000">ATENÇÃO!!!</h3>
             </div>
             <div class="modal-body alert-danger">
-                <span> O Tema selecionado, está prestes a ser excluido!!!</span>
+                <span> O subTema selecionado, está prestes a ser excluido!!!</span>
                 <br/>
                 <span> Deseja confirmar a exclusão?</span>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" title="Cancelar">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="btn-assuntoMateria-excluir-confirm" title="Sim"> Sim </button>
+                <button type="button" class="btn btn-danger" id="btn-subAssuntoMateria-excluir-confirm" title="Sim"> Sim </button>
             </div>
         </div>
     </div>
 </div>
-<!--Fim do Modal para confirmar a exclusao da assuntoMateria-->
+<!--Fim do Modal para confirmar a exclusao da subAssuntoMateria-->
 
 <script>
     $(function () {
@@ -45,19 +45,19 @@
             type: "post",
             dataType: "text",
             cache: false,
-            url: '/assunto_materia-assuntomateria/index-pagination',
+            url: '/sub_assunto_materia-subassuntomateria/index-pagination',
             async: true,
             data: {
             },
             beforeSend: function () {
 
-                $('#assuntomateria-pagination').html(
+                $('#subAssuntoMateria-pagination').html(
                     '<div class="row"><div class="col-md-12 text-center"><p><img src="/assets/img/carregando.gif"><p></div></div>'
                 );
             },
             success: function (data) {
 
-                $('#assuntomateria-pagination').html(data);
+                $('#subAssuntoMateria-pagination').html(data);
             }
         });
 

@@ -14,7 +14,7 @@ class AssuntoMateriaForm extends AbstractForm{
         $objForm = new FormObject('assuntomateriaform',$this,$this->inputFilter);
         $objForm->hidden("id")->required(false)->label("Id");
         $objForm->combo("id_materia", '\Materia\Service\MateriaService', 'id', 'nm_materia','filtraMateriaAtiva')->required(true)->label("Matéria");
-        $objForm->text("nm_assunto_materia")->required(true)->label("Assunto");
+        $objForm->text("nm_assunto_materia")->required(true)->label("Tema");
 
         $this->formObject = $objForm;
     }
