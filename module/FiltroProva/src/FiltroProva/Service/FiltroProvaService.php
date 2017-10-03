@@ -24,6 +24,29 @@ class FiltroProvaService extends Entity{
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
+    public function getFiltrosProvaToArray($id){
+
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+
+        #die($id);
+        $select = $sql->select('filtro_prova')
+            ->where([
+                'filtro_prova.id_filtro_prova = ?' => $id,
+                'filtro_prova.id_prova = ?' => $id_prova,
+                'filtro_prova.id_tipo_questao = ?' => $id_tipo_questao,
+                'filtro_prova.id_fonte_questao = ?' => $id_fonte_questao,
+                'filtro_prova.id_assunto_materia = ?' => $id_fonte_questao,
+                'filtro_prova.id_nivel_dificuldade = ?' => $id_nivel_dificuldade,
+                'filtro_prova.id_classificacao_semestre = ?' => $id_classificacao_semestre,
+                'filtro_prova.nr_questoes = ?' => $nr_questoes,
+                'filtro_prova.nm_filtro_prova = ?' => $nm_filtro_prova,
+                'filtro_prova.cs_ativo=1',
+            ]);
+
+        return $sql->prepareStatementForSqlObject($select)->execute()->current();
+
+    }
+
     //buscando nome do filtro
     public function getIdFiltroPorNomeToArray($nm_filtro_prova) {
 
