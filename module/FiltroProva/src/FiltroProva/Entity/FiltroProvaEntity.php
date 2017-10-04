@@ -15,6 +15,6 @@ class FiltroProvaEntity extends AbstractEstruturaService{
     protected $id_classificacao_semestre;
     protected $nr_questoes;
     protected $nm_filtro_prova;
-    protected $cs_ativo;
+    #protected $cs_ativo;
 
 }

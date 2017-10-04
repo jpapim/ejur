@@ -9,7 +9,7 @@ class FiltroProvaService extends Entity{
     //Funções copiadas do sistema Catequese, módulo=>GrauParentesco
 
     //buscando id do filtro
-    public function getFiltroToArray($id) {
+    public function getIdFiltrosProvaToArray($id) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
@@ -17,7 +17,7 @@ class FiltroProvaService extends Entity{
         $select = $sql->select('filtro_prova')
             ->where([
                 'filtro_prova.id_filtro_prova = ?' => $id,
-                'filtro_prova.cs_ativo=1',
+                #'filtro_prova.cs_ativo=1',
             ]);
         #print_r($sql->prepareStatementForSqlObject($select)->execute());exit;
 
@@ -40,7 +40,7 @@ class FiltroProvaService extends Entity{
                 'filtro_prova.id_classificacao_semestre = ?' => $id_classificacao_semestre,
                 'filtro_prova.nr_questoes = ?' => $nr_questoes,
                 'filtro_prova.nm_filtro_prova = ?' => $nm_filtro_prova,
-                'filtro_prova.cs_ativo=1',
+                #'filtro_prova.cs_ativo=1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
