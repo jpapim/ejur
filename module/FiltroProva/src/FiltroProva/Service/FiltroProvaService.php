@@ -102,14 +102,13 @@ class FiltroProvaService extends Entity{
             ->setPageRange((int) $itensPaginacao);
     }
 
-
     public function getFiltroProvaPaginator($filter = NULL, $camposFilter = NULL) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
         $select = $sql->select('filtro_prova')->columns([
             'id_filtro_prova',
-            'nm_filtro_prova',
+//            'nm_filtro_prova',
         ]);
 
         $where = [
@@ -131,7 +130,7 @@ class FiltroProvaService extends Entity{
             }
         }
 
-        $select->where($where)->order(['nm_filtro_prova DESC']);
+        $select->where($where)->order(['id_filtro_prova DESC']);
 
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }

@@ -5,7 +5,7 @@
         <table class="table table-striped" id="tablesorterFiltroProva" >
             <thead>
             <tr>
-                <th class="text-center" style="width: 5%;">#</th>
+                <th class="text-center" style="width: 5%;">código</th>
                 <th class="text-center">Nome do Filtro</th>
                 <th class="text-center" style="width: 5%;">Ações</th>
 
@@ -13,7 +13,7 @@
             </thead>
             <tfoot>
             <tr>
-                <th class="text-center" style="width: 5%;">#</th>
+                <th class="text-center" style="width: 5%;">Código</th>
                 <th class="text-center">Nome do Filtro</th>
                 <th class="text-center" style="width: 5%;">Ações</th>
 
@@ -45,12 +45,12 @@
                             <?php
                             if (!is_null($campoFilter)) {
                                 ?>
-                                <input type="search" placeholder="" class=" col-md-12 tablesorter-filter" data-column="<?= $key ?>" value="<?= isset($filter[$key]) ? $filter[$key] : '' ?>">
+                                <input type="search" placeholder="" class=" col-md-12 tablesorter-filter" data-column="<?= $key ?>"
+                                       value="<?= isset($filter[$key]) ? $filter[$key] : '' ?>">
 
                                 <?php
                             } else {
                                 ?>
-                                <!--&nbsp;-->
                                 <?php
                             }
                             ?>
@@ -68,8 +68,8 @@
                         </td>
                         <td class="text-center">
                                 <span class="btn-group" style="width: 100px;">
-                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($grau_parentesco['id_filtro_prova']))), 'Modificar nome do Filtro') ?>
-                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($grau_parentesco['id_filtro_prova'])))) ?>
+                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($filtro_prova['id_filtro_prova']))), 'Modificar nome do Filtro') ?>
+                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluir($this->url('navegacao', array('controller' => $controller, 'action' => 'excluir', 'id' => Estrutura\Helpers\Cript::enc($filtro_prova['id_filtro_prova'])))) ?>
                                 </span>
                         </td>
                     </tr>

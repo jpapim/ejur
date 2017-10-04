@@ -3,6 +3,7 @@
 namespace FiltroProva\Controller;
 
 use Estrutura\Controller\AbstractCrudController;
+use Zend\View\Model\ViewModel;
 
 class FiltroProvaController extends AbstractCrudController
 {
@@ -23,6 +24,40 @@ class FiltroProvaController extends AbstractCrudController
     public function indexAction()
     {
         return parent::index($this->service, $this->form);
+    }
+
+    public function indexPaginationAction()
+    {
+        $filter = $this->getFilterPage();
+        $camposFilter = [
+            '0' => [
+                'filter' => "filtro_prova.id_filtro_prova LIKE ?",
+            ],
+            '1' => [
+                'filter' => "filtro_prova.nm_filtro_prova LIKE ?",
+            ],
+            '2' => NULL
+        ];
+
+        $paginator = $this->service->getFiltroProvaPaginator($filter, $camposFilter);
+        $paginator->setItemCountPerPage($paginator->getTotalItemCount());
+        $countPerPage = $this->getCountPerPage(
+            current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
+        );
+        $paginator->setItemCountPerPage($this->getCountPerPage(
+            current(\Estrutura\Helpers\Pagination::getCountPerPage($paginator->getTotalItemCount()))
+        ))->setCurrentPageNumber($this->getCurrentPage());
+        $viewModel = new ViewModel([
+            'service' => $this->service,
+            'form' => $this->form,
+            'paginator' => $paginator,
+            'filter' => $filter,
+            'countPerPage' => $countPerPage,
+            'camposFilter' => $camposFilter,
+            'controller' => $this->params('controller'),
+            'atributos' => array()
+        ]);
+        return $viewModel->setTerminal(TRUE);
     }
 
     public function gravarAction(){
