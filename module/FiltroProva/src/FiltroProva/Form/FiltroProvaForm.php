@@ -23,6 +23,7 @@ class FiltroProvaForm extends AbstractForm{
         $objForm->combo("id_nivel_dificuldade", '\NivelDificuldade\Service\NivelDificuldadeService','id','nm_nivel_dificuldade')->required(false)->label("Nível de Dificuldade");
         $objForm->combo("id_classificacao_semestre", '\Classificacao\Service\ClassificacaoService','id','nm_classificacao_semestre')->required(false)->label("Classificação do semestre");
         $objForm->integer("nr_questoes")->required(false)->label("Quantidade de Questões");
+        $objForm->text("nm_filtro_prova")->required(true)->label("Nome do Filtro");
 
         $this->formObject = $objForm;
     }
