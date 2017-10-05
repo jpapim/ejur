@@ -5,7 +5,7 @@
         <table class="table table-striped" id="tablesorterDetalhes">
             <thead>
             <tr>
-                <th class="text-center">Identificador</th>
+                <th class="text-center">#</th>
                 <th class="text-center">Classificação</th>
                 <th class="text-center">Matéria</th>
                 <th class="text-center">Ações</th>
@@ -14,7 +14,7 @@
             </thead>
             <tfoot>
             <tr>
-                <th class="text-center">Identificador</th>
+                <th class="text-center">#</th>
                 <th class="text-center">Classificação</th>
                 <th class="text-center">Matéria</th>
                 <th class="text-center">Ações</th>
@@ -189,7 +189,7 @@
         $('#btn-materiaSemestre-excluir-confirm').off('click').on('click', function () {
 
             $('#modal-materiaSemestre-excluir').modal('hide');
-            var id = $("#modal-prova-excluir-id").val();
+            var id = $("#modal-materiaSemestre-excluir-id").val();
             window.location.href = '/materia_semestre-materiasemestre/excluirLog/' + id;
         });
 
