@@ -10,11 +10,12 @@ use Zend\Stdlib\Hydrator\Reflection;
 use Zend\Paginator\Adapter\DbSelect;
 use Zend\Paginator\Paginator;
 
-class AssuntoMateriaService extends Entity {
+class AssuntoMateriaService extends Entity
+{
 
 
-
-    public function getTiposToArray($id) {
+    public function getTiposToArray($id)
+    {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
@@ -25,24 +26,28 @@ class AssuntoMateriaService extends Entity {
                 'assunto_materia.cs_ativo = 1',
             ]);
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
-    public function getFiltrarTiposPorNomeToArray($nm_assunto_materia) {
+    public function getFiltrarTiposPorNomeToArray($nm_assunto_materia)
+    {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
         $select = $sql->select('assunto_materia')
-            ->columns(array('nm_assunto_materia',) ) #Colunas a retornar. Basta Omitir que ele traz todas as colunas
+            ->columns(array('nm_assunto_materia',))#Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
-                "assunto_materia.id_assunto_materia LIKE ?" => '%'.$nm_assunto_materia.'%',
+                "assunto_materia.id_assunto_materia LIKE ?" => '%' . $nm_assunto_materia . '%',
                 'assunto_materia.cs_ativo = 1',
             ]);
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return $sql->prepareStatementForSqlObject($select)->execute();
     }
 
-    public function getIdTipoPorNomeToArray($nm_assunto_materia) {
+    public function getIdTipoPorNomeToArray($nm_assunto_materia)
+    {
 
         $arNomeAssunto = explode('(', $nm_assunto_materia);
         $nm_assunto_materia = $arNomeAssunto[0];
@@ -50,7 +55,7 @@ class AssuntoMateriaService extends Entity {
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
         $filter = new \Zend\Filter\StringTrim();
         $select = $sql->select('assunto_materia')
-            ->columns(array('id_assunto_materia') )
+            ->columns(array('id_assunto_materia'))
             ->where([
                 'assunto_materia.id_assunto_materia = ?' => $filter->filter($nm_assunto_materia),
                 'assunto_materia.cs_ativo = 1',
@@ -59,7 +64,8 @@ class AssuntoMateriaService extends Entity {
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
     }
 
-    public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_assunto_materia DESC', $like = null, $itensPaginacao = 5) {
+    public function fetchPaginator($pagina = 1, $itensPagina = 5, $ordem = 'nm_assunto_materia DESC', $like = null, $itensPaginacao = 5)
+    {
         //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
         // preparar um select para tabela contato com uma ordem
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
@@ -93,16 +99,17 @@ class AssuntoMateriaService extends Entity {
 
         # var_dump($paginatorAdapter);
         #die;
-        // resultado da pagina��o
+        // resultado da paginaçao
         return (new Paginator($paginatorAdapter))
             // pagina a ser buscada
-            ->setCurrentPageNumber((int) $pagina)
-            // quantidade de itens na p�gina
-            ->setItemCountPerPage((int) $itensPagina)
-            ->setPageRange((int) $itensPaginacao);
+            ->setCurrentPageNumber((int)$pagina)
+            // quantidade de itens na pagina
+            ->setItemCountPerPage((int)$itensPagina)
+            ->setPageRange((int)$itensPaginacao);
     }
 
-    public function getAssuntoMateriaPaginator($filter = NULL, $camposFilter = NULL) {
+    public function getAssuntoMateriaPaginator($filter = NULL, $camposFilter = NULL)
+    {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
@@ -116,11 +123,11 @@ class AssuntoMateriaService extends Entity {
             ])
             ->join('materia_semestre', 'materia_semestre.id_materia = materia.id_materia')
             ->join('classificacao_semestre', 'materia_semestre.id_classificacao_semestre = classificacao_semestre.id_classificacao_semestre', [
-            'nm_classificacao_semestre'
-        ]);
+                'nm_classificacao_semestre'
+            ]);
 
 
-        $where = ['assunto_materia.cs_ativo = 1','materia.cs_ativo = 1',
+        $where = ['assunto_materia.cs_ativo = 1', 'materia.cs_ativo = 1',
         ];
 
         if (!empty($filter)) {
@@ -141,22 +148,51 @@ class AssuntoMateriaService extends Entity {
 
         $select->where($where)->order(['id_assunto_materia DESC']);
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return new \Zend\Paginator\Paginator(new \Zend\Paginator\Adapter\DbSelect($select, $this->getAdapter()));
     }
 
+    /**
+     * @param $id_materia
+     * @return array
+     */
     public function carregarAssuntoPorMateria($id_materia)
     {
 
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return $this->select(
             [
                 'assunto_materia.id_materia = ?' => $id_materia,
             ]
-        );
+        )->order(['nm_assunto_materia ASC']);
+    }
+
+
+    /**
+     * @param $id_materia
+     * @return mixed
+     */
+    public function carregarAssuntoPorMateriaParaCombo($id_materia)
+    {
+        $arAssuntosMateriaParaCombo = $this->fetchAllWithFilterAndOrdination(
+            'assunto_materia',
+            [
+                'assunto_materia.cs_ativo = 1',
+                'assunto_materia.id_materia = ?' => $id_materia,
+            ],
+            [
+                'nm_assunto_materia'
+            ]
+        )->toArray();
+
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
+        return $arAssuntosMateriaParaCombo;
     }
 
     public function filtraAssuntoAtivo()
     {
-        $assuntoAtivo = $this->select(['cs_ativo'=> '1']);
+        $assuntoAtivo = $this->select(['cs_ativo' => '1']);
+        #xd($select->getSqlString($this->getAdapter()->getPlatform()));
         return $assuntoAtivo;
     }
 }

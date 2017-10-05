@@ -36,6 +36,7 @@ return array(
         'Materia',
         'TipoQuestao',
         'AssuntoMateria',
+        'SubAssuntoMateria',
         'PerfilControllerAction',
         'Infra',
         'MateriaSemestre',
