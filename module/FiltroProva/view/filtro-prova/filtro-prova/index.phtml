@@ -11,12 +11,12 @@
 
 <div class="cl-mcont">
     <div class="row">
-        <div class="col-md-12">
-            <a class="btn btn-default" href="<?=$this->url('navegacao',array('controller'=>$controller,'action'=>'cadastro'))?>" title="Adiconar Filtro de Prova">Novo Filtro de Prova</a>
+        <div class="col-md-12"><?php // Botão Novo Filtro?>
+            <a class="btn btn-default" href="<?= $this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro')) ?>" title="Adiconar Filtro de Prova">Novo Filtro de Prova</a>
         </div>
-        <br />
-        <div class="row" id="filtroprova-pagination"></div>
     </div>
+    <br />
+    <div class="row" id="filtroprova-pagination"></div>
 </div>
 
 <script>

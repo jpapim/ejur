@@ -108,7 +108,7 @@ class FiltroProvaService extends Entity{
 
         $select = $sql->select('filtro_prova')->columns([
             'id_filtro_prova',
-//            'nm_filtro_prova',
+            'nm_filtro_prova',
         ]);
 
         $where = [
