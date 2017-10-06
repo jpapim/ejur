@@ -78,44 +78,49 @@
 
 
             <div class="form-group">
-                <div class="col-md-4">-
+                <div class="col-md-3">
                     <?= $this->formRow($form->get('id_fonte_questao')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
-                <div class="col-md-4">-
+                <div class="col-md-3">
                     <?= $this->formRow($form->get('id_nivel_dificuldade')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
-                <div class="col-md-4">-
+                <div class="col-md-3">
                     <?= $this->formRow($form->get('id_temporizacao')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-4">-
+                <div class="col-md-3">
                     <?= $this->formRow($form->get('id_classificacao_semestre')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
-                <div class="col-md-4">-
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-3">
                     <?= $this->formRow($form->get('id_materia')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
-                <div class="col-md-4">-
+                <div class="col-md-3">
                     <?= $this->formRow($form->get('id_assunto_materia')) ?>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-md-6">
+                    <?= $this->formRow($form->get('id_sub_assunto_materia')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-md-12">-
+                <div class="col-md-12">
                     <?= $this->formRow($form->get('nm_titulo_questao')) ?>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
             <div id="up">
                 <div class="form-group">
-                    <div class="col-md-12">-
+                    <div class="col-md-12">
                         <?= $this->formRow($form->get('tx_enunciado')) ?>
                         <div class="help-block with-errors"></div>
 
@@ -284,41 +289,41 @@
             filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images',
         });
 
-    CKEDITOR.replace('tx_alternativa_questao_1',
-        {
-            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-        });
-    CKEDITOR.replace('tx_alternativa_questao_2',
-        {
-            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-        });
-    CKEDITOR.replace('tx_alternativa_questao_3',
-        {
-            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-        });
-    CKEDITOR.replace('tx_alternativa_questao_4',
-        {
-            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-        });
-    CKEDITOR.replace('tx_alternativa_questao_5',
-        {
-            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
-            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
-            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
-            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
-        });
+//    CKEDITOR.replace('tx_alternativa_questao_1',
+//        {
+//            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+//            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+//            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+//            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+//        });
+//    CKEDITOR.replace('tx_alternativa_questao_2',
+//        {
+//            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+//            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+//            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+//            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+//        });
+//    CKEDITOR.replace('tx_alternativa_questao_3',
+//        {
+//            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+//            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+//            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+//            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+//        });
+//    CKEDITOR.replace('tx_alternativa_questao_4',
+//        {
+//            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+//            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+//            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+//            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+//        });
+//    CKEDITOR.replace('tx_alternativa_questao_5',
+//        {
+//            filebrowserBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=files',
+//            filebrowserImageBrowseUrl: '/assets/kcfinder/browse.php?opener=ckeditor&type=images',
+//            filebrowserUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=files',
+//            filebrowserImageUploadUrl: '/assets/kcfinder/upload.php?opener=ckeditor&type=images'
+//        });
 
     /*
     $(function ($) {
@@ -339,11 +344,11 @@
     });
 */
     $('#tx_enunciado').ckeditor();
-    $('#tx_alternativa_questao_1').ckeditor();
-    $('#tx_alternativa_questao_2').ckeditor();
-    $('#tx_alternativa_questao_3').ckeditor();
-    $('#tx_alternativa_questao_4').ckeditor();
-    $('#tx_alternativa_questao_5').ckeditor();
+//    $('#tx_alternativa_questao_1').ckeditor();
+//    $('#tx_alternativa_questao_2').ckeditor();
+//    $('#tx_alternativa_questao_3').ckeditor();
+//    $('#tx_alternativa_questao_4').ckeditor();
+//    $('#tx_alternativa_questao_5').ckeditor();
 
 
 </script>
@@ -378,6 +383,7 @@
                             });
                             $('#id_materia').html(options).show();
                             $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
+                            $('#id_sub_assunto_materia').html('<option value="">-- Escolha a Matéria e o Tema --</option>');
                             $('.carregando').hide();
                         } else {
                             $('#id_materia').html('<option value="">-- Erro ao carregar matérias --</option>');
@@ -388,6 +394,7 @@
             } else {
                 $('#id_materia').html('<option value="">-- Escolha uma Classificação --</option>');
                 $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
+                $('#id_sub_assunto_materia').html('<option value="">-- Escolha a Matéria e o Tema --</option>');
             }
         });
 
@@ -410,15 +417,47 @@
                                 options += '<option value="' + response.ar_assunto_materia[i].id + '">' + response.ar_assunto_materia[i].descricao + '</option>';
                             });
                             $('#id_assunto_materia').html(options).show();
+                            $('#id_sub_assunto_materia').html('<option value="">-- Escolha o Tema --</option>');
                             $('.carregando').hide();
 
                         } else {
-                            $('#id_assunto_materia').html('<option value="">-- Erro ao carregar Assuntos --</option>');
+                            $('#id_assunto_materia').html('<option value="">-- Erro ao carregar os Temas --</option>');
                         }
                     }
                 });
             } else {
                 $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
+            }
+        });
+
+        $('#id_assunto_materia').change(function () {
+            if ($(this).val()) {
+                $('#id_sub_assunto_materia').hide();
+                $('.carregando').show();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/questao-questao/carregar-combo-sub-assunto-materia-ajax',
+                    async: true,
+                    data: {
+                        id_assunto_materia: $(this).val(),
+                    },
+                    success: function (response) {
+                        if (response.sucesso == true) {
+                            var options = '<option value=""> Selecione...</option>';
+                            $.each(response.ar_sub_assunto_materia, function (i, item) {
+                                options += '<option value="' + response.ar_sub_assunto_materia[i].id + '">' + response.ar_sub_assunto_materia[i].descricao + '</option>';
+                            });
+                            $('#id_sub_assunto_materia').html(options).show();
+                            $('.carregando').hide();
+
+                        } else {
+                            $('#id_sub_assunto_materia').html('<option value="">-- Erro ao carregar os SubTemas --</option>');
+                        }
+                    }
+                });
+            } else {
+                $('#id_sub_assunto_materia').html('<option value="">-- Escolha um Tema --</option>');
             }
         });
 

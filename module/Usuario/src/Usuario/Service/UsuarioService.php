@@ -136,7 +136,7 @@ class UsuarioService extends Entity
         ]);
 
         if($ob_usuario_logado->id_perfil != TXT_CONST_PERFIL_ADMINISTRADOR) {
-            if($ob_usuario_logado->id_perfil == TXT_CONST_PERFIL_CLIENTE) {
+            if($ob_usuario_logado->id_perfil == TXT_CONST_PERFIL_COORDENACAO) {
                 $where = [
                     'id_situacao_usuario' => $usuarios_ativos,
                     'id_perfil != ?' => TXT_CONST_PERFIL_ADMINISTRADOR,
