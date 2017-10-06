@@ -2,20 +2,18 @@
 
 <div class="col-md-12">
     <div class="table-responsive">
-        <table class="table table-striped" id="tablesorterAssuntoMateria">
+        <table class="table table-striped" id="tablesorterSubAssuntoMateria">
             <thead>
             <tr>
                 <th class="text-center">Tema</th>
-                <th class="text-center">Matéria</th>
-                <th class="text-center">Semestre</th>
+                <th class="text-center">SubTema</th>
                 <th class="text-center">Ações</th>
             </tr>
             </thead>
             <tfoot>
             <tr>
                 <th class="text-center">Tema</th>
-                <th class="text-center">Matéria</th>
-                <th class="text-center">Semestre</th>
+                <th class="text-center">SubTema</th>
                 <th class="text-center">Ações</th>
             </tr>
             <tr>
@@ -23,9 +21,9 @@
                     <?php
                     echo $this->paginationControl(
                         $paginator, 'Sliding', 'partials/pagination.phtml', [
-                        'urlPagination' => '/assunto_materia-assuntomateria/index-pagination',
+                        'urlPagination' => '/sub_assunto_materia-subassuntomateria/index-pagination',
                         'countPerPage' => $countPerPage,
-                        'divData' => '#assuntomateria-pagination',
+                        'divData' => '#subAssuntoMateria-pagination',
                     ]);
 
                     ?>
@@ -60,18 +58,15 @@
                     ?>
                 </tr>
                 <?php
-                foreach ($paginator as $key => $assunto) {
+                foreach ($paginator as $key => $subAssunto) {
                     ?>
                     <tr>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($assunto['nm_assunto_materia']) ?></td>
-                        <!--na linha abaixo o nm_materia deve ficar sem a estrutura nomeMaiúsculo para corrigir os algarimos romanos-->
-                        <td class="text-center"><?= $assunto['nm_materia'] ?></td>
-                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($assunto['nm_classificacao_semestre']) ?></td>
-
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($subAssunto['nm_assunto_materia']) ?></td>
+                        <td class="text-center"><?= \Estrutura\Helpers\String::nomeMaiusculo($subAssunto['nm_sub_assunto_materia']) ?></td>
                         <td class="text-center">
-                                <span class="btn-group assuntoMateria-acoes-group" style="width: 100px;">
-                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($assunto['id_assunto_materia'])))) ?>
-                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluirConfirm(Estrutura\Helpers\Cript::enc($assunto['id_assunto_materia'])) ?>
+                                <span class="btn-group subAssuntoMateria-acoes-group" style="width: 100px;">
+                                    <?= \Estrutura\Service\HtmlHelper::botaoAlterar($this->url('navegacao', array('controller' => $controller, 'action' => 'cadastro', 'id' => Estrutura\Helpers\Cript::enc($subAssunto['id_sub_assunto_materia'])))) ?>
+                                    <?= \Estrutura\Service\HtmlHelper::botaoExcluirConfirm(Estrutura\Helpers\Cript::enc($subAssunto['id_sub_assunto_materia'])) ?>
                                 </span>
                         </td>
                     </tr>
@@ -118,7 +113,7 @@
         };
 
         // call the tablesorter plugin and apply the uitheme widget
-        $("#tablesorterAssuntoMateria").tablesorter({
+        $("#tablesorterSubAssuntoMateria").tablesorter({
             // this will apply the bootstrap theme if "uitheme" widget is included
             // the widgetOptions.uitheme is no longer required to be set
             theme: "bootstrap",
@@ -145,18 +140,18 @@
             }
         });
 
-        $('.assuntoMateria-acoes-group .btn-excluir').off('click').on('click', function () {
+        $('.subAssuntoMateria-acoes-group .btn-excluir').off('click').on('click', function () {
 
             var id = $(this).attr('rel');
-            $("#modal-assuntoMateria-excluir-id").val(id);
-            $('#modal-assuntoMateria-excluir').modal('show');
+            $("#modal-subAssuntoMateria-excluir-id").val(id);
+            $('#modal-subAssuntoMateria-excluir').modal('show');
         });
 
-        $('#btn-assuntoMateria-excluir-confirm').off('click').on('click', function () {
+        $('#btn-subAssuntoMateria-excluir-confirm').off('click').on('click', function () {
 
-            $('#modal-assuntoMateria-excluir').modal('hide');
-            var id = $("#modal-assuntoMateria-excluir-id").val();
-            window.location.href = '/assunto_materia-assuntomateria/excluirLog/' + id;
+            $('#modal-subAssuntoMateria-excluir').modal('hide');
+            var id = $("#modal-subAssuntoMateria-excluir-id").val();
+            window.location.href = '/sub_assunto_materia-subassuntomateria/excluirLog/' + id;
         });
     });
 </script>

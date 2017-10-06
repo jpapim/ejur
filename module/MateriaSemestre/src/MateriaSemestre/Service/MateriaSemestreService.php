@@ -127,7 +127,6 @@ class MateriaSemestreService extends Entity
 
     public function getMateriaSemestrePaginator($filter = NULL, $camposFilter = NULL)
     {
-
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
 
         $select = $sql->select('materia_semestre')->columns([
