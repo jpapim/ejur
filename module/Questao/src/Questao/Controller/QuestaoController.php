@@ -572,8 +572,7 @@ class QuestaoController extends AbstractQuestaoController
         #xd($post);
         #Recupera os materias cadastradas por semestre
         $subAssuntoMateriaService = new \SubAssuntoMateria\Service\SubAssuntoMateriaService();
-        $arSubAssuntoMaterias = $subAssuntoMateriaService->fetchAllById(['id_assunto_materia' => $id_assunto_materia]);
-        $subAssuntoMateriaService->setCsAtivo(1);
+        $arSubAssuntoMaterias = $subAssuntoMateriaService->fetchAllByArrayAtributo(['id_assunto_materia' => $id_assunto_materia, 'cs_ativo' => 1]);
 
         #Faz o Tratamento do Array para enviar para View
         $arSubAssuntoMateriaCombo = array();

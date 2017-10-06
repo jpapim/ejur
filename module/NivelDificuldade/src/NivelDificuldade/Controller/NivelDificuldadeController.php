@@ -74,7 +74,7 @@ class NivelDificuldadeController extends AbstractCrudController
 
         return $viewModel->setTerminal(TRUE);
     }
-    
+
 /*public function gravarAction() {
         try {
             $controller = $this->params('controller');
@@ -142,7 +142,7 @@ class NivelDificuldadeController extends AbstractCrudController
 public function gravarAction(){
         #Alysson
         $controller = $this->params('controller');
-        $this->addSuccessMessage('Registro Alterado com sucesso');
+        $this->addSuccessMessage('Processo realizado com sucesso');
         $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
         return parent::gravar($this->service, $this->form);
     }
@@ -156,14 +156,14 @@ public function gravarAction(){
     {
         return parent::excluir($this->service, $this->form);
     }
-    
+
     public function obterNivelDificuldadeAction()
     {
-        
+
         $params = $this->getRequest()->getPost()->toArray();
-        
+
         $form = new \NivelDificuldade\Form\NivelDificuldadeForm(['params' => $params]);
-        
+
         $dadosView = [
             'form' => $form,
             'controller' => $this->params('controller'),
@@ -197,4 +197,3 @@ public function gravarAction(){
     }
 
 }
-

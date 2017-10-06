@@ -20,7 +20,8 @@ class MateriaSemestreController extends AbstractCrudController
      */
     protected $form;
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::init();
     }
 
@@ -79,7 +80,8 @@ class MateriaSemestreController extends AbstractCrudController
         return $viewModel->setTerminal(TRUE);
     }
 
-    public function gravarAction(){
+    public function gravarAction()
+    {
         $controller = $this->params('controller');
         $this->addSuccessMessage('Operação realizada com sucesso');
         $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
@@ -89,7 +91,7 @@ class MateriaSemestreController extends AbstractCrudController
     public function cadastroAction()
     {
         //Se for chamado via formulario de alteração
-        if ($this->params('id_classificacao_semestre') ) {
+        if ($this->params('id_classificacao_semestre')) {
             $id_classificacao_semestre = Cript::dec($this->params('id_classificacao_semestre'));
 
             $arAtributos = array(
@@ -134,7 +136,7 @@ class MateriaSemestreController extends AbstractCrudController
             '2' => [
                 //'filter' => "periodoletivodetalhe.nm_sacramento LIKE ?",
             ],
-            '3' =>NULL,
+            '3' => NULL,
 
         ];
 
@@ -211,7 +213,7 @@ class MateriaSemestreController extends AbstractCrudController
 
             $this->service->excluir();
             $this->addSuccessMessage('Registro excluido com sucesso');
-            return $this->redirect()->toRoute('alterar_materia_semestre', array('controller' => 'materia_semestre-materiasemestre', 'action' => 'cadastro', 'id_classificacao_semestre' => Cript::enc($id_classificacao_semestre) ));
+            return $this->redirect()->toRoute('alterar_materia_semestre', array('controller' => 'materia_semestre-materiasemestre', 'action' => 'cadastro', 'id_classificacao_semestre' => Cript::enc($id_classificacao_semestre)));
         } catch (\Exception $e) {
             if (strstr($e->getMessage(), '1451')) { #ERRO de SQL (Mysql) para nao excluir registro que possua filhos
                 $this->addErrorMessage('Para excluir este registro, apague todos os filhos deste registro primeiro!');
@@ -225,11 +227,19 @@ class MateriaSemestreController extends AbstractCrudController
         return parent::excluir($this->service, $this->form);
     }
 
-    public function excluirLogAction(){
+    public function excluirLogAction()
+    {
+        #$this->params()->fromPost('paramname');   // From POST
+        #$this->params()->fromQuery('paramname');  // From GET
+        #$this->params()->fromRoute('paramname');  // From RouteMatch
+        #$this->params()->fromHeader('paramname'); // From header
+        #$this->params()->fromFiles('paramname');  // From file being uploaded
 
         $auth = $this->getServiceLocator()->get('AuthService')->getStorage()->read();
         $controller = $this->params('controller');
-        $id_materiaSemestre = $this->params('id');
+
+        #id_materia_semestre porque no arquivo de rotas esta alterado
+        $id_materiaSemestre = $this->params('id_materia_semestre');
 
         if (isset($id_materiaSemestre) && $id_materiaSemestre) {
             $id_materiaSemestre = \Estrutura\Helpers\Cript::dec($id_materiaSemestre);
@@ -237,7 +247,8 @@ class MateriaSemestreController extends AbstractCrudController
             $this->addErrorMessage('ID não informado');
             return $this->redirect()->toRoute('navegacao', ['controller' => $controller, 'action' => 'index']);
         }
-        $materiaSemestreService = new \Materia\Service\MateriaService();
+
+        $materiaSemestreService = new \MateriaSemestre\Service\MateriaSemestreService();
         $materiaSemestreEntity = $materiaSemestreService->buscar($id_materiaSemestre);
 
         if (1 == $auth->id_perfil) { //Se o usuario logado for Administrador

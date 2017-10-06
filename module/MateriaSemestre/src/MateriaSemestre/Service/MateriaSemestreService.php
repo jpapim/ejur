@@ -141,7 +141,9 @@ class MateriaSemestreService extends Entity
 
         $select->quantifier('DISTINCT');
 
-        $where = ['materia.cs_ativo = 1',
+        $where = [
+            'materia.cs_ativo = 1',
+            'materia_semestre.cs_ativo = 1', #Filtro necessario para não mostrar as materias não relacionadas ao semestre
         ];
 
         if (!empty($filter)) {
@@ -181,7 +183,9 @@ class MateriaSemestreService extends Entity
         ]);
 
         $where = [
-            'materia_semestre.id_classificacao_semestre' => $id_classificacao_semestre, 'materia.cs_ativo = 1',
+            'materia_semestre.id_classificacao_semestre' => $id_classificacao_semestre,
+            'materia.cs_ativo = 1',
+            'materia_semestre.cs_ativo = 1', #Filtro necessario para não mostrar as materias não relacionadas ao semestre
         ];
 
         if (!empty($filter)) {
