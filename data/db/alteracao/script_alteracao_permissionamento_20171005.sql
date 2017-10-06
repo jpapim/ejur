@@ -134,6 +134,46 @@ INSERT INTO `perfil_controller_action` VALUES (4,4,1,1),(33,4,1,2),(87,9,1,1),(8
 /*!40000 ALTER TABLE `perfil_controller_action` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `usuario`
+--
+
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `usuario` (
+  `id_usuario` int(11) NOT NULL AUTO_INCREMENT,
+  `nm_usuario` varchar(250) NOT NULL COMMENT '{"label":"Usuário"}',
+  `nm_funcao` varchar(200) DEFAULT NULL COMMENT '{"label":"Profissão"}',
+  `id_sexo` int(11) DEFAULT NULL,
+  `id_perfil` int(11) DEFAULT NULL,
+  `id_situacao_usuario` int(11) NOT NULL,
+  `id_email` int(11) DEFAULT NULL,
+  `id_telefone` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_usuario`),
+  KEY `ix_usuarios_sexo` (`id_sexo`),
+  KEY `ix_usuarios_situacao_usuario` (`id_situacao_usuario`),
+  KEY `ix_usuarios_emails` (`id_email`),
+  KEY `ix_usuarios_telefones` (`id_telefone`),
+  KEY `ix_usuarios_perfil` (`id_perfil`),
+  CONSTRAINT `fk_usuarios_emails` FOREIGN KEY (`id_email`) REFERENCES `email` (`id_email`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuarios_sexo` FOREIGN KEY (`id_sexo`) REFERENCES `sexo` (`id_sexo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuarios_situacao_usuario` FOREIGN KEY (`id_situacao_usuario`) REFERENCES `situacao_usuario` (`id_situacao_usuario`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_usuarios_telefones` FOREIGN KEY (`id_telefone`) REFERENCES `telefone` (`id_telefone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `ix_usuarios_tipo_usuario` FOREIGN KEY (`id_perfil`) REFERENCES `perfil` (`id_perfil`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuario`
+--
+
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (1,'Admin','Administrador',1,1,1,1,1),(2,'Alysson Vicuña de Oliveira','Professor',1,2,1,2,2),(3,'teste001',NULL,NULL,2,2,3,3),(4,'teste002',NULL,NULL,2,2,4,4),(5,'Rogerio Souza','Coordenador de Atividades',1,2,1,5,10),(6,'Rosangela Silva','Assistente de Coordenaçao',1,2,1,6,11),(7,'Pierre Tramontini','Diretor de Coordenaçao',1,1,1,7,12),(8,'juliana ferreira da Silva','testes',2,1,2,8,13);
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
+
 
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
