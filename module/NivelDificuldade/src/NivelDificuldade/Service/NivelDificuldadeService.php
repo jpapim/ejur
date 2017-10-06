@@ -22,7 +22,7 @@ class NivelDificuldadeService extends Entity
         $select = $sql->select('nivel_dificuldade')
             ->where([
                 'nivel_dificuldade.id_nivel_dificuldade = ?' => $id,
-                #'nivel_dificuldade.cs_Ativo=1',
+                'nivel_dificuldade.cs_Ativo=1',
             ]);
         #print_r($sql->prepareStatementForSqlObject($select)->execute());exit;
 
@@ -38,7 +38,7 @@ class NivelDificuldadeService extends Entity
             ->columns(array('nm_nivel_dificuldade', 'id_cidade'))#Colunas a retornar. Basta Omitir que ele traz todas as colunas
             ->where([
                 "nivel_dificuldade.nm_nivel_dificuldade LIKE ?" => '%' . $nm_nivel_dificuldade . '%',
-                #'nivel_dificuldade.cs_Ativo=1',
+                'nivel_dificuldade.cs_Ativo=1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute();
@@ -56,7 +56,7 @@ class NivelDificuldadeService extends Entity
             ->columns(array('id_nivel_dificuldade'))
             ->where([
                 'nivel_dificuldade.nm_nivel_dificuldade = ?' => $filter->filter($nm_nivel_dificuldade),
-                #'nivel_dificuldade.cs_Ativo=1',
+                'nivel_dificuldade.cs_Ativo=1',
             ]);
 
         return $sql->prepareStatementForSqlObject($select)->execute()->current();
@@ -153,7 +153,7 @@ class NivelDificuldadeService extends Entity
         ]); */
 
 
-        $where = [#'nivel_dificuldade.cs_Ativo=1',
+        $where = ['nivel_dificuldade.cs_Ativo=1',
         ];
 
         if (!empty($filter)) {

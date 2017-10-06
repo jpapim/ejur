@@ -37,19 +37,19 @@ class FonteController extends AbstractCrudController
     public function indexPaginationAction()
     {
         //http://igorrocha.com.br/tutorial-zf2-parte-9-paginacao-busca-e-listagem/4/
-        
+
         $filter = $this->getFilterPage();
 
         $camposFilter = [
             '0' => [
                 'filter' => "fonte_questao.nm_fonte_questao LIKE ?",
-            ],            
-            
+            ],
+
             '2' => NULL,
-                
+
         ];
-        
-        
+
+
         $paginator = $this->service->getFontePaginator($filter, $camposFilter);
 
         $paginator->setItemCountPerPage($paginator->getTotalItemCount());
@@ -75,7 +75,7 @@ class FonteController extends AbstractCrudController
 
         return $viewModel->setTerminal(TRUE);
     }
-    
+
 /*public function gravarAction() {
         try {
             $controller = $this->params('controller');
@@ -143,7 +143,7 @@ class FonteController extends AbstractCrudController
 public function gravarAction(){
         #Alysson
         $controller = $this->params('controller');
-        $this->addSuccessMessage('Registro Alterado com sucesso');
+        $this->addSuccessMessage('Cadastro realizado com sucesso');
         $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
         return parent::gravar($this->service, $this->form);
     }
@@ -157,14 +157,14 @@ public function gravarAction(){
     {
         return parent::excluir($this->service, $this->form);
     }
-    
+
     public function obterFonteAction()
     {
-        
+
         $params = $this->getRequest()->getPost()->toArray();
-        
+
         $form = new \Fonte\Form\FonteForm(['params' => $params]);
-        
+
         $dadosView = [
             'form' => $form,
             'controller' => $this->params('controller'),
@@ -198,4 +198,3 @@ public function gravarAction(){
     }
 
 }
-
