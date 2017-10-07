@@ -582,7 +582,7 @@ class ProvaController extends AbstractCrudController
 
     }
 
-        public function detalhesFiltrosPaginationAction()
+    public function detalhesFiltrosPaginationAction()
         {
             #$this->params()->fromPost('paramname');   // From POST
             #$this->params()->fromQuery('paramname');  // From GET
@@ -699,6 +699,41 @@ class ProvaController extends AbstractCrudController
 
     }
 
+    public function carregarComboSubAssuntoMateriaAjaxAction()
+    {
+        $request = $this->getRequest();
+
+        if (!$request->isPost()) {
+            throw new \Exception('Dados Inválidos');
+        }
+        $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
+        $id_assunto_materia = $post['id_assunto_materia'];
+        #xd($post);
+        #Recupera os materias cadastradas por semestre
+        $subAssuntoMateriaService = new \SubAssuntoMateria\Service\SubAssuntoMateriaService();
+        $arSubAssuntoMaterias = $subAssuntoMateriaService->fetchAllByArrayAtributo(['id_assunto_materia' => $id_assunto_materia, 'cs_ativo' => 1]);
+
+        #Faz o Tratamento do Array para enviar para View
+        $arSubAssuntoMateriaCombo = array();
+        foreach ($arSubAssuntoMaterias as $key => $item) {
+            if (isset($item['id_sub_assunto_materia']) && isset($item['nm_sub_assunto_materia']) && $item['id_sub_assunto_materia'] && $item['nm_sub_assunto_materia']) {
+                $arSubAssuntoMateriaCombo[$key]['id'] = $item['id_sub_assunto_materia'];
+                $arSubAssuntoMateriaCombo[$key]['descricao'] = $item['nm_sub_assunto_materia'];
+            }
+        }
+
+        if (count($arSubAssuntoMateriaCombo) > 0) {
+            $valuesJson = new JsonModel(array('ar_sub_assunto_materia' => $arSubAssuntoMateriaCombo, 'sucesso' => true, 'id_assunto_materia' => $id_assunto_materia));
+        } else {
+            $arSubAssuntoMateriaCombo[0]['id'] = "";
+            $arSubAssuntoMateriaCombo[0]['descricao'] = 'Não Existem Assuntos cadastrados';
+            $valuesJson = new JsonModel(array('ar_sub_assunto_materia' => $arSubAssuntoMateriaCombo, 'sucesso' => true, 'id_assunto_materia' => $id_assunto_materia));
+        }
+
+        return $valuesJson;
+
+    }
+
     public function removerQuestaoProvaAjaxAction()
     {
         $request = $this->getRequest();
@@ -790,7 +825,6 @@ class ProvaController extends AbstractCrudController
         $this->addSuccessMessage('Prova excluida com sucesso.');
         return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
     }
-
 
     public function aplicarTemporizadorQuestaoProvaAjaxAction()
     {
@@ -887,5 +921,7 @@ class ProvaController extends AbstractCrudController
             return false;
         }
     }
+
+
 
 }
