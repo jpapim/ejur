@@ -29,6 +29,7 @@ class QuestaoForm extends AbstractForm
         #########
         // Somente a Label foi modificado de Assunto para Tema
         $objForm->select("id_assunto_materia", array('' => 'Selecione uma Matéria...'))->required(false)->label("Tema");
+        $objForm->select("id_sub_assunto_materia", array('' => 'Selecione um Assunto...'))->required(false)->label("SubTema");
         #########
 
         $objForm->text("nm_titulo_questao")->required(true)->label("Título da Questão");
