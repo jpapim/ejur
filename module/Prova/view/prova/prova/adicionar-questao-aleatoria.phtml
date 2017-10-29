@@ -20,31 +20,34 @@
                 echo $this->formHidden($form->get('id_tipo_questao'));
                 ?>
                 <div class="form-group">
-                    <div class="col-md-6">-
+                    <div class="col-md-3">
                         <?= $this->formRow($form->get('id_fonte_questao')) ?>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div class="col-md-6">-
+                    <div class="col-md-3">
                         <?= $this->formRow($form->get('id_nivel_dificuldade')) ?>
                         <div class="help-block with-errors"></div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-4">-
+                    <div class="col-md-3">
                         <?= $this->formRow($form->get('id_classificacao_semestre')) ?>
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div class="col-md-4">-
+
+                    <div class="col-md-3">
                         <?= $this->formRow($form->get('id_materia')) ?>
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="col-md-4">-
-                        <?= $this->formRow($form->get('id_assunto_materia')) ?>
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-md-3">-
+                    <div class="col-md-4">
+                        <?= $this->formRow($form->get('id_assunto_materia')) ?>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="col-md-5">
+                        <?= $this->formRow($form->get('id_sub_assunto_materia')) ?>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div class="col-md-3">
                         <?= $this->formRow($form->get('nr_questoes')) ?>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -131,6 +134,37 @@
                 });
             } else {
                 $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
+            }
+        });
+
+        $('#id_assunto_materia').change(function () {
+            if ($(this).val()) {
+                $('#id_sub_assunto_materia').hide();
+                $('.carregando').show();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/prova-prova/carregar-combo-sub-assunto-materia-ajax',
+                    async: true,
+                    data: {
+                        id_assunto_materia: $(this).val(),
+                    },
+                    success: function (response) {
+                        if (response.sucesso == true) {
+                            var options = '<option value=""> Selecione...</option>';
+                            $.each(response.ar_sub_assunto_materia, function (i, item) {
+                                options += '<option value="' + response.ar_sub_assunto_materia[i].id + '">' + response.ar_sub_assunto_materia[i].descricao + '</option>';
+                            });
+                            $('#id_sub_assunto_materia').html(options).show();
+                            $('.carregando').hide();
+
+                        } else {
+                            $('#id_sub_assunto_materia').html('<option value="">-- Erro ao carregar os SubTemas --</option>');
+                        }
+                    }
+                });
+            } else {
+                $('#id_sub_assunto_materia').html('<option value="">-- Escolha um Tema --</option>');
             }
         });
 

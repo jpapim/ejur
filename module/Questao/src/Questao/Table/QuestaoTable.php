@@ -17,6 +17,7 @@ class QuestaoTable extends AbstractEstruturaTable{
         'id_tipo_questao'=>'id_tipo_questao',
         'id_fonte_questao'=>'id_fonte_questao',
         'id_assunto_materia'=>'id_assunto_materia',
+        'id_sub_assunto_materia'=>'id_sub_assunto_materia',
         'nm_titulo_questao'=>'nm_titulo_questao',
         'tx_enunciado'=>'tx_enunciado',
         'tx_caminho_imagem_questao'=>'tx_caminho_imagem_questao',

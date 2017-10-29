@@ -87,7 +87,7 @@ class QuestaoController extends AbstractQuestaoController
         $controller = $this->params('controller');
         $id_questao = Cript::dec($this->getRequest()->getPost()->get('id'));
 
-        $pos = $this->getRequest()->getPost()->toArray();
+        $post = $this->getRequest()->getPost()->toArray();
 
         if (isset($id_questao) && $id_questao) {
             $this->atualizarAction();
@@ -102,6 +102,7 @@ class QuestaoController extends AbstractQuestaoController
         $this->getRequest()->getPost()->set('id_tipo_questao', $this->getRequest()->getPost()->get('id_tipo_questao'));
         $this->getRequest()->getPost()->set('id_fonte_questao', $this->getRequest()->getPost()->get('id_fonte_questao'));
         $this->getRequest()->getPost()->set('id_assunto_materia', $this->getRequest()->getPost()->get('id_assunto_materia'));
+        $this->getRequest()->getPost()->set('id_sub_assunto_materia', $this->getRequest()->getPost()->get('id_sub_assunto_materia'));
         $this->getRequest()->getPost()->set('bo_utilizavel', $this->getRequest()->getPost()->get('bo_utilizavel'));
         $this->getRequest()->getPost()->set('nm_titulo_questao', $this->getRequest()->getPost()->get('nm_titulo_questao'));
         $this->getRequest()->getPost()->set('tx_enunciado', $this->getRequest()->getPost()->get('tx_enunciado'));
@@ -110,8 +111,10 @@ class QuestaoController extends AbstractQuestaoController
         #$this->getRequest()->getPost()->set('tx_caminho_imagem_questao',$this->getRequest()->getPost()->get('tx_caminho_imagem_questao'));
 
         $resultQuestao = parent::gravar(
+
             $this->getServiceLocator()->get('\Questao\Service\QuestaoService'), new \Questao\Form\QuestaoForm()
         );
+
         if ($resultQuestao) {
 
 
