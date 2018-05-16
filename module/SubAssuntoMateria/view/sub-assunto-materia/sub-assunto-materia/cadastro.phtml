@@ -12,19 +12,36 @@
                 $form->prepare();
                 echo $this->form()->openTag($form);
                 $form->get('id')->setValue(Estrutura\Helpers\Cript::enc($form->get('id')->getValue()));
+                $id_assunto_materia = $form->get('id_assunto_materia')->getValue();
                 echo $this->formHidden($form->get('id'));
+
+                $assunto_materiaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+                if (!empty($id_assunto_materia)) {
+                    $ob_assunto_materia = $assunto_materiaService->buscar($id_assunto_materia);
+                    $form->get('id_materia')->setValue($ob_assunto_materia->getIdMateria());
+                }
+
+                $assunto_materiaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+                $ob_assunto_materia = $assunto_materiaService->buscar($id_assunto_materia);
+
                 ?>
             </div>
 
             <div class="form-group">
-                <div class="col-md-4">
+                <div class="col-md-5">
+                    <?=$this->formRow($form->get('id_materia'))?>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-md-6">
                     <?=$this->formRow($form->get('id_assunto_materia'))?>
+                    <div class="help-block with-errors"></div>
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-md-4">
+                <div class="col-md-11">
                     <?=$this->formRow($form->get('nm_sub_assunto_materia'))?>
+                    <div class="help-block with-errors"></div>
                 </div>
             </div>
             <div class="form-group">
@@ -37,4 +54,45 @@
         </div>
     </div>
 </div>
-</div>
+<div class="row" id=""></div>
+<div class="carregando"><img src="/assets/img/carregando1.gif"></div>
+
+<script type="text/javascript" language="javascript" class="init">
+
+    $(document).ready(function () {
+
+
+        $('.carregando').hide();
+        $('#id_materia').change(function () {
+            if ($(this).val()) {
+                $('#id_assunto_materia').hide();
+                $('.carregando').show();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: '/sub_assunto_materia-subassuntomateria/carregar-combo-assunto-materia-ajax',
+                    async: true,
+                    data: {
+                        id_materia: $(this).val(),
+                    },
+                    success: function (response) {
+                        if (response.sucesso == true) {
+                            var options = '<option value=""> Selecione...</option>';
+                            $.each(response.ar_assunto_materia, function (i, item) {
+                                options += '<option value="' + response.ar_assunto_materia[i].id + '">' + response.ar_assunto_materia[i].descricao + '</option>';
+                            });
+                            $('#id_assunto_materia').html(options).show();
+                            $('#id_sub_assunto_materia').html('<option value="">-- Escolha o Tema --</option>');
+                            $('.carregando').hide();
+
+                        } else {
+                            $('#id_assunto_materia').html('<option value="">-- Erro ao carregar os Temas --</option>');
+                        }
+                    }
+                });
+            } else {
+                $('#id_assunto_materia').html('<option value="">-- Escolha uma Matéria --</option>');
+            }
+        });
+    });
+</script>

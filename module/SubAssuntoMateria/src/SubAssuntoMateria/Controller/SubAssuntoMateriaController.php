@@ -10,6 +10,8 @@ namespace SubAssuntoMateria\Controller;
 
 use Estrutura\Controller\AbstractCrudController;
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+
 
 
 class SubAssuntoMateriaController extends AbstractCrudController {
@@ -175,5 +177,39 @@ class SubAssuntoMateriaController extends AbstractCrudController {
         $this->addSuccessMessage('SubTema excluido com sucesso.');
         return $this->redirect()->toRoute('navegacao', array('controller' => $controller, 'action' => 'index'));
     }
+
+    public function carregarComboAssuntoMateriaAjaxAction()
+    {
+        $request = $this->getRequest();
+
+        if (!$request->isPost()) {
+            throw new \Exception('Dados Inválidos');
+        }
+        $post = \Estrutura\Helpers\Utilities::arrayMapArray('trim', $request->getPost()->toArray());
+        $id_materia = $post['id_materia'];
+        #xd($post);
+
+        #Recupera os materias cadastradas por semestre
+        $assuntoMateriaService = new \AssuntoMateria\Service\AssuntoMateriaService();
+        $arAssuntoMaterias = $assuntoMateriaService->carregarAssuntoPorMateriaParaCombo($id_materia);
+
+        #Faz o Tratamento do Array para enviar para View
+        $arAssuntoMateriaCombo = array();
+        foreach ($arAssuntoMaterias as $key => $item) {
+            if (isset($item['id_assunto_materia']) && isset($item['nm_assunto_materia']) && $item['id_assunto_materia'] && $item['nm_assunto_materia']) {
+                $arAssuntoMateriaCombo[$key]['id'] = $item['id_assunto_materia'];
+                $arAssuntoMateriaCombo[$key]['descricao'] = $item['nm_assunto_materia'];
+            }
+        }
+        if (count($arAssuntoMateriaCombo) > 0) {
+            $valuesJson = new JsonModel(array('ar_assunto_materia' => $arAssuntoMateriaCombo, 'sucesso' => true, 'id_materia' => $id_materia));
+        } else {
+            $arAssuntoMateriaCombo[0]['id'] = "";
+            $arAssuntoMateriaCombo[0]['descricao'] = 'Não Existem Assuntos cadastrados';
+            $valuesJson = new JsonModel(array('ar_assunto_materia' => $arAssuntoMateriaCombo, 'sucesso' => true, 'id_materia' => $id_materia));
+        }
+        return $valuesJson;
+    }
+
 
 }
